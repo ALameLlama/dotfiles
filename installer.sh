@@ -247,20 +247,10 @@ else
     printf "${GREEN}$(gum style --bold "lazygit") is already installed.${NC}\n"
 fi
 
-check_package "nvim"
-check_package "git"
-check_package "make"
-check_package "pip"
-check_package "python3"
-check_package "npm"
-check_package "node"
-check_package "rustc"
-check_package "cargo"
-check_package "go"
-check_package "lazygit"
+install_package "zsh"
 
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
-    printf "Do you want to install $(gum style --bold "zsh")?\n"
+    printf "Do you want to install $(gum style --bold "oh my zsh")?\n"
     CHOICE=$(gum choose --item.foreground 250 "Yes" "No")
 
     if [ "$CHOICE" == "Yes" ]; then
@@ -268,12 +258,12 @@ if [ ! -d "$HOME/.oh-my-zsh" ]; then
 
         chsh -s /bin/zsh
 
-        printf "${GREEN}zsh has been installed.${NC}\n"
+        printf "${GREEN}oh my zsh has been installed.${NC}\n"
     else
-        printf "${RED}zsh will not be installed.${NC}\n"
+        printf "${RED}oh my zsh will not be installed.${NC}\n"
     fi
 else
-    printf "${GREEN}$(gum style --bold "zsh") is already installed.${NC}\n"
+    printf "${GREEN}$(gum style --bold "oh my zsh") is already installed.${NC}\n"
 fi
 
 if [ ! -d "${XDG_DATA_HOME:-$HOME/.local/share}/zap" ]; then
@@ -343,6 +333,18 @@ if [ "$CHOICE" == "Yes" ]; then
 else
     printf "${RED}dotfiles will not be installed.${NC}\n"
 fi
+
+check_package "nvim"
+check_package "git"
+check_package "make"
+check_package "pip"
+check_package "python3"
+check_package "npm"
+check_package "node"
+check_package "rustc"
+check_package "cargo"
+check_package "go"
+check_package "lazygit"
 
 if ! command -v lvim &>/dev/null; then
     printf "Do you want to install $(gum style --bold "LunarVim")?\n"
