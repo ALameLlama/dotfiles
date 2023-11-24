@@ -8,3 +8,5 @@ plug "zsh-users/zsh-syntax-highlighting"
 # Load and initialise completion system
 autoload -Uz compinit
 compinit
+
+source ~/.aliases
