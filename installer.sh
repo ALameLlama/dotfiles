@@ -249,7 +249,7 @@ fi
 
 install_package "zsh"
 
-if [ ! -d "${XDG_DATA_HOME:-$HOME/.local/share}/zap" ] && command -v zsh; then
+if [ ! -d "${XDG_DATA_HOME:-$HOME/.local/share}/zap" ] && command -v zsh &>/dev/null; then
     printf "Do you want to install $(gum style --bold "zap")?\n"
     CHOICE=$(gum choose --item.foreground 250 "Yes" "No")
 
