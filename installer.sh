@@ -249,24 +249,7 @@ fi
 
 install_package "zsh"
 
-if [ ! -d "$HOME/.oh-my-zsh" ]; then
-    printf "Do you want to install $(gum style --bold "oh my zsh")?\n"
-    CHOICE=$(gum choose --item.foreground 250 "Yes" "No")
-
-    if [ "$CHOICE" == "Yes" ]; then
-        git clone https://github.com/ohmyzsh/ohmyzsh.git $HOME/.oh-my-zsh
-
-        chsh -s /bin/zsh
-
-        printf "${GREEN}oh my zsh has been installed.${NC}\n"
-    else
-        printf "${RED}oh my zsh will not be installed.${NC}\n"
-    fi
-else
-    printf "${GREEN}$(gum style --bold "oh my zsh") is already installed.${NC}\n"
-fi
-
-if [ ! -d "${XDG_DATA_HOME:-$HOME/.local/share}/zap" ]; then
+if [ ! -d "${XDG_DATA_HOME:-$HOME/.local/share}/zap" ] && command -v zsh; then
     printf "Do you want to install $(gum style --bold "zap")?\n"
     CHOICE=$(gum choose --item.foreground 250 "Yes" "No")
 
