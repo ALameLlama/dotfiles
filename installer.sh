@@ -117,7 +117,7 @@ if ! command -v nvim &>/dev/null; then
     fi
 else
     NVIM_VERSION=$(nvim --version | grep -oP "(?<=NVIM v)[0-9]+\.[0-9]+")
-    MIMN=0.8
+    MINM=0.8
 
     # Bash doesn't do float math with -lt
     if awk "BEGIN{exit ($NVIM_VERSION < $MINM)}"; then
@@ -351,4 +351,4 @@ else
     printf "${RED}AstroNvim will not be installed.${NC}\n"
 fi
 
-printf "Restart terminal for everything to take effect :)"
+printf "Restart terminal for everything to take effect :)\n"
