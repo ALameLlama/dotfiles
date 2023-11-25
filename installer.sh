@@ -240,6 +240,8 @@ if [ ! -d "${XDG_DATA_HOME:-$HOME/.local/share}/zap" ] && command -v zsh &>/dev/
     if [ "$CHOICE" == "Yes" ]; then
         zsh <(curl -s https://raw.githubusercontent.com/zap-zsh/zap/master/install.zsh) --branch release-v1
 
+        chsh -s /usr/bin/zsh
+
         printf "${GREEN}zap has been installed.${NC}\n"
     else
         printf "${RED}zap will not be installed.${NC}\n"
