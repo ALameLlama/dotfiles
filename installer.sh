@@ -351,4 +351,4 @@ else
     printf "${RED}AstroNvim will not be installed.${NC}\n"
 fi
 
-printf "Restart terminal for everything to take effect :)"
+printf "Restart terminal for everything to take effect :)\n"
