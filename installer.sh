@@ -299,8 +299,6 @@ if [ "$CHOICE" == "Yes" ]; then
     dotfiles config --local status.showUntrackedFiles no
     dotfiles checkout
 
-    source ~/.zshrc
-
     printf "${GREEN}dotfile has been imported.${NC}\n"
 else
     printf "${RED}dotfiles will not be installed.${NC}\n"
