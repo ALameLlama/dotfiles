@@ -338,7 +338,10 @@ if [ "$CHOICE" == "Yes" ]; then
     cargo install tree-sitter-cli
     cargo install bottom
     cargo install ripgrep
-    go install github.com/dundee/gdu/v5/cmd/gdu@latest
+
+    sudo add-apt-repository -y ppa:daniel-milde/gdu
+    sudo ${APT_INSTALLER} update -y
+    sudo ${APT_INSTALLER} install -y gdu
 
     mv ~/.config/nvim ~/.config/nvim.bak
     mv ~/.local/share/nvim ~/.local/share/nvim.bak
