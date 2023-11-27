@@ -342,6 +342,8 @@ if [ "$CHOICE" == "Yes" ]; then
     sudo add-apt-repository -y ppa:daniel-milde/gdu
     sudo ${APT_INSTALLER} update -y
     sudo ${APT_INSTALLER} install -y gdu
+    
+    sudo ${APT_INSTALLER} install -y xdg-utils  
 
     mv ~/.config/nvim ~/.config/nvim.bak
     mv ~/.local/share/nvim ~/.local/share/nvim.bak
