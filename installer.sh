@@ -233,21 +233,21 @@ fi
 
 install_package "zsh"
 
-if [ ! -d "${XDG_DATA_HOME:-$HOME/.local/share}/zap" ] && command -v zsh &>/dev/null; then
-    printf "Do you want to install $(gum style --bold "zap")?\n"
+if [ ! -d "$HOME/.oh-my-zsh" ] && command -v zsh &>/dev/null; then
+    printf "Do you want to install $(gum style --bold "oh my zsh")?\n"
     CHOICE=$(gum choose --item.foreground 250 "Yes" "No")
 
     if [ "$CHOICE" == "Yes" ]; then
-        zsh <(curl -s https://raw.githubusercontent.com/zap-zsh/zap/master/install.zsh) --branch release-v1
+        git clone https://github.com/ohmyzsh/ohmyzsh.git $HOME/.oh-my-zsh
 
         chsh -s /usr/bin/zsh
 
-        printf "${GREEN}zap has been installed.${NC}\n"
+        printf "${GREEN}oh my zsh has been installed.${NC}\n"
     else
-        printf "${RED}zap will not be installed.${NC}\n"
+        printf "${RED}oh my zsh will not be installed.${NC}\n"
     fi
 else
-    printf "${GREEN}$(gum style --bold "zap") is already installed.${NC}\n"
+    printf "${GREEN}$(gum style --bold "oh my zsh") is already installed.${NC}\n"
 fi
 
 # https://medium.com/@simontoth/best-way-to-manage-your-dotfiles-2c45bb280049
@@ -295,6 +295,8 @@ if [ "$CHOICE" == "Yes" ]; then
 
     dotfiles config --local status.showUntrackedFiles no
     dotfiles checkout
+
+    source ~/.zshrc
 
     printf "${GREEN}dotfile has been imported.${NC}\n"
 else
