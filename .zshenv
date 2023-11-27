@@ -1,7 +1,12 @@
-source "$HOME/.cargo/env"
+files_to_source=(
+  "$HOME/.bash_aliases"
+  "$HOME/.profile"
+  "$HOME/.aliases"
+  "$HOME/.cargo/env"
+)
 
-source "$HOME/.bash_aliases"
-
-source "$HOME/.profile"
-
-source "$HOME/.aliases"
+for file in "${files_to_source[@]}"; do
+  if [ -f "$file" ]; then
+    source "$file"
+  fi
+done
