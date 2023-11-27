@@ -7,3 +7,9 @@ alias c='clear'
 alias ll='ls -alF'
 
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+
+alias zsh-git-hide='git config oh-my-zsh.hide-info 1'
+alias zsh-git-show='git config oh-my-zsh.hide-info 0'
+
+alias zsh-git-ghide='git config oh-my-zsh.hide-info 1 --global'
+alias zsh-git-gshow='git config oh-my-zsh.hide-info 0 --global'
