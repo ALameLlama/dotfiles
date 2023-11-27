@@ -9,6 +9,7 @@ return {
 
   -- Packs
   { import = "astrocommunity.pack.lua" },
+  { import = "astrocommunity.pack.bash" },
   { import = "astrocommunity.pack.php" },
   { import = "astrocommunity.pack.rust" },
 }
