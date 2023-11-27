@@ -9,4 +9,5 @@ plug "zsh-users/zsh-syntax-highlighting"
 autoload -Uz compinit
 compinit
 
-source ~/.aliases
+bindkey "^[[1;5C" forward-word
+bindkey "^[[1;5D" backward-word
