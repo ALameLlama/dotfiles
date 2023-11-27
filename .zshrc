@@ -72,9 +72,11 @@ ZSH_THEME="robbyrussell"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   # oh-my-zsh plugins
+  alias-finder
   common-aliases
   command-not-found
   git
+  sudo
 
   # custom plugins
   zsh-autosuggestions
