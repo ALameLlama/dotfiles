@@ -10,3 +10,5 @@ for file in "${files_to_source[@]}"; do
     source "$file"
   fi
 done
+
+export PATH="/usr/local/go/bin:$PATH"
