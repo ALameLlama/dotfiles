@@ -1,3 +1,7 @@
+local function copy(lines, _) require("osc52").copy(table.concat(lines, "\n")) end
+
+local function paste() return { vim.fn.split(vim.fn.getreg "", "\n"), vim.fn.getregtype "" } end
+
 -- set vim options here (vim.<first_key>.<second_key> = value)
 return {
   opt = {
