@@ -19,4 +19,7 @@ return {
       { "<leader>T", "<cmd>TodoTelescope<cr>", desc = "Open TODOs in Telescope" },
     },
   },
+  {
+    "ojroques/nvim-osc52",
+  },
 }
