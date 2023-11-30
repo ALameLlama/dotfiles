@@ -337,8 +337,6 @@ if [ "$CHOICE" == "Yes" ]; then
 	sudo install lazygit /usr/local/bin
 	rm -rf lazygit.tar.gz lazygit
 
-	sudo ${APT_INSTALLER} install -y xclip
-
 	cargo install tree-sitter-cli
 	cargo install bottom
 	cargo install ripgrep
@@ -346,8 +344,6 @@ if [ "$CHOICE" == "Yes" ]; then
 	sudo add-apt-repository -y ppa:daniel-milde/gdu
 	sudo ${APT_INSTALLER} update -y
 	sudo ${APT_INSTALLER} install -y gdu
-
-	sudo ${APT_INSTALLER} install -y xdg-utils
 
 	mv ~/.config/nvim ~/.config/nvim.bak
 	mv ~/.local/share/nvim ~/.local/share/nvim.bak
