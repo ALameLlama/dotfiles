@@ -104,7 +104,7 @@ if ! command -v nvim &>/dev/null; then
 		sudo ${APT_INSTALLER} update -y
 		sudo ${APT_INSTALLER} install -y build-essential cmake libtool libtool-bin gettext
 		git clone https://github.com/neovim/neovim.git
-		cd neovim
+		cd neovim 
 		LASTEST_NVIM_TAG=$(git tag -l | sort -V | tail -n 1)
 		git checkout $LASTEST_NVIM_TAG
 		make CMAKE_BUILD_TYPE=Release
@@ -289,7 +289,7 @@ if [ "$CHOICE" == "Yes" ]; then
 		fi
 	done
 
-	cd "$CURRENT_DIR"
+	cd "$CURRENT_DIR" || exit 1
 
 	# Clean up the temporary directory
 	rm -rf "$TEMP_DIR"
