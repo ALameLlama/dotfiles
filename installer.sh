@@ -215,10 +215,10 @@ if ! command -v go &>/dev/null; then
 		ARCH=$(arch)
 		if [[ "$ARCH" == "aarch64" ]]; then
 			GOLANG_LATEST_STABLE_VERSION=$(curl -s https://go.dev/dl/?mode=json | grep -o 'go.*.linux-arm64.tar.gz' | head -n 1 | tr -d '\r\n')
-			curl -LsS https://dl.google.com/go/${GOLANG_LATEST_STABLE_VERSION} -o golang.tar.gz
+			curl -LsS "https://dl.google.com/go/${GOLANG_LATEST_STABLE_VERSION}" -o golang.tar.gz
 		else
 			GOLANG_LATEST_STABLE_VERSION=$(curl -s https://go.dev/dl/?mode=json | grep -o 'go.*.linux-amd64.tar.gz' | head -n 1 | tr -d '\r\n')
-			curl -LsS https://dl.google.com/go/${GOLANG_LATEST_STABLE_VERSION} -o golang.tar.gz
+			curl -LsS "https://dl.google.com/go/${GOLANG_LATEST_STABLE_VERSION}" -o golang.tar.gz
 		fi
 
 		sudo tar -C /usr/local -xzf golang.tar.gz go
