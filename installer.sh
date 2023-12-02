@@ -345,6 +345,8 @@ if [ "$CHOICE" == "Yes" ]; then
 	sudo ${APT_INSTALLER} update -y
 	sudo ${APT_INSTALLER} install -y gdu
 
+	sudo ${APT_INSTALLER} install -y xdg-utils
+
 	mv ~/.config/nvim ~/.config/nvim.bak
 	mv ~/.local/share/nvim ~/.local/share/nvim.bak
 	mv ~/.local/state/nvim ~/.local/state/nvim.bak
