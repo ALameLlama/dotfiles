@@ -257,57 +257,6 @@ else
 	printf "${GREEN}$(gum style --bold "oh my zsh") is already installed.${NC}\n"
 fi
 
-# https://medium.com/@simontoth/best-way-to-manage-your-dotfiles-2c45bb280049
-printf "Do you want to import $(gum style --bold "dotfiles")?\n"
-CHOICE=$(gum choose --item.foreground 250 "Yes" "No")
-
-if [ "$CHOICE" == "Yes" ]; then
-	URL=$(gum input --placeholder "https://github.com/ALameLlama/dotfiles.git")
-
-	# Clone the repository to a temporary directory
-	TEMP_DIR=$(mktemp -d)
-	git clone "$URL" "$TEMP_DIR"
-
-	CURRENT_DIR=$(pwd)
-
-	# Change to the Git repository directory
-	cd "$TEMP_DIR" || exit 1
-
-	# Get the list of files in the Git repository
-	FILES=$(git ls-files)
-
-	# Loop through each file
-	for FILE in $FILES; do
-		# Check if the file exists on your system
-		if [ -e "$HOME/$FILE" ]; then
-			# Rename the file by appending "_old" to its name
-			NEW_NAME="${FILE}_old"
-			mv "$HOME/$FILE" "$HOME/$NEW_NAME"
-			printf "${GREEN}Renamed $(gum style --bold "$FILE") to $(gum style --bold "$NEW_NAME").${NC}\n"
-		else
-			printf "${GREEN}$(gum style --bold "$FILE") does not exist on your system.${NC}\n"
-		fi
-	done
-
-	cd "$CURRENT_DIR" || exit 1
-
-	# Clean up the temporary directory
-	rm -rf "$TEMP_DIR"
-
-	dotfiles() {
-		/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME "$@"
-	}
-
-	git clone --bare $URL $HOME/.dotfiles
-
-	dotfiles config --local status.showUntrackedFiles no
-	dotfiles checkout
-
-	printf "${GREEN}dotfile has been imported.${NC}\n"
-else
-	printf "${RED}dotfiles will not be installed.${NC}\n"
-fi
-
 check_package "nvim"
 check_package "git"
 check_package "make"
@@ -357,6 +306,57 @@ if [ "$CHOICE" == "Yes" ]; then
 	printf "${GREEN}AstroNvim has been installed.${NC}\n"
 else
 	printf "${RED}AstroNvim will not be installed.${NC}\n"
+fi
+
+# https://medium.com/@simontoth/best-way-to-manage-your-dotfiles-2c45bb280049
+printf "Do you want to import $(gum style --bold "dotfiles")?\n"
+CHOICE=$(gum choose --item.foreground 250 "Yes" "No")
+
+if [ "$CHOICE" == "Yes" ]; then
+	URL=$(gum input --placeholder "https://github.com/ALameLlama/dotfiles.git")
+
+	# Clone the repository to a temporary directory
+	TEMP_DIR=$(mktemp -d)
+	git clone "$URL" "$TEMP_DIR"
+
+	CURRENT_DIR=$(pwd)
+
+	# Change to the Git repository directory
+	cd "$TEMP_DIR" || exit 1
+
+	# Get the list of files in the Git repository
+	FILES=$(git ls-files)
+
+	# Loop through each file
+	for FILE in $FILES; do
+		# Check if the file exists on your system
+		if [ -e "$HOME/$FILE" ]; then
+			# Rename the file by appending "_old" to its name
+			NEW_NAME="${FILE}_old"
+			mv "$HOME/$FILE" "$HOME/$NEW_NAME"
+			printf "${GREEN}Renamed $(gum style --bold "$FILE") to $(gum style --bold "$NEW_NAME").${NC}\n"
+		else
+			printf "${GREEN}$(gum style --bold "$FILE") does not exist on your system.${NC}\n"
+		fi
+	done
+
+	cd "$CURRENT_DIR" || exit 1
+
+	# Clean up the temporary directory
+	rm -rf "$TEMP_DIR"
+
+	dotfiles() {
+		/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME "$@"
+	}
+
+	git clone --bare $URL $HOME/.dotfiles
+
+	dotfiles config --local status.showUntrackedFiles no
+	dotfiles checkout
+
+	printf "${GREEN}dotfile has been imported.${NC}\n"
+else
+	printf "${RED}dotfiles will not be installed.${NC}\n"
 fi
 
 printf "Restart terminal for everything to take effect :)\n"
