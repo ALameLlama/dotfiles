@@ -19,6 +19,7 @@ return {
       { "<leader>T", "<cmd>TodoTelescope<cr>", desc = "Open TODOs in Telescope" },
     },
   },
+  -- TODO: NVIM 0.10, This is native, we can remove this.
   {
     "ojroques/nvim-osc52",
   },
