@@ -260,6 +260,8 @@ else
 	msg_succ "$(gum style --bold "oh my zsh") is already installed."
 fi
 
+install_package "tmux"
+
 check_package "nvim"
 check_package "git"
 check_package "make"
