@@ -11,21 +11,44 @@ APT_INSTALLER=apt-get
 
 # --- Helper functions ---
 
+msg_warn() {
+	local MESSAGE=$1
+
+	printf "%b%s%b\n" "$YELLOW" "$MESSAGE" "$NC"
+}
+
+msg_succ() {
+	local MESSAGE=$1
+
+	printf "%b%s%b\n" "$GREEN" "$MESSAGE" "$NC"
+}
+
+msg_err() {
+	local MESSAGE=$1
+
+	printf "%b%s%b\n" "$RED" "$MESSAGE" "$NC"
+}
+
+gum_choice() {
+	local PACKAGE_NAME=$1
+
+	msg_warn "Do you want to install $(gum style --bold "$PACKAGE_NAME")?"
+	CHOICE=$(gum choose --item.foreground 250 "Yes" "No")
+	[ "$CHOICE" = "Yes" ]
+}
+
 install_package() {
 	local PACKAGE_NAME=$1
 
 	if ! command -v "$PACKAGE_NAME" &>/dev/null; then
-		printf "${YELLOW}Do you want to install $(gum style --bold "%s")?${NC}\n" "$PACKAGE_NAME"
-		CHOICE=$(gum choose --item.foreground 250 "Yes" "No")
-
-		if [ "$CHOICE" == "Yes" ]; then
+		if gum_choice "$PACKAGE_NAME"; then
 			sudo ${APT_INSTALLER} install -y "$PACKAGE_NAME"
-			printf "${GREEN}$(gum style --bold "%s") has been installed.${NC}\n" "$PACKAGE_NAME"
+			msg_succ "$(gum style --bold "$PACKAGE_NAME") has been installed."
 		else
-			printf "${RED}$(gum style --bold "%s") will not be installed.${NC}\n" "$PACKAGE_NAME"
+			msg_err "$(gum style --bold "$PACKAGE_NAME") will not be installed."
 		fi
 	else
-		printf "${GREEN}$(gum style --bold "%s") is already installed.${NC}\n" "$PACKAGE_NAME"
+		msg_succ "$(gum style --bold "$PACKAGE_NAME") is already installed."
 	fi
 }
 
@@ -33,7 +56,7 @@ check_package() {
 	local PACKAGE_NAME=$1
 
 	if ! command -v "$PACKAGE_NAME" &>/dev/null; then
-		printf "${RED}$(gum style --bold "%s") was not be installed. Try restarting terminal.${NC}\n" "$PACKAGE_NAME"
+		msg_err "$(gum style --bold "$PACKAGE_NAME") was not be installed. Try restarting terminal."
 		exit 1
 	fi
 }
@@ -41,33 +64,30 @@ check_package() {
 # --- Start of installation ---
 
 if ! command -v gum &>/dev/null; then
-	printf "${YELLOW}gum is not installed.${NC}\n"
-	read -p "Do you want to install it? (y/n):" install_gum_choice
+	msg_warn "gum is not installed"
+	read -rp "Do you want to install it? (y/n):" install_gum_choice
 
 	if [ "$install_gum_choice" == "y" ]; then
 		sudo mkdir -p /etc/apt/keyrings
 		curl -fsSL https://repo.charm.sh/apt/gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/charm.gpg
 		echo "deb [signed-by=/etc/apt/keyrings/charm.gpg] https://repo.charm.sh/apt/ * *" | sudo tee /etc/apt/sources.list.d/charm.list
-		sudo ${APT_INSTALLER} update -y
+		sudo ${APT_INSTALLER} update
 		sudo ${APT_INSTALLER} install -y gum
 
-		printf "${GREEN}gum has been installed.${NC}\n"
+		msg_succ "gum has been installed."
 	else
-		printf "${RED}gum will not be installed.${NC}\n"
+		msg_err "gum will not be installed."
 		exit 0
 	fi
 fi
 
 if ! command -v gum &>/dev/null; then
-	printf "${RED}gum will not be installed. Try restarting terminal.${NC}\n"
+	msg_err "gum will not be installed. Try restarting terminal."
 	exit 1
 fi
 
 if ! command -v nala &>/dev/null; then
-	printf "Do you want to install $(gum style --bold "nala")?\n"
-	CHOICE=$(gum choose --item.foreground 250 "Yes" "No")
-
-	if [ "$CHOICE" == "Yes" ]; then
+	if gum_choice "nala"; then
 		echo "deb http://deb.volian.org/volian/ scar main" | sudo tee /etc/apt/sources.list.d/volian-archive-scar-unstable.list
 		wget -qO - https://deb.volian.org/volian/scar.key | sudo tee /etc/apt/trusted.gpg.d/volian-archive-scar-unstable.gpg
 		sudo apt-get update -y
@@ -81,40 +101,35 @@ if ! command -v nala &>/dev/null; then
 
 		APT_INSTALLER=nala
 
-		printf "Do you want to auto update the $(gum style --bold "mirrors")?\n"
-		CHOICE=$(gum choose --item.foreground 250 "Yes" "No")
-		if [ "$CHOICE" == "Yes" ]; then
+		if gum_choice "Mirrors"; then
 			sudo ${APT_INSTALLER} fetch -y --auto
 		fi
 
-		printf "${GREEN}nala has been installed.${NC}\n"
+		msg_succ "nala has been installed."
 	else
-		printf "${RED}nala will not be installed.${NC}\n"
+		msg_err "nala will not be installed."
 	fi
 else
 	APT_INSTALLER=nala
 fi
 
 if ! command -v nvim &>/dev/null; then
-	printf "${YELLOW}$(gum style --bold nvim) is not installed.${NC}\n"
-	printf "Do you want to install $(gum style --bold "nvim")?\n"
-	CHOICE=$(gum choose --item.foreground 250 "Yes" "No")
-
-	if [ "$CHOICE" == "Yes" ]; then
-		sudo ${APT_INSTALLER} update -y
+	msg_warn "$(gum style --bold nvim) is not installed."
+	if gum_choice "nvim"; then
+		sudo ${APT_INSTALLER} update
 		sudo ${APT_INSTALLER} install -y build-essential cmake libtool libtool-bin gettext
 		git clone https://github.com/neovim/neovim.git
-		cd neovim 
+		cd neovim || exit
 		LASTEST_NVIM_TAG=$(git tag -l | sort -V | tail -n 1)
-		git checkout $LASTEST_NVIM_TAG
+		git checkout "$LASTEST_NVIM_TAG"
 		make CMAKE_BUILD_TYPE=Release
 		sudo make install
 		cd ..
 		rm -rf neovim
 
-		printf "${GREEN}nvim has been installed from source.${NC}\n"
+		msg_succ "nvim has been installed from source."
 	else
-		printf "${RED}nvim will not be installed.${NC}\n"
+		msg_err "nvim will not be installed."
 		exit 0
 	fi
 else
@@ -123,34 +138,31 @@ else
 
 	# Bash doesn't do float math with -lt
 	if (($(echo "$NVIM_VERSION < $MINM" | bc -l))); then
-		printf "${YELLOW}Your nvim version is $NVIM_VERSION. Do you want to upgrade to version $MINM or higher?${NC}\n"
+		msg_warn "Your nvim version is $NVIM_VERSION. Do you want to upgrade to version $MINM or higher?"
 		CHOICE=$(gum choose --item.foreground 250 "Yes" "No")
 
 		if [ "$CHOICE" == "Yes" ]; then
-			sudo ${APT_INSTALLER} update -y
+			sudo ${APT_INSTALLER} update
 			sudo ${APT_INSTALLER} install -y build-essential cmake libtool libtool-bin gettext
 			git clone https://github.com/neovim/neovim.git
-			cd neovim
+			cd neovim || exit
 			LASTEST_NVIM_TAG=$(git tag -l | sort -V | tail -n 1)
-			git checkout $LASTEST_NVIM_TAG
+			git checkout "$LASTEST_NVIM_TAG"
 			make CMAKE_BUILD_TYPE=Release
 			sudo make install
 			cd ..
 			rm -rf neovim
 
-			printf "${GREEN}nvim has been upgraded from source.${NC}\n"
+			msg_succ "nvim has been upgraded from source."
 		else
-			printf "${RED}nvim will not be upgraded.${NC}\n"
+			msg_err "nvim will not be upgraded."
 		fi
 	else
-		printf "${GREEN}$(gum style --bold "nvim") is already installed and at version $MINM or higher.${NC}\n"
+		msg_succ "$(gum style --bold "nvim") is already installed and at version $MINM or higher."
 	fi
 fi
 
-printf "${YELLOW}Do you want to install $(gum style --bold "Nerd Fonts")?.${NC}\n"
-CHOICE=$(gum choose --item.foreground 250 "Yes" "No")
-
-if [ "$CHOICE" == "Yes" ]; then
+if gum_choice "Nerd Fonts"; then
 	if ! command -v jq &>/dev/null; then
 		sudo ${APT_INSTALLER} install -y jq
 	fi
@@ -169,12 +181,12 @@ if [ "$CHOICE" == "Yes" ]; then
 		unzip ~/.fonts/"$FONT" -d ~/.fonts
 		fc-cache -fv
 
-		printf "${GREEN}$FONT has been installed.${NC}\n"
+		msg_succ "$FONT has been installed."
 	else
-		printf "${RED}No font selected. Nerd Fonts will not be installed.${NC}\n"
+		msg_err "No font selected. Nerd Fonts will not be installed."
 	fi
 else
-	printf "${RED}Nerd Fonts will not be installed.${NC}\n"
+	msg_err "Nerd Fonts will not be installed."
 fi
 
 # --- Install base stuff for fancy nvim
@@ -187,31 +199,25 @@ install_package "npm"
 install_package "node"
 
 if ! command -v rustc &>/dev/null; then
-	printf "${YELLOW}$(gum style --bold "rust") is not installed.${NC}\n"
-	printf "Do you want to install $(gum style --bold "rust")?\n"
-	CHOICE=$(gum choose --item.foreground 250 "Yes" "No")
-
-	if [ "$CHOICE" == "Yes" ]; then
+	msg_warn "$(gum style --bold "rust") is not installed."
+	if gum_choice "rust"; then
 		curl -LsS https://sh.rustup.rs | sh -s -- -y
 
 		source "$HOME/.cargo/env"
 
-		printf "${GREEN}rust has been installed.${NC}\n"
+		msg_succ "rust has been installed."
 	else
-		printf "${RED}rust will not be installed.${NC}\n"
+		msg_err "rust will not be installed."
 	fi
 else
-	printf "${GREEN}$(gum style --bold "rust") is already installed.${NC}\n"
+	msg_succ "$(gum style --bold "rust") is already installed."
 fi
 
 install_package "cargo"
 
 if ! command -v go &>/dev/null; then
-	printf "${YELLOW}$(gum style --bold "go") is not installed.${NC}\n"
-	printf "Do you want to install $(gum style --bold "go")?\n"
-	CHOICE=$(gum choose --item.foreground 250 "Yes" "No")
-
-	if [ "$CHOICE" == "Yes" ]; then
+	msg_warn "$(gum style --bold "go") is not installed."
+	if gum_choice "go"; then
 		ARCH=$(arch)
 		if [[ "$ARCH" == "aarch64" ]]; then
 			GOLANG_LATEST_STABLE_VERSION=$(curl -s https://go.dev/dl/?mode=json | grep -o 'go.*.linux-arm64.tar.gz' | head -n 1 | tr -d '\r\n')
@@ -227,34 +233,31 @@ if ! command -v go &>/dev/null; then
 
 		export PATH="/usr/local/go/bin:$PATH"
 
-		printf "${GREEN}go has been installed.${NC}\n"
+		msg_succ "go has been installed."
 	else
-		printf "${RED}go will not be installed.${NC}\n"
+		msg_err "go will not be installed."
 	fi
 else
-	printf "${GREEN}$(gum style --bold "go") is already installed.${NC}\n"
+	msg_succ "$(gum style --bold "go") is already installed."
 fi
 
 install_package "zsh"
 
 if [ ! -d "$HOME/.oh-my-zsh" ] && command -v zsh &>/dev/null; then
-	printf "Do you want to install $(gum style --bold "oh my zsh")?\n"
-	CHOICE=$(gum choose --item.foreground 250 "Yes" "No")
+	if gum_choice "Oh My ZSH"; then
+		git clone https://github.com/ohmyzsh/ohmyzsh.git "$HOME/.oh-my-zsh"
 
-	if [ "$CHOICE" == "Yes" ]; then
-		git clone https://github.com/ohmyzsh/ohmyzsh.git $HOME/.oh-my-zsh
-
-		git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-		git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+		git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
+		git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
 
 		chsh -s /usr/bin/zsh
 
-		printf "${GREEN}oh my zsh has been installed.${NC}\n"
+		msg_succ "oh my zsh has been installed."
 	else
-		printf "${RED}oh my zsh will not be installed.${NC}\n"
+		msg_err "oh my zsh will not be installed."
 	fi
 else
-	printf "${GREEN}$(gum style --bold "oh my zsh") is already installed.${NC}\n"
+	msg_succ "$(gum style --bold "oh my zsh") is already installed."
 fi
 
 check_package "nvim"
@@ -267,11 +270,9 @@ check_package "node"
 check_package "rustc"
 check_package "cargo"
 check_package "go"
+check_package "tmux"
 
-printf "Do you want to install $(gum style --bold "AstroNvim")?\n"
-CHOICE=$(gum choose --item.foreground 250 "Yes" "No")
-
-if [ "$CHOICE" == "Yes" ]; then
+if gum_choice "AstroNvim"; then
 	# --- Install deps for astro
 	ARCH=$(arch)
 	LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
@@ -291,7 +292,7 @@ if [ "$CHOICE" == "Yes" ]; then
 	cargo install ripgrep
 
 	sudo add-apt-repository -y ppa:daniel-milde/gdu
-	sudo ${APT_INSTALLER} update -y
+	sudo ${APT_INSTALLER} update
 	sudo ${APT_INSTALLER} install -y gdu
 
 	sudo ${APT_INSTALLER} install -y xdg-utils
@@ -303,16 +304,13 @@ if [ "$CHOICE" == "Yes" ]; then
 
 	git clone --depth 1 https://github.com/AstroNvim/AstroNvim ~/.config/nvim
 
-	printf "${GREEN}AstroNvim has been installed.${NC}\n"
+	msg_succ "AstroNvim has been installed."
 else
-	printf "${RED}AstroNvim will not be installed.${NC}\n"
+	msg_err "AstroNvim will not be installed."
 fi
 
 # https://medium.com/@simontoth/best-way-to-manage-your-dotfiles-2c45bb280049
-printf "Do you want to import $(gum style --bold "dotfiles")?\n"
-CHOICE=$(gum choose --item.foreground 250 "Yes" "No")
-
-if [ "$CHOICE" == "Yes" ]; then
+if gum_choice "dotfiles"; then
 	URL=$(gum input --placeholder "https://github.com/ALameLlama/dotfiles.git")
 
 	# Clone the repository to a temporary directory
@@ -334,9 +332,10 @@ if [ "$CHOICE" == "Yes" ]; then
 			# Rename the file by appending "_old" to its name
 			NEW_NAME="${FILE}_old"
 			mv "$HOME/$FILE" "$HOME/$NEW_NAME"
-			printf "${GREEN}Renamed $(gum style --bold "$FILE") to $(gum style --bold "$NEW_NAME").${NC}\n"
+
+			msg_succ "Renamed $(gum style --bold "$FILE") to $(gum style --bold "$NEW_NAME")."
 		else
-			printf "${GREEN}$(gum style --bold "$FILE") does not exist on your system.${NC}\n"
+			msg_succ "$(gum style --bold "$FILE") does not exist on your system."
 		fi
 	done
 
@@ -346,17 +345,17 @@ if [ "$CHOICE" == "Yes" ]; then
 	rm -rf "$TEMP_DIR"
 
 	dotfiles() {
-		/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME "$@"
+		/usr/bin/git --git-dir="$HOME/.dotfiles/" --work-tree="$HOME" "$@"
 	}
 
-	git clone --bare $URL $HOME/.dotfiles
+	git clone --bare "$URL" "$HOME/.dotfiles"
 
 	dotfiles config --local status.showUntrackedFiles no
 	dotfiles checkout
 
-	printf "${GREEN}dotfile has been imported.${NC}\n"
+	msg_succ "dotfile has been imported."
 else
-	printf "${RED}dotfiles will not be installed.${NC}\n"
+	msg_err "dotfiles will not be installed."
 fi
 
 printf "Restart terminal for everything to take effect :)\n"
