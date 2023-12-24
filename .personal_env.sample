@@ -1,0 +1,1 @@
+export LLAMA_URL="localhost:11434"
