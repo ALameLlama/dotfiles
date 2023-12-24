@@ -9,11 +9,7 @@ return {
 
   -- Packs
   { import = "astrocommunity.pack.bash" },
-  { import = "astrocommunity.pack.php" },
-  { import = "astrocommunity.pack.html-css" },
   { import = "astrocommunity.pack.json" },
-
-  { import = "astrocommunity.completion.codeium-vim" },
 
   -- Replaced with our own one
   -- TODO: Swap over with NVIM 0.10,
