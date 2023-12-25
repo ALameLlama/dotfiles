@@ -293,6 +293,8 @@ if gum_choice "AstroNvim"; then
 	cargo install bottom
 	cargo install ripgrep
 
+	sudo ${APT_INSTALLER} install -y python3-launchpadlib
+
 	sudo add-apt-repository -y ppa:daniel-milde/gdu
 	sudo ${APT_INSTALLER} update
 	sudo ${APT_INSTALLER} install -y gdu
