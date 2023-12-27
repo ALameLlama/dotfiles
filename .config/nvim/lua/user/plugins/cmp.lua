@@ -143,7 +143,7 @@ return {
 --         provider = "Ollama",
 --         provider_options = {
 --           model = "codellama:13b",
---           base_url = os.getenv "LLAMA_URL" .. "/api/generate",
+--           base_url = os.getenv "OLLAMA_API_HOST" .. "/api/generate",
 --         },
 --         notify = true,
 --         notify_callback = function(msg)
