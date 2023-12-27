@@ -1,23 +1,133 @@
 return {
-  "Exafunction/codeium.vim",
-  event = "User AstroFile",
-  keys = {
-    {
-      "<leader>;",
-      function()
-        if vim.g.codeium_enabled == true then
-          vim.cmd "CodeiumDisable"
-        else
-          vim.cmd "CodeiumEnable"
-        end
-      end,
-      desc = "Toggle Codeium",
+  {
+    "Exafunction/codeium.vim",
+    event = "User AstroFile",
+    keys = {
+      {
+        "<leader>;",
+        function()
+          if vim.g.codeium_enabled == true then
+            vim.cmd "CodeiumDisable"
+          else
+            vim.cmd "CodeiumEnable"
+          end
+        end,
+        desc = "Toggle Codeium",
+      },
     },
+    config = function()
+      vim.keymap.set("i", "<C-g>", function() return vim.fn["codeium#Accept"]() end, { expr = true })
+      vim.keymap.set("i", "<C-x>", function() return vim.fn["codeium#Clear"]() end, { expr = true })
+    end,
   },
-  config = function()
-    vim.keymap.set("i", "<C-g>", function() return vim.fn["codeium#Accept"]() end, { expr = true })
-    vim.keymap.set("i", "<C-x>", function() return vim.fn["codeium#Clear"]() end, { expr = true })
-  end,
+  {
+    "rebelot/heirline.nvim",
+    -- WARN: codeium support
+    dependencies = {
+      "Exafunction/codeium.vim",
+    },
+    event = "BufEnter",
+    opts = function()
+      local status = require "astronvim.utils.status"
+      -- WARN: codeium support
+      local codeium_status = {
+        provider = function() return "🤖 " .. vim.api.nvim_eval "codeium#GetStatusString()" end,
+        update = true,
+      }
+      return {
+        opts = {
+          disable_winbar_cb = function(args)
+            return not require("astronvim.utils.buffer").is_valid(args.buf)
+              or status.condition.buffer_matches({
+                buftype = { "terminal", "prompt", "nofile", "help", "quickfix" },
+                filetype = { "NvimTree", "neo%-tree", "dashboard", "Outline", "aerial" },
+              }, args.buf)
+          end,
+        },
+        statusline = { -- statusline
+          hl = { fg = "fg", bg = "bg" },
+          status.component.mode(),
+          status.component.git_branch(),
+          status.component.file_info { filetype = {}, filename = false, file_modified = false },
+          status.component.git_diff(),
+          status.component.diagnostics(),
+          status.component.diagnostics(),
+          status.component.fill(),
+          status.component.cmd_info(),
+          status.component.fill(),
+          --WARN: codeium support
+          codeium_status,
+          status.component.lsp(),
+          status.component.treesitter(),
+          status.component.nav(),
+          status.component.mode { surround = { separator = "right" } },
+        },
+        winbar = { -- winbar
+          init = function(self) self.bufnr = vim.api.nvim_get_current_buf() end,
+          fallthrough = false,
+          {
+            condition = function() return not status.condition.is_active() end,
+            status.component.separated_path(),
+            status.component.file_info {
+              file_icon = { hl = status.hl.file_icon "winbar", padding = { left = 0 } },
+              file_modified = false,
+              file_read_only = false,
+              hl = status.hl.get_attributes("winbarnc", true),
+              surround = false,
+              update = "BufEnter",
+            },
+          },
+          status.component.breadcrumbs { hl = status.hl.get_attributes("winbar", true) },
+        },
+        tabline = { -- bufferline
+          { -- file tree padding
+            condition = function(self)
+              self.winid = vim.api.nvim_tabpage_list_wins(0)[1]
+              return status.condition.buffer_matches({
+                filetype = {
+                  "NvimTree",
+                  "OverseerList",
+                  "aerial",
+                  "dap%-repl",
+                  "dapui_.",
+                  "edgy",
+                  "neo%-tree",
+                  "undotree",
+                },
+              }, vim.api.nvim_win_get_buf(self.winid))
+            end,
+            provider = function(self) return string.rep(" ", vim.api.nvim_win_get_width(self.winid) + 1) end,
+            hl = { bg = "tabline_bg" },
+          },
+          status.heirline.make_buflist(status.component.tabline_file_info()), -- component for each buffer tab
+          status.component.fill { hl = { bg = "tabline_bg" } }, -- fill the rest of the tabline with background color
+          { -- tab list
+            condition = function() return #vim.api.nvim_list_tabpages() >= 2 end, -- only show tabs if there are more than one
+            status.heirline.make_tablist { -- component for each tab
+              provider = status.provider.tabnr(),
+              hl = function(self) return status.hl.get_attributes(status.heirline.tab_type(self, "tab"), true) end,
+            },
+            { -- close button for current tab
+              provider = status.provider.close_button { kind = "TabClose", padding = { left = 1, right = 1 } },
+              hl = status.hl.get_attributes("tab_close", true),
+              on_click = {
+                callback = function() require("astronvim.utils.buffer").close_tab() end,
+                name = "heirline_tabline_close_tab_callback",
+              },
+            },
+          },
+        },
+        statuscolumn = vim.fn.has "nvim-0.9" == 1 and {
+          init = function(self) self.bufnr = vim.api.nvim_get_current_buf() end,
+          status.component.foldcolumn(),
+          status.component.fill(),
+          status.component.numbercolumn(),
+          status.component.signcolumn(),
+        } or nil,
+      }
+    end,
+    config = require "plugins.configs.heirline",
+  },
 }
 
 -- Cool idea but I don't think this works that great, this could totally be a me problem
