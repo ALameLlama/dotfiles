@@ -15,12 +15,14 @@ return {
   },
   {
     "hrsh7th/nvim-cmp",
+    -- keys = { ":", "/", "?" }, -- lazy load cmp on more keys along with insert mode
     dependencies = {
       "saadparwaiz1/cmp_luasnip",
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-cmdline",
+      "hrsh7th/cmp-emoji",
     },
     event = "InsertEnter",
     opts = function()
@@ -33,6 +35,13 @@ return {
         border = "rounded",
         winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
       }
+
+      cmp.setup.cmdline("/", {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = {
+          { name = "buffer" },
+        },
+      })
 
       cmp.setup.cmdline(":", {
         mapping = cmp.mapping.preset.cmdline(),
@@ -47,6 +56,7 @@ return {
           },
         }),
       })
+
       local function has_words_before()
         local line, col = (unpack or table.unpack)(vim.api.nvim_win_get_cursor(0))
         return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match "%s" == nil
@@ -124,6 +134,7 @@ return {
           { name = "luasnip", priority = 750 },
           { name = "buffer", priority = 500 },
           { name = "path", priority = 250 },
+          { name = "emoji", priority = 700 },
         },
       }
     end,
