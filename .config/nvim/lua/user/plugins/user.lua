@@ -58,7 +58,7 @@ return {
     },
     opts = {
       model = "codellama:13b",
-      url = os.getenv "LLAMA_URL",
+      url = os.getenv "OLLAMA_API_HOST",
       -- View the actual default prompts in ./lua/ollama/prompts.lua
       prompts = {
         -- Sample_Prompt = {
