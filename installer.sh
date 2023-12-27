@@ -261,6 +261,12 @@ else
 fi
 
 install_package "tmux"
+install_package "exa"
+install_package "bat"
+install_package "fzf"
+install_package "zoxide"
+install_package "entr"
+install_package "mc"
 
 check_package "nvim"
 check_package "git"
@@ -272,7 +278,6 @@ check_package "node"
 check_package "rustc"
 check_package "cargo"
 check_package "go"
-check_package "tmux"
 
 if gum_choice "AstroNvim"; then
 	# --- Install deps for astro
@@ -304,7 +309,7 @@ if gum_choice "AstroNvim"; then
 	mv ~/.config/nvim ~/.config/nvim.bak
 	mv ~/.local/share/nvim ~/.local/share/nvim.bak
 	mv ~/.local/state/nvim ~/.local/state/nvim.bak
-	mv ~/.cache/nvim ~/.cache/nvim.bak
+	instmv ~/.cache/nvim ~/.cache/nvim.bak
 
 	git clone --depth 1 https://github.com/AstroNvim/AstroNvim ~/.config/nvim
 
