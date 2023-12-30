@@ -1,42 +1,4 @@
 return {
-  -- {
-  --   "nomnivore/ollama.nvim",
-  --   dependencies = {
-  --     "nvim-lua/plenary.nvim",
-  --   },
-  --   -- All the user commands added by the plugin
-  --   cmd = { "Ollama", "OllamaModel", "OllamaServe", "OllamaServeStop" },
-  --   keys = {
-  --     -- -- Sample keybind for prompt menu. Note that the <c-u> is important for selections to work properly.
-  --     -- {
-  --     --   "<leader>Oo",
-  --     --   ":<c-u>lua require('ollama').prompt()<cr>",
-  --     --   desc = "ollama prompt",
-  --     --   mode = { "n", "v" },
-  --     -- },
-  --     --
-  --     -- -- Sample keybind for direct prompting. Note that the <c-u> is important for selections to work properly.
-  --     -- {
-  --     --   "<leader>OG",
-  --     --   ":<c-u>lua require('ollama').prompt('Generate_Code')<cr>",
-  --     --   desc = "ollama Generate Code",
-  --     --   mode = { "n", "v" },
-  --     -- },
-  --   },
-  --   opts = {
-  --     model = "codellama:13b",
-  --     url = os.getenv "OLLAMA_API_HOST",
-  --     -- View the actual default prompts in ./lua/ollama/prompts.lua
-  --     prompts = {
-  --       -- Sample_Prompt = {
-  --       --   prompt = "This is a sample prompt that receives $input and $sel(ection), among others.",
-  --       --   input_label = "> ",
-  --       --   model = "codellama:13b",
-  --       --   action = "display",
-  --       -- },
-  --     },
-  --   },
-  -- },
   {
     "huynle/ogpt.nvim",
     event = "VeryLazy",
@@ -46,24 +8,26 @@ return {
       "nvim-telescope/telescope.nvim",
     },
     config = function()
-      local opts = {
-        -- edit_with_instructions = {
-        --   keymaps = {
-        --     use_output_as_input = "<C-a>",
-        --   },
-        -- },
-        -- api_params = {
-        --   model = "mistral:7b", -- Default
-        -- },
-        -- api_edit_params = {
-        --   model = "deepseek-coder:6.7b", -- Default
-        -- },
-        -- -- show_quickfixes_cmd = "copen",
-        -- -- add custom actions.json
-        -- actions_paths = {},
-      }
+      -- local opts = {
+      -- edit_with_instructions = {
+      --   keymaps = {
+      --     use_output_as_input = "<C-a>",
+      --   },
+      -- },
+      -- api_params = {
+      --   model = "mistral:7b", -- Default
+      -- },
+      -- api_edit_params = {
+      --   model = "deepseek-coder:6.7b", -- Default
+      -- },
+      -- -- show_quickfixes_cmd = "copen",
+      -- -- add custom actions.json
+      -- actions_paths = {},
+      -- }
 
-      require("ogpt").setup(opts)
+      -- require("ogpt").setup(opts)
+
+      require("ogpt").setup()
 
       local which_key_ok, which_key = pcall(require, "which-key")
       if not which_key_ok then return end
