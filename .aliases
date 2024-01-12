@@ -31,4 +31,4 @@ alias zsh-git-show='git config oh-my-zsh.hide-info 0'
 alias zsh-git-ghide='git config oh-my-zsh.hide-info 1 --global'
 alias zsh-git-gshow='git config oh-my-zsh.hide-info 0 --global'
 
-alias wttr="clear && curl https://wttr.in/3805+Australia?2"
+alias wttr="clear && curl 'https://wttr.in/3805+Australia?2'"
