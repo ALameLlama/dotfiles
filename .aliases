@@ -8,7 +8,11 @@ if command -v exa > /dev/null; then
   alias ls='exa'
   alias ll='exa -alh'
   alias tree='exa --tree'
-else
+elif command -v eza > /dev/null; then
+  alias ls='eza'
+  alias ll='eza -alh'
+  alias tree='eza --tree'
+else 
   alias ll='ls -alF'
 fi
 
