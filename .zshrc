@@ -111,3 +111,5 @@ fi
 # Example aliases:q
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+source ~/.aliases
