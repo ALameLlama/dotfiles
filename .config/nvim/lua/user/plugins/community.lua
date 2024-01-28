@@ -6,11 +6,13 @@ return {
 
   { import = "astrocommunity.colorscheme.catppuccin" },
   -- { import = "astrocommunity.completion.copilot-lua-cmp" },
-
+  
   -- Packs
   { import = "astrocommunity.pack.bash" },
   { import = "astrocommunity.pack.json" },
 
+  { import = "astrocommunity.editing-support.suda-vim" },
+  
   -- Replaced with our own one
   -- TODO: Swap over with NVIM 0.10,
   { import = "astrocommunity.pack.rust" },
