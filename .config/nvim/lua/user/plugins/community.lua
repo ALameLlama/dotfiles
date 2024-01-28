@@ -10,6 +10,8 @@ return {
   -- Packs
   { import = "astrocommunity.pack.bash" },
   { import = "astrocommunity.pack.json" },
+  { import = "astrocommunity.pack.python" },
+
 
   { import = "astrocommunity.editing-support.suda-vim" },
   
