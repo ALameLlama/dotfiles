@@ -14,9 +14,13 @@ return {
   -- Packs
   { import = "astrocommunity.pack.bash" },
   { import = "astrocommunity.pack.json" },
+  { import = "astrocommunity.pack.markdown" },
   { import = "astrocommunity.pack.python" },
+  { import = "astrocommunity.pack.yaml" },
 
+  -- Other
   { import = "astrocommunity.editing-support.suda-vim" },
+  { import = "astrocommunity.markdown-and-latex.glow-nvim" },
 
   -- Replaced with our own one
   -- TODO: Swap over with NVIM 0.10,
