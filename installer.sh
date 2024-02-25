@@ -215,6 +215,35 @@ fi
 
 install_package "cargo"
 
+if ! command -v pipx &>/dev/null; then
+	msg_warn "$(gum style --bold "pipx") is not installed."
+	if gum_choice "pipx"; then
+        sudo ${APT_INSTALLER} install -y pipx
+        pipx ensurepath
+
+		msg_succ "pipx has been installed."
+
+        if ! command -v poetry &>/dev/null; then
+        	msg_warn "$(gum style --bold "poetry") is not installed."
+        	if gum_choice "poetry"; then
+                pipx install poetry
+
+                poetry completions bash >> ~/.bash_completion
+                
+                msg_succ "poetry has been installed."
+        	else
+        		msg_err "poetry will not be installed."
+        	fi
+        else
+        	msg_succ "$(gum style --bold "poetry") is already installed."
+        fi
+	else
+		msg_err "pipx will not be installed."
+	fi
+else
+	msg_succ "$(gum style --bold "pipx") is already installed."
+fi
+
 if ! command -v go &>/dev/null; then
 	msg_warn "$(gum style --bold "go") is not installed."
 	if gum_choice "go"; then
