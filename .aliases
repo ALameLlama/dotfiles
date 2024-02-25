@@ -27,8 +27,6 @@ if command -v z > /dev/null; then
   alias zz='z -'
 fi
 
-alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
-
 alias zsh-git-hide='git config oh-my-zsh.hide-info 1'
 alias zsh-git-show='git config oh-my-zsh.hide-info 0'
 

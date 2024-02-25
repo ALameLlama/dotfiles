@@ -1,3 +1,3 @@
 ```zsh
-bash <(curl -s https://raw.githubusercontent.com/ALameLlama/dotfiles/master/installer.sh)
+bash <(curl -s https://raw.githubusercontent.com/ALameLlama/dotfiles/master/scripts/installer.sh)
 ```
