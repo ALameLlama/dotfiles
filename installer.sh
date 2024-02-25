@@ -266,6 +266,7 @@ install_package "fzf"
 install_package "zoxide"
 install_package "entr"
 install_package "mc"
+install_package "thefuck"
 
 if ! command -v eza &>/dev/null; then
 	msg_warn "$(gum style --bold "eza") is not installed."
