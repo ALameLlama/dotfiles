@@ -28,9 +28,9 @@ if command -v z >/dev/null; then
 fi
 
 alias df='cd "$HOME/.dotfiles"'
-alias dfs='(cd "$HOME/.dotfiles" && stow .)'
-alias dfg='(cd "$HOME/.dotfiles" && lazygit)'
-alias dfn='(cd "$HOME/.dotfiles" && nvim .)'
+alias dfs='(df && stow .)'
+alias dfg='(df && lazygit)'
+alias dfn='(df && nvim .)'
 
 alias zsh-git-hide="git config oh-my-zsh.hide-info 1"
 alias zsh-git-show="git config oh-my-zsh.hide-info 0"
