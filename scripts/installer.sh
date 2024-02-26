@@ -416,7 +416,9 @@ if gum_choice "dotfiles"; then
 		fi
 	done
 
-	sudo ${APT_INSTALLER} install -y stow
+	if ! command -v stow &>/dev/null; then
+		sudo ${APT_INSTALLER} install -y stow
+	fi
 
 	stow .
 
