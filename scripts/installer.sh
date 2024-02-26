@@ -10,6 +10,109 @@ NC='\033[0m' # No Color
 APT_INSTALLER=apt-get
 
 main() {
+	install_gum
+
+	if ! command -v gum &>/dev/null; then
+		msg_err "gum not installed and is required. Try restarting terminal."
+		exit 1
+	fi
+
+	install_nala
+
+	install_nvim
+
+	install_nerd_fonts
+
+	# --- Install base stuff for fancy nvim
+	install_package "git"
+	install_package "make"
+	install_package "pip"
+	install_package "python3"
+	install_package "npm"
+	install_package "node"
+
+	install_rust
+	install_package "cargo"
+
+	install_go
+
+	# --- Install other cool stuff
+	install_pipx
+	install_package "zsh"
+	install_oh_my_zsh
+
+	install_package "tmux"
+
+	install_bat
+
+	install_package "fzf"
+	install_package "zoxide"
+	install_package "entr"
+	install_package "mc"
+	install_package "thefuck"
+
+	install_eza
+
+	install_astro_nvim
+
+	import_dot_files
+
+	printf "Restart terminal for everything to take effect :)\n"
+}
+
+# --- Helper functions ---
+msg_warn() {
+	local MESSAGE=$1
+
+	printf "%b%s%b\n" "$YELLOW" "$MESSAGE" "$NC"
+}
+
+msg_succ() {
+	local MESSAGE=$1
+
+	printf "%b%s%b\n" "$GREEN" "$MESSAGE" "$NC"
+}
+
+msg_err() {
+	local MESSAGE=$1
+
+	printf "%b%s%b\n" "$RED" "$MESSAGE" "$NC"
+}
+
+gum_choice() {
+	local PACKAGE_NAME=$1
+
+	msg_warn "Do you want to install $(gum style --bold "$PACKAGE_NAME")?"
+	CHOICE=$(gum choose --item.foreground 250 "Yes" "No")
+	[ "$CHOICE" = "Yes" ]
+}
+
+install_package() {
+	local PACKAGE_NAME=$1
+
+	if ! command -v "$PACKAGE_NAME" &>/dev/null; then
+		if gum_choice "$PACKAGE_NAME"; then
+			sudo ${APT_INSTALLER} install -y "$PACKAGE_NAME"
+			msg_succ "$(gum style --bold "$PACKAGE_NAME") has been installed."
+		else
+			msg_err "$(gum style --bold "$PACKAGE_NAME") will not be installed."
+		fi
+	else
+		msg_succ "$(gum style --bold "$PACKAGE_NAME") is already installed."
+	fi
+}
+
+check_package() {
+	local PACKAGE_NAME=$1
+
+	if ! command -v "$PACKAGE_NAME" &>/dev/null; then
+		msg_err "$(gum style --bold "$PACKAGE_NAME") was not be installed. Try restarting terminal."
+		exit 1
+	fi
+}
+
+# --- Install more packages that require special handling ---
+install_gum() {
 	if ! command -v gum &>/dev/null; then
 		msg_warn "gum is not installed"
 		read -rp "Do you want to install it? (y/n):" install_gum_choice
@@ -27,12 +130,9 @@ main() {
 			exit 0
 		fi
 	fi
+}
 
-	if ! command -v gum &>/dev/null; then
-		msg_err "gum will not be installed. Try restarting terminal."
-		exit 1
-	fi
-
+install_nala() {
 	if ! command -v nala &>/dev/null; then
 		if gum_choice "nala"; then
 			echo "deb http://deb.volian.org/volian/ scar main" | sudo tee /etc/apt/sources.list.d/volian-archive-scar-unstable.list
@@ -40,7 +140,7 @@ main() {
 			sudo apt-get update -y
 
 			UBUNTU_VERSION=$(lsb_release -rs)
-			if [ "$(echo "$UBUNTU_VERSION < 22" | bc)" -eq 1 ]; then
+			if [ "$(echo "$UBUNTU_VERSION < 21" | bc)" -eq 1 ]; then
 				sudo apt-get install -y nala-legacy
 			else
 				sudo apt-get install -y nala
@@ -56,10 +156,12 @@ main() {
 		else
 			msg_err "nala will not be installed."
 		fi
-	else
+		els
 		APT_INSTALLER=nala
 	fi
+}
 
+install_nvim() {
 	if ! command -v nvim &>/dev/null; then
 		msg_warn "$(gum style --bold nvim) is not installed."
 		if gum_choice "nvim"; then
@@ -108,7 +210,9 @@ main() {
 			msg_succ "$(gum style --bold "nvim") is already installed and at version $MINM or higher."
 		fi
 	fi
+}
 
+install_nerd_fonts() {
 	if gum_choice "Nerd Fonts"; then
 		if ! command -v jq &>/dev/null; then
 			sudo ${APT_INSTALLER} install -y jq
@@ -135,16 +239,9 @@ main() {
 	else
 		msg_err "Nerd Fonts will not be installed."
 	fi
+}
 
-	# --- Install base stuff for fancy nvim
-
-	install_package "git"
-	install_package "make"
-	install_package "pip"
-	install_package "python3"
-	install_package "npm"
-	install_package "node"
-
+install_rust() {
 	if ! command -v rustc &>/dev/null; then
 		msg_warn "$(gum style --bold "rust") is not installed."
 		if gum_choice "rust"; then
@@ -159,9 +256,9 @@ main() {
 	else
 		msg_succ "$(gum style --bold "rust") is already installed."
 	fi
+}
 
-	install_package "cargo"
-
+install_pipx() {
 	if ! command -v pipx &>/dev/null; then
 		msg_warn "$(gum style --bold "pipx") is not installed."
 		if gum_choice "pipx"; then
@@ -190,7 +287,9 @@ main() {
 	else
 		msg_succ "$(gum style --bold "pipx") is already installed."
 	fi
+}
 
+install_go() {
 	if ! command -v go &>/dev/null; then
 		msg_warn "$(gum style --bold "go") is not installed."
 		if gum_choice "go"; then
@@ -216,19 +315,19 @@ main() {
 	else
 		msg_succ "$(gum style --bold "go") is already installed."
 	fi
+}
 
-	install_package "zsh"
-
+install_oh_my_zsh() {
 	if [ ! -d "$HOME/.oh-my-zsh" ] && command -v zsh &>/dev/null; then
 		if gum_choice "Oh My ZSH"; then
 			git clone https://github.com/ohmyzsh/ohmyzsh.git "$HOME/.oh-my-zsh"
 
-			git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-			git clone https://github.com/zsh-users/zsh-syntax-highlighting ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+			git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
+			git clone https://github.com/zsh-users/zsh-syntax-highlighting "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
 
 			if command -v poetry &>/dev/null; then
-				mkdir $ZSH_CUSTOM/plugins/poetry
-				poetry completions zsh >$ZSH_CUSTOM/plugins/poetry/_poetry
+				mkdir "$ZSH_CUSTOM/plugins/poetry"
+				poetry completions zsh >"$ZSH_CUSTOM/plugins/poetry/_poetry"
 			fi
 
 			chsh -s /usr/bin/zsh
@@ -240,9 +339,9 @@ main() {
 	else
 		msg_succ "$(gum style --bold "oh my zsh") is already installed."
 	fi
+}
 
-	install_package "tmux"
-
+install_bat() {
 	if ! command -v bat &>/dev/null && ! command -v batcat &>/dev/null; then
 		msg_warn "$(gum style --bold "eza") is not installed."
 		if gum_choice "bat"; then
@@ -256,13 +355,9 @@ main() {
 	else
 		msg_succ "$(gum style --bold "bat") is already installed."
 	fi
+}
 
-	install_package "fzf"
-	install_package "zoxide"
-	install_package "entr"
-	install_package "mc"
-	install_package "thefuck"
-
+install_eza() {
 	if ! command -v eza &>/dev/null; then
 		msg_warn "$(gum style --bold "eza") is not installed."
 		if gum_choice "eza"; then
@@ -283,19 +378,22 @@ main() {
 	else
 		msg_succ "$(gum style --bold "eza") is already installed."
 	fi
+}
 
-	check_package "nvim"
-	check_package "git"
-	check_package "make"
-	check_package "pip"
-	check_package "python3"
-	check_package "npm"
-	check_package "node"
-	check_package "rustc"
-	check_package "cargo"
-	check_package "go"
-
+install_astro_nvim() {
 	if gum_choice "AstroNvim"; then
+		# --- Check if the required stuff for astronvim is installed
+		check_package "nvim"
+		check_package "git"
+		check_package "make"
+		check_package "pip"
+		check_package "python3"
+		check_package "npm"
+		check_package "node"
+		check_package "rustc"
+		check_package "cargo"
+		check_package "go"
+
 		# --- Install deps for astro
 		ARCH=$(arch)
 		LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
@@ -333,7 +431,9 @@ main() {
 	else
 		msg_err "AstroNvim will not be installed."
 	fi
+}
 
+import_dot_files() {
 	if gum_choice "dotfiles"; then
 		URL=$(gum input --placeholder "git@github.com:ALameLlama/dotfiles.git")
 
@@ -374,61 +474,6 @@ main() {
 		msg_succ "dotfiles has been imported."
 	else
 		msg_err "dotfiles will not be installed."
-	fi
-
-	printf "Restart terminal for everything to take effect :)\n"
-
-}
-
-# --- Helper functions ---
-
-msg_warn() {
-	local MESSAGE=$1
-
-	printf "%b%s%b\n" "$YELLOW" "$MESSAGE" "$NC"
-}
-
-msg_succ() {
-	local MESSAGE=$1
-
-	printf "%b%s%b\n" "$GREEN" "$MESSAGE" "$NC"
-}
-
-msg_err() {
-	local MESSAGE=$1
-
-	printf "%b%s%b\n" "$RED" "$MESSAGE" "$NC"
-}
-
-gum_choice() {
-	local PACKAGE_NAME=$1
-
-	msg_warn "Do you want to install $(gum style --bold "$PACKAGE_NAME")?"
-	CHOICE=$(gum choose --item.foreground 250 "Yes" "No")
-	[ "$CHOICE" = "Yes" ]
-}
-
-install_package() {
-	local PACKAGE_NAME=$1
-
-	if ! command -v "$PACKAGE_NAME" &>/dev/null; then
-		if gum_choice "$PACKAGE_NAME"; then
-			sudo ${APT_INSTALLER} install -y "$PACKAGE_NAME"
-			msg_succ "$(gum style --bold "$PACKAGE_NAME") has been installed."
-		else
-			msg_err "$(gum style --bold "$PACKAGE_NAME") will not be installed."
-		fi
-	else
-		msg_succ "$(gum style --bold "$PACKAGE_NAME") is already installed."
-	fi
-}
-
-check_package() {
-	local PACKAGE_NAME=$1
-
-	if ! command -v "$PACKAGE_NAME" &>/dev/null; then
-		msg_err "$(gum style --bold "$PACKAGE_NAME") was not be installed. Try restarting terminal."
-		exit 1
 	fi
 }
 
