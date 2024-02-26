@@ -22,5 +22,5 @@ _darcs
 ^/COPYING
 
 # Custom stuff
-\scripts
-^/*.sample
+scripts
+.*\.sample$
