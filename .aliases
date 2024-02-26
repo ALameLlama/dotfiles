@@ -1,38 +1,43 @@
 alias ..="cd .."
 alias ...="cd ../.."
 
-alias h='cd ~'
-alias c='clear'
+alias h="cd ~"
+alias c="clear"
 
-if command -v exa > /dev/null; then
-  alias ls='exa'
-  alias ll='exa -alh'
-  alias tree='exa --tree'
-elif command -v eza > /dev/null; then
-  alias ls='eza'
-  alias ll='eza -alh'
-  alias tree='eza --tree'
-else 
-  alias ll='ls -alF'
+if command -v exa >/dev/null; then
+	alias ls="exa"
+	alias ll="exa -alh"
+	alias tree="exa --tree"
+elif command -v eza >/dev/null; then
+	alias ls="eza"
+	alias ll="eza -alh"
+	alias tree="eza --tree"
+else
+	alias ll="ls -alF"
 fi
 
-if command -v bat > /dev/null; then
-  alias cat='bat'
-elif command -v batcat > /dev/null; then
-  alias cat='batcat'
+if command -v bat >/dev/null; then
+	alias cat="bat"
+elif command -v batcat >/dev/null; then
+	alias cat="batcat"
 fi
 
-if command -v z > /dev/null; then
-  alias cd='z'
-  alias zz='z -'
+if command -v z >/dev/null; then
+	alias cd="z"
+	alias zz="z -"
 fi
 
-alias zsh-git-hide='git config oh-my-zsh.hide-info 1'
-alias zsh-git-show='git config oh-my-zsh.hide-info 0'
+alias df='cd "$HOME/.dotfiles"'
+alias dfs='(cd "$HOME/.dotfiles" && stow .)'
+alias dfg='(cd "$HOME/.dotfiles" && lazygit)'
+alias dfn='(cd "$HOME/.dotfiles" && nvim .)'
 
-alias zsh-git-ghide='git config oh-my-zsh.hide-info 1 --global'
-alias zsh-git-gshow='git config oh-my-zsh.hide-info 0 --global'
+alias zsh-git-hide="git config oh-my-zsh.hide-info 1"
+alias zsh-git-show="git config oh-my-zsh.hide-info 0"
 
-alias wttr="clear && curl 'https://wttr.in/3805+Australia?2'"
+alias zsh-git-ghide="git config oh-my-zsh.hide-info 1 --global"
+alias zsh-git-gshow="git config oh-my-zsh.hide-info 0 --global"
+
+alias wttr='clear && curl "https://wttr.in/3805+Australia?2"'
 
 eval $(thefuck --alias)

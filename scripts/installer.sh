@@ -218,25 +218,25 @@ install_package "cargo"
 if ! command -v pipx &>/dev/null; then
 	msg_warn "$(gum style --bold "pipx") is not installed."
 	if gum_choice "pipx"; then
-        sudo ${APT_INSTALLER} install -y pipx
-        pipx ensurepath
+		sudo ${APT_INSTALLER} install -y pipx
+		pipx ensurepath
 
 		msg_succ "pipx has been installed."
 
-        if ! command -v poetry &>/dev/null; then
-        	msg_warn "$(gum style --bold "poetry") is not installed."
-        	if gum_choice "poetry"; then
-                pipx install poetry
+		if ! command -v poetry &>/dev/null; then
+			msg_warn "$(gum style --bold "poetry") is not installed."
+			if gum_choice "poetry"; then
+				pipx install poetry
 
-                poetry completions bash >> ~/.bash_completion
-                
-                msg_succ "poetry has been installed."
-        	else
-        		msg_err "poetry will not be installed."
-        	fi
-        else
-        	msg_succ "$(gum style --bold "poetry") is already installed."
-        fi
+				poetry completions bash >>~/.bash_completion
+
+				msg_succ "poetry has been installed."
+			else
+				msg_err "poetry will not be installed."
+			fi
+		else
+			msg_succ "$(gum style --bold "poetry") is already installed."
+		fi
 	else
 		msg_err "pipx will not be installed."
 	fi
@@ -281,7 +281,7 @@ if [ ! -d "$HOME/.oh-my-zsh" ] && command -v zsh &>/dev/null; then
 
 		if command -v poetry &>/dev/null; then
 			mkdir $ZSH_CUSTOM/plugins/poetry
-			poetry completions zsh > $ZSH_CUSTOM/plugins/poetry/_poetry
+			poetry completions zsh >$ZSH_CUSTOM/plugins/poetry/_poetry
 		fi
 
 		chsh -s /usr/bin/zsh
@@ -295,7 +295,21 @@ else
 fi
 
 install_package "tmux"
-install_package "bat"
+
+if ! command -v bat &>/dev/null && ! command -v batcat &>/dev/null; then
+	msg_warn "$(gum style --bold "eza") is not installed."
+	if gum_choice "bat"; then
+
+		sudo ${APT_INSTALLER} install -y bat
+
+		msg_succ "bat has been installed."
+	else
+		msg_err "bat will not be installed."
+	fi
+else
+	msg_succ "$(gum style --bold "bat") is already installed."
+fi
+
 install_package "fzf"
 install_package "zoxide"
 install_package "entr"
@@ -314,7 +328,7 @@ if ! command -v eza &>/dev/null; then
 		sudo chmod 644 /etc/apt/keyrings/gierens.gpg /etc/apt/sources.list.d/gierens.list
 		sudo apt update
 		sudo apt install -y eza
-  
+
 		msg_succ "eza has been installed."
 	else
 		msg_err "eza will not be installed."
