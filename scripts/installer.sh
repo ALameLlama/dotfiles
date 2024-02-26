@@ -387,18 +387,17 @@ else
 	msg_err "AstroNvim will not be installed."
 fi
 
-# https://medium.com/@simontoth/best-way-to-manage-your-dotfiles-2c45bb280049
 if gum_choice "dotfiles"; then
-	URL=$(gum input --placeholder "https://github.com/ALameLlama/dotfiles.git")
+	URL=$(gum input --placeholder "git@github.com:ALameLlama/dotfiles.git")
 
 	# Clone the repository to a temporary directory
-	TEMP_DIR=$(mktemp -d)
-	git clone "$URL" "$TEMP_DIR"
+	DOTFILES_DIR="$HOME/.dotfiles"
+	git clone "$URL" "$DOTFILES_DIR"
 
 	CURRENT_DIR=$(pwd)
 
 	# Change to the Git repository directory
-	cd "$TEMP_DIR" || exit 1
+	cd "$DOTFILES_DIR" || exit 1
 
 	# Get the list of files in the Git repository
 	FILES=$(git ls-files)
@@ -407,8 +406,8 @@ if gum_choice "dotfiles"; then
 	for FILE in $FILES; do
 		# Check if the file exists on your system
 		if [ -e "$HOME/$FILE" ]; then
-			# Rename the file by appending "_old" to its name
-			NEW_NAME="${FILE}_old"
+			# Rename the file by appending ".bak" to its name
+			NEW_NAME="${FILE}.bak"
 			mv "$HOME/$FILE" "$HOME/$NEW_NAME"
 
 			msg_succ "Renamed $(gum style --bold "$FILE") to $(gum style --bold "$NEW_NAME")."
@@ -417,21 +416,13 @@ if gum_choice "dotfiles"; then
 		fi
 	done
 
+	sudo ${APT_INSTALLER} install -y stow
+
+	stow .
+
 	cd "$CURRENT_DIR" || exit 1
 
-	# Clean up the temporary directory
-	rm -rf "$TEMP_DIR"
-
-	dotfiles() {
-		/usr/bin/git --git-dir="$HOME/.dotfiles/" --work-tree="$HOME" "$@"
-	}
-
-	git clone --bare "$URL" "$HOME/.dotfiles"
-
-	dotfiles config --local status.showUntrackedFiles no
-	dotfiles checkout
-
-	msg_succ "dotfile has been imported."
+	msg_succ "dotfiles has been imported."
 else
 	msg_err "dotfiles will not be installed."
 fi
