@@ -435,7 +435,8 @@ install_astro_nvim() {
 
 import_dot_files() {
 	if gum_choice "dotfiles"; then
-		URL=$(gum input --placeholder "git@github.com:ALameLlama/dotfiles.git")
+		MYDOTFIlES="git@github.com:ALameLlama/dotfiles.git"
+		URL=$(gum input --value "$MYDOTFIlES" --placeholder "$MYDOTFIlES")
 
 		# Clone the repository to a temporary directory
 		DOTFILES_DIR="$HOME/.dotfiles"
