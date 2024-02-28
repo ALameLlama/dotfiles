@@ -1,5 +1,13 @@
 echo "Starting .zprofile 💅"
 
+# Start SSH agent (if not already running)
+if ! pgrep -q ssh-agent; then
+    eval $(ssh-agent -s)
+fi
+
+# Add SSH key to agent
+ssh-add ~/.ssh/id_ed25519
+
 # # Run the weather command in the background and capture its output
 # wttr_output=$(wttr &)
 #
@@ -27,5 +35,4 @@ echo "Starting .zprofile 💅"
 # # Print the captured output of the background processes
 # echo "$wttr_output"
 # echo "$dotfiles_output"
-
 
