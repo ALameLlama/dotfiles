@@ -1,6 +1,7 @@
 files_to_source=(
   "$HOME/.bash_aliases"
   "$HOME/.profile"
+  "$HOME/.functions"
   "$HOME/.aliases"
   "$HOME/.personal_env"
   "$HOME/.cargo/env"
