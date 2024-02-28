@@ -23,31 +23,20 @@ else
     start_agent;
 fi
 
-# # Run the weather command in the background and capture its output
-# wttr_output=$(wttr &)
-#
-# # Check if the .dotfiles Git repository is out of date in the background and capture its output
-# dotfiles_output=$(
-#     if [ -d "$HOME/.dotfiles" ]; then
-#         (
-#         cd "$HOME/.dotfiles"
-#         git fetch origin master 2>&1
-#         LOCAL=$(git rev-parse @)
-#         REMOTE=$(git rev-parse origin/master)
-#         BASE=$(git merge-base @ origin/master)
-#         if [ $LOCAL = $REMOTE ]; then
-#             echo -e "\e[32mYour .dotfiles are up to date.\e[0m"
-#         elif [ $LOCAL = $BASE ]; then
-#             echo -e "\e[31mThere are updates available for your .dotfiles. Please run 'dfg' to update.\e[0m"
-#         fi
-#         )
-#     fi
-# )
-#
-# # Wait for both background processes to finish
-# wait
-#
-# # Print the captured output of the background processes
-# echo "$wttr_output"
-# echo "$dotfiles_output"
+function dotfile_check_updates() {
+    if [ -d "$HOME/.dotfiles" ]; then
+        (
+            cd "$HOME/.dotfiles" || exit
+            git fetch origin master >/dev/null 2>&1
+            LOCAL=$(git rev-parse @)
+            REMOTE=$(git rev-parse origin/master)
+            if [ "$LOCAL" != "$REMOTE" ]; then
+                echo -e "\e[31mThere are updates available for your .dotfiles. Please run 'dfg' to update.\e[0m"
+            else 
+                echo -e "\e[32mYour .dotfiles are up to date.\e[0m"
+            fi
+        )
+    fi
+}
 
+(dotfile_check_updates &)
