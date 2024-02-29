@@ -156,7 +156,7 @@ install_nala() {
 		else
 			msg_err "nala will not be installed."
 		fi
-		els
+	else
 		APT_INSTALLER=nala
 	fi
 }
