@@ -343,7 +343,7 @@ install_oh_my_zsh() {
 
 install_bat() {
 	if ! command -v bat &>/dev/null && ! command -v batcat &>/dev/null; then
-		msg_warn "$(gum style --bold "eza") is not installed."
+		msg_warn "$(gum style --bold "bat") is not installed."
 		if gum_choice "bat"; then
 
 			sudo ${APT_INSTALLER} install -y bat
