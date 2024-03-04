@@ -322,13 +322,13 @@ install_oh_my_zsh() {
 		if gum_choice "Oh My ZSH"; then
 			git clone https://github.com/ohmyzsh/ohmyzsh.git "$HOME/.oh-my-zsh"
 
-			git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
-			git clone https://github.com/zsh-users/zsh-syntax-highlighting "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
-
 			if command -v poetry &>/dev/null; then
 				mkdir "$ZSH_CUSTOM/plugins/poetry"
 				poetry completions zsh >"$ZSH_CUSTOM/plugins/poetry/_poetry"
 			fi
+
+   			git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
+			git clone https://github.com/zsh-users/zsh-syntax-highlighting "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
 
 			chsh -s /usr/bin/zsh
 
