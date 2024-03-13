@@ -12,10 +12,7 @@ APT_INSTALLER=apt-get
 main() {
 	install_gum
 
-	if ! command -v gum &>/dev/null; then
-		msg_err "gum not installed and is required. Try restarting terminal."
-		exit 1
-	fi
+
 
 	install_nala
 
@@ -129,6 +126,11 @@ install_gum() {
 			msg_err "gum will not be installed."
 			exit 0
 		fi
+	fi
+
+ 	if ! command -v gum &>/dev/null; then
+		msg_err "gum not installed and is required. Try restarting terminal."
+		exit 1
 	fi
 }
 
