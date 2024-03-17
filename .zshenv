@@ -13,4 +13,9 @@ for file in "${files_to_source[@]}"; do
   fi
 done
 
-export PATH="/usr/local/go/bin:$PATH"
+export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+export PATH=$PATH:$(go env GOPATH)/bin
+
+export GOBIN=$GOPATH/bin
+
+export PATH=$PATH:$HOME/.cargo/bin
