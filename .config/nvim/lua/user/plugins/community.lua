@@ -21,9 +21,10 @@ return {
 	{ import = "astrocommunity.pack.yaml" },
 
 	-- Other
+	{ import = "astrocommunity.debugging.nvim-dap-virtual-text" },
+	{ import = "astrocommunity.diagnostics.trouble-nvim" },
 	{ import = "astrocommunity.editing-support.suda-vim" },
 	{ import = "astrocommunity.markdown-and-latex.glow-nvim" },
-	{ import = "astrocommunity.debugging/nvim-dap-virtual-text" },
 
 	-- Replaced with our own one
 	-- TODO: Swap over with NVIM 0.10,
