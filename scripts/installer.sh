@@ -12,8 +12,6 @@ APT_INSTALLER=apt-get
 main() {
 	install_gum
 
-
-
 	install_nala
 
 	install_nvim
@@ -128,7 +126,7 @@ install_gum() {
 		fi
 	fi
 
- 	if ! command -v gum &>/dev/null; then
+	if ! command -v gum &>/dev/null; then
 		msg_err "gum not installed and is required. Try restarting terminal."
 		exit 1
 	fi
@@ -329,7 +327,7 @@ install_oh_my_zsh() {
 				poetry completions zsh >"$ZSH_CUSTOM/plugins/poetry/_poetry"
 			fi
 
-   			git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
+			git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
 			git clone https://github.com/zsh-users/zsh-syntax-highlighting "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
 
 			chsh -s /usr/bin/zsh
@@ -425,9 +423,12 @@ install_astro_nvim() {
 		mv ~/.config/nvim ~/.config/nvim.bak
 		mv ~/.local/share/nvim ~/.local/share/nvim.bak
 		mv ~/.local/state/nvim ~/.local/state/nvim.bak
-		instmv ~/.cache/nvim ~/.cache/nvim.bak
+		mv ~/.cache/nvim ~/.cache/nvim.bak
 
-		git clone --depth 1 https://github.com/AstroNvim/AstroNvim ~/.config/nvim
+		git clone --depth 1 https://github.com/AstroNvim/template ~/.config/nvim
+		# remove template's git connection to set up your own later
+		rm -rf ~/.config/nvim/.git
+		nvim
 
 		msg_succ "AstroNvim has been installed."
 	else
