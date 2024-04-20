@@ -1,4 +1,8 @@
+if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
+
 local utils = require("astronvim.utils")
+
+---@type LazySpec
 return {
 	{
 		"ThePrimeagen/htmx-lsp",

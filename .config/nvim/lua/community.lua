@@ -1,11 +1,14 @@
-return {
-	-- Add the community repository of plugin specifications
-	"AstroNvim/astrocommunity",
-	-- example of importing a plugin, comment out to use it or add your own
-	-- available plugins can be found at https://github.com/AstroNvim/astrocommunity
+if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
 
-	-- Theme
-	{ import = "astrocommunity.colorscheme.catppuccin" },
+-- AstroCommunity: import any community modules here
+-- We import this file in `lazy_setup.lua` before the `plugins/` folder.
+-- This guarantees that the specs are processed before any user plugins.
+
+---@type LazySpec
+return {
+  "AstroNvim/astrocommunity",
+
+  -- { import = "astrocommunity.colorscheme.catppuccin" },
 
 	-- AI
 	{ import = "astrocommunity.completion.copilot-lua-cmp" },
@@ -18,6 +21,7 @@ return {
 	{ import = "astrocommunity.pack.json" },
 	{ import = "astrocommunity.pack.markdown" },
 	{ import = "astrocommunity.pack.python" },
+	{ import = "astrocommunity.pack.rust" },
 	{ import = "astrocommunity.pack.yaml" },
 
 	-- Other
@@ -25,8 +29,4 @@ return {
 	{ import = "astrocommunity.diagnostics.trouble-nvim" },
 	{ import = "astrocommunity.editing-support.suda-vim" },
 	{ import = "astrocommunity.markdown-and-latex.glow-nvim" },
-
-	-- Replaced with our own one
-	-- TODO: Swap over with NVIM 0.10,
-	{ import = "astrocommunity.pack.rust" },
 }
