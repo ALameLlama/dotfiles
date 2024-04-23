@@ -4,7 +4,6 @@ return {
     "ThePrimeagen/htmx-lsp",
     version = "^0.1",
     ft = { "htmx" },
-    lazy = true,
   },
   {
     "williamboman/mason-lspconfig.nvim",
