@@ -2,8 +2,7 @@
 return {
   {
     "ThePrimeagen/htmx-lsp",
-    version = "^0.1",
-    ft = { "htmx" },
+    ft = { "h mx" },
   },
   {
     "williamboman/mason-lspconfig.nvim",
