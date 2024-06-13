@@ -26,7 +26,7 @@
   "guess-indent.nvim": { "branch": "main", "commit": "b8ae749fce17aa4c267eec80a6984130b94f80b2" },
   "guihua.lua": { "branch": "master", "commit": "225db770e36aae6a1e9e3a65578095c8eb4038d3" },
   "heirline.nvim": { "branch": "master", "commit": "0d797435e54645a5f98bad7ad6046aac1ef95c1e" },
-  "htmx-lsp": { "branch": "master", "commit": "d06b367e4b65745fbadeda4569a13cfeaff52fa5" },
+  "htmx-lsp": { "branch": "master", "commit": "0ad57f0f45b0663c1ab271431a0cfe78d18b5f78" },
   "indent-blankline.nvim": { "branch": "master", "commit": "d98f537c3492e87b6dc6c2e3f66ac517528f406f" },
   "lazy.nvim": { "branch": "main", "commit": "fafe1f7c640aed75e70a10e6649612cd96f39149" },
   "lsp_signature.nvim": { "branch": "master", "commit": "2ec2ba23882329c1302dff773b0d3620371d634f" },
