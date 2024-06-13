@@ -8,23 +8,24 @@ return {
 
   -- { import = "astrocommunity.colorscheme.catppuccin" },
 
-	-- AI
-	{ import = "astrocommunity.completion.copilot-lua-cmp" },
-	{ import = "astrocommunity.editing-support.chatgpt-nvim" },
+  -- AI
+  { import = "astrocommunity.completion.copilot-lua-cmp" },
+  { import = "astrocommunity.editing-support.chatgpt-nvim" },
 
-	-- Packs
-	{ import = "astrocommunity.pack.bash" },
-	{ import = "astrocommunity.pack.go" },
-	{ import = "astrocommunity.pack.html-css" },
-	{ import = "astrocommunity.pack.json" },
-	{ import = "astrocommunity.pack.markdown" },
-	{ import = "astrocommunity.pack.python" },
-	{ import = "astrocommunity.pack.rust" },
-	{ import = "astrocommunity.pack.yaml" },
+  -- Packs
+  { import = "astrocommunity.pack.bash" },
+  { import = "astrocommunity.pack.gleam" },
+  { import = "astrocommunity.pack.go" },
+  { import = "astrocommunity.pack.html-css" },
+  { import = "astrocommunity.pack.json" },
+  { import = "astrocommunity.pack.markdown" },
+  { import = "astrocommunity.pack.python" },
+  { import = "astrocommunity.pack.rust" },
+  { import = "astrocommunity.pack.yaml" },
 
-	-- Other
-	{ import = "astrocommunity.debugging.nvim-dap-virtual-text" },
-	{ import = "astrocommunity.diagnostics.trouble-nvim" },
-	{ import = "astrocommunity.editing-support.suda-vim" },
-	{ import = "astrocommunity.markdown-and-latex.glow-nvim" },
+  -- Other
+  { import = "astrocommunity.debugging.nvim-dap-virtual-text" },
+  { import = "astrocommunity.diagnostics.trouble-nvim" },
+  { import = "astrocommunity.editing-support.suda-vim" },
+  { import = "astrocommunity.markdown-and-latex.glow-nvim" },
 }
