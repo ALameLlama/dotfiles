@@ -50,6 +50,8 @@ main() {
 
 	install_astro_nvim
 
+	configure_git
+
 	import_dot_files
 
 	printf "Restart terminal for everything to take effect :)\n"
@@ -433,6 +435,24 @@ install_astro_nvim() {
 		msg_succ "AstroNvim has been installed."
 	else
 		msg_err "AstroNvim will not be installed."
+	fi
+}
+
+configure_git() {
+	msg_warn "Do you want to configure global git email/name?"
+
+	CHOICE=$(gum choose --item.foreground 250 "Yes" "No")
+
+	if [ "$CHOICE" == "Yes" ]; then
+		MYNAME="Nicholas Ciechanowski"
+		NAME=$(gum input --value "$MYNAME" --placeholder "$MYNAME")
+
+		git config --global user.name "$NAME"
+
+		MYEMAIL="nicholasaciechanowski@gmail.com"
+		EMAIL=$(gum input --value "$MYEMAIL" --placeholder "$MYEMAIL")
+
+		git config --global user.email "$NAME"
 	fi
 }
 
