@@ -329,10 +329,10 @@ install_oh_my_zsh() {
 				poetry completions zsh >"$ZSH_CUSTOM/plugins/poetry/_poetry"
 			fi
 
-			git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
-			git clone https://github.com/zsh-users/zsh-syntax-highlighting "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
-
 			chsh -s /usr/bin/zsh
+
+   			git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
+			git clone https://github.com/zsh-users/zsh-syntax-highlighting "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
 
 			msg_succ "oh my zsh has been installed."
 		else
@@ -397,18 +397,7 @@ install_astro_nvim() {
 		check_package "go"
 
 		# --- Install deps for astro
-		ARCH=$(arch)
-		LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
-
-		if [[ "$ARCH" == "aarch64" ]]; then
-			curl -sSLo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_arm64.tar.gz"
-		else
-			curl -sSLo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
-		fi
-
-		tar xf lazygit.tar.gz lazygit
-		sudo install lazygit /usr/local/bin
-		rm -rf lazygit.tar.gz lazygit
+		go install github.com/jesseduffield/lazygit@latest
 
 		cargo install tree-sitter-cli
 		cargo install bottom
