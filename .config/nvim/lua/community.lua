@@ -23,6 +23,13 @@ return {
   { import = "astrocommunity.pack.rust" },
   { import = "astrocommunity.pack.yaml" },
 
+  { import = "astrocommunity.pack.php" },
+  { import = "astrocommunity.pack.blade" },
+
+  -- Cmps
+  { import = "astrocommunity.completion.cmp-cmdline" },
+  { import = "astrocommunity.completion.cmp-emoji" },
+
   -- Other
   { import = "astrocommunity.debugging.nvim-dap-virtual-text" },
   { import = "astrocommunity.diagnostics.trouble-nvim" },
