@@ -331,7 +331,7 @@ install_oh_my_zsh() {
 
 			chsh -s /usr/bin/zsh
 
-   			git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
+			git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
 			git clone https://github.com/zsh-users/zsh-syntax-highlighting "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
 
 			msg_succ "oh my zsh has been installed."
@@ -441,7 +441,7 @@ configure_git() {
 		MYEMAIL="nicholasaciechanowski@gmail.com"
 		EMAIL=$(gum input --value "$MYEMAIL" --placeholder "$MYEMAIL")
 
-		git config --global user.email "$NAME"
+		git config --global user.email "$EMAIL"
 	fi
 }
 
