@@ -3,9 +3,6 @@
 -- NOTE: We highly recommend setting up the Lua Language Server (`:LspInstall lua_ls`)
 --       as this provides autocomplete and documentation while editing
 
-local function copy(lines, _) require("osc52").copy(table.concat(lines, "\n")) end
-local function paste() return { vim.fn.split(vim.fn.getreg "", "\n"), vim.fn.getregtype "" } end
-
 ---@type LazySpec
 return {
   "AstroNvim/astrocore",
@@ -33,15 +30,22 @@ return {
         spell = false, -- sets vim.opt.spell
         signcolumn = "yes", -- sets vim.opt.signcolumn to yes
         wrap = false, -- sets vim.opt.wrap
+        clipboard = "unnamedplus", -- sets vim.opt.clipboard
       },
       g = { -- vim.g.<key>
         -- configure global vim variables (vim.g)
         -- NOTE: `mapleader` and `maplocalleader` must be set in the AstroNvim opts or before `lazy.setup`
         -- This can be found in the `lua/lazy_setup.lua` file
         clipboard = {
-          name = "osc52",
-          copy = { ["+"] = copy, ["*"] = copy },
-          paste = { ["+"] = paste, ["*"] = paste },
+          name = "OSC 52",
+          copy = {
+            ["+"] = require("vim.ui.clipboard.osc52").copy "+",
+            ["*"] = require("vim.ui.clipboard.osc52").copy "*",
+          },
+          paste = {
+            ["+"] = require("vim.ui.clipboard.osc52").paste "+",
+            ["*"] = require("vim.ui.clipboard.osc52").paste "*",
+          },
         },
       },
     },
