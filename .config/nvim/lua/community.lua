@@ -10,13 +10,12 @@ return {
 
   -- AI
   { import = "astrocommunity.completion.copilot-lua-cmp" },
-  { import = "astrocommunity.editing-support.chatgpt-nvim" },
+  -- { import = "astrocommunity.editing-support.chatgpt-nvim" },
 
   -- Packs
   { import = "astrocommunity.pack.bash" },
   { import = "astrocommunity.pack.gleam" },
   { import = "astrocommunity.pack.go" },
-  { import = "astrocommunity.pack.html-css" },
   { import = "astrocommunity.pack.json" },
   { import = "astrocommunity.pack.markdown" },
   { import = "astrocommunity.pack.python" },
@@ -25,6 +24,8 @@ return {
 
   { import = "astrocommunity.pack.php" },
   { import = "astrocommunity.pack.blade" },
+  { import = "astrocommunity.pack.html-css" },
+  { import = "astrocommunity.pack.laravel" },
 
   -- Cmps
   { import = "astrocommunity.completion.cmp-cmdline" },
@@ -35,4 +36,5 @@ return {
   { import = "astrocommunity.diagnostics.trouble-nvim" },
   { import = "astrocommunity.editing-support.suda-vim" },
   { import = "astrocommunity.markdown-and-latex.glow-nvim" },
+  { import = "astrocommunity.test.vim-test" },
 }
