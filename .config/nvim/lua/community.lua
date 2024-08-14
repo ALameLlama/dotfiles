@@ -6,8 +6,6 @@
 return {
   "AstroNvim/astrocommunity",
 
-  -- { import = "astrocommunity.colorscheme.catppuccin" },
-
   -- AI
   { import = "astrocommunity.completion.copilot-lua-cmp" },
   -- { import = "astrocommunity.editing-support.chatgpt-nvim" },
@@ -31,10 +29,18 @@ return {
   { import = "astrocommunity.completion.cmp-cmdline" },
   { import = "astrocommunity.completion.cmp-emoji" },
 
+  -- Markdown
+  { import = "astrocommunity.markdown-and-latex.glow-nvim" },
+  { import = "astrocommunity.markdown-and-latex.markview-nvim" },
+
+  -- Git
+  { import = "astrocommunity.git.gitgraph-nvim" },
+  { import = "astrocommunity.git.diffview-nvim" },
+
   -- Other
   { import = "astrocommunity.debugging.nvim-dap-virtual-text" },
   { import = "astrocommunity.diagnostics.trouble-nvim" },
   { import = "astrocommunity.editing-support.suda-vim" },
-  { import = "astrocommunity.markdown-and-latex.glow-nvim" },
   { import = "astrocommunity.test.vim-test" },
+  { import = "astrocommunity.neovim-lua-development.helpview-nvim" },
 }
