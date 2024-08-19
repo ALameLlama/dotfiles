@@ -2,81 +2,175 @@
 return {
   {
     "CopilotC-Nvim/CopilotChat.nvim",
-    branch = "canary",
-    cmd = "CopilotChat",
+    version = "^2",
+    cmd = {
+      "CopilotChat",
+      "CopilotChatOpen",
+      "CopilotChatClose",
+      "CopilotChatToggle",
+      "CopilotChatStop",
+      "CopilotChatReset",
+      "CopilotChatSave",
+      "CopilotChatLoad",
+      "CopilotChatDebugInfo",
+      "CopilotChatModels",
+      "CopilotChatExplain",
+      "CopilotChatReview",
+      "CopilotChatFix",
+      "CopilotChatOptimize",
+      "CopilotChatDocs",
+      "CopilotChatFixDiagnostic",
+      "CopilotChatCommit",
+      "CopilotChatCommitStaged",
+    },
     dependencies = {
-      { "zbirenbaum/copilot.lua" }, -- or github/copilot.vim
-      { "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
+      { "zbirenbaum/copilot.lua" },
+      { "nvim-lua/plenary.nvim" },
+      { "nvim-telescope/telescope.nvim" },
+      {
+        "AstroNvim/astrocore",
+        ---@param opts AstroCoreOpts
+        opts = function(_, opts)
+          local maps = assert(opts.mappings)
+
+          local prefix = "<Leader>P"
+          maps.n[prefix] = { desc = require("astroui").get_icon("CopilotChat", 1, true) .. "CopilotChat" }
+          maps.v[prefix] = { desc = require("astroui").get_icon("CopilotChat", 1, true) .. "CopilotChat" }
+
+          maps.n[prefix .. "t"] = { ":CopilotChatToggle<CR>", desc = "Toggle Chat" }
+          maps.n[prefix .. "r"] = { ":CopilotChatReset<CR>", desc = "Reset Chat" }
+          maps.n[prefix .. "s"] = { ":CopilotChatStop<CR>", desc = "Stop Chat" }
+
+          -- TODO: look into window stying.
+          -- Look into saving chats
+          -- See if there is anythig else we can use from this
+          -- cmp?
+          -- https://github.com/jellydn/lazy-nvim-ide/blob/main/lua/plugins/extras/copilot-chat-v2.lua
+
+          maps.v[prefix .. "p"] = {
+            function()
+              require("CopilotChat.integrations.telescope").pick(require("CopilotChat.actions").prompt_actions())
+            end,
+            desc = "Prompt actions",
+          }
+
+          maps.v[prefix .. "h"] = {
+            function()
+              require("CopilotChat.integrations.telescope").pick(require("CopilotChat.actions").help_actions())
+            end,
+            desc = "Help actions",
+          }
+
+          maps.n[prefix .. "q"] = {
+            function()
+              vim.ui.input({ prompt = "Quick Chat: " }, function(input)
+                if input ~= nil and input ~= "" then
+                  require("CopilotChat").ask(input, { selection = require("CopilotChat.select").buffer })
+                end
+              end)
+            end,
+            desc = "Quick Chat",
+          }
+
+          maps.v[prefix .. "q"] = {
+            function()
+              vim.ui.input({ prompt = "Quick Chat: " }, function(input)
+                if input ~= nil and input ~= "" then
+                  require("CopilotChat").ask(input, { selection = require("CopilotChat.select").visual })
+                end
+              end)
+            end,
+            desc = "Quick Chat",
+          }
+        end,
+      },
+      { "AstroNvim/astroui", opts = { icons = { CopilotChat = "" } } },
     },
     opts = {},
   },
-  {
-    "zbirenbaum/copilot.lua",
-    specs = {
-      { import = "astrocommunity.completion.copilot-lua" },
-      {
-        "hrsh7th/nvim-cmp",
-        dependencies = { "zbirenbaum/copilot.lua" },
-        opts = function(_, opts)
-          local cmp, copilot = require "cmp", require "copilot.suggestion"
-
-          cmp.event:on("menu_opened", function() vim.b.copilot_suggestion_hidden = true end)
-          cmp.event:on("menu_closed", function() vim.b.copilot_suggestion_hidden = false end)
-
-          local snip_status_ok, luasnip = pcall(require, "luasnip")
-          if not snip_status_ok then return end
-          local function has_words_before()
-            local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-            return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match "%s" == nil
-          end
-          if not opts.mapping then opts.mapping = {} end
-          opts.mapping["<Tab>"] = cmp.mapping(function(fallback)
-            if copilot.is_visible() then
-              copilot.accept()
-            elseif cmp.visible() then
-              cmp.select_next_item()
-            elseif luasnip.expand_or_jumpable() then
-              luasnip.expand_or_jump()
-            elseif has_words_before() then
-              cmp.complete()
-            else
-              fallback()
-            end
-          end, { "i", "s" })
-
-          opts.mapping["<C-x>"] = cmp.mapping(function()
-            if copilot.is_visible() then copilot.next() end
-          end)
-
-          opts.mapping["<C-z>"] = cmp.mapping(function()
-            if copilot.is_visible() then copilot.prev() end
-          end)
-
-          opts.mapping["<C-right>"] = cmp.mapping(function()
-            if copilot.is_visible() then copilot.accept_word() end
-          end)
-
-          opts.mapping["<C-l>"] = cmp.mapping(function()
-            if copilot.is_visible() then copilot.accept_word() end
-          end)
-
-          opts.mapping["<C-down>"] = cmp.mapping(function()
-            if copilot.is_visible() then copilot.accept_line() end
-          end)
-
-          opts.mapping["<C-j>"] = cmp.mapping(function()
-            if copilot.is_visible() then copilot.accept_line() end
-          end)
-
-          opts.mapping["<C-c>"] = cmp.mapping(function()
-            if copilot.is_visible() then copilot.dismiss() end
-          end)
-
-          return opts
-        end,
-      },
-    },
-  },
+  -- {
+  --   "zbirenbaum/copilot.lua",
+  --   specs = {
+  --     { import = "astrocommunity.completion.copilot-lua" },
+  --     {
+  --       "hrsh7th/nvim-cmp",
+  --       dependencies = { "zbirenbaum/copilot.lua" },
+  --       opts = function(_, opts)
+  --         local cmp, copilot = require "cmp", require "copilot.suggestion"
+  --         local snip_status_ok, luasnip = pcall(require, "luasnip")
+  --         if not snip_status_ok then return end
+  --
+  --         -- cmp.event:on("menu_opened", function() vim.b.copilot_suggestion_hidden = true end)
+  --         -- cmp.event:on("menu_closed", function() vim.b.copilot_suggestion_hidden = false end)
+  --
+  --         -- Unfortunately this is really buggy
+  --         -- Debounce setup
+  --         -- local timer = vim.loop.new_timer()
+  --         -- local DEBOUNCE_DELAY = 1000
+  --         --
+  --         -- local function debounce_copilot()
+  --         --   timer:stop()
+  --         --   vim.b.copilot_suggestion_hidden = true
+  --         --   timer:start(DEBOUNCE_DELAY, 0, vim.schedule_wrap(function() vim.b.copilot_suggestion_hidden = false end))
+  --         -- end
+  --         --
+  --         -- cmp.event:on("menu_opened", debounce_copilot)
+  --         -- cmp.event:on("menu_closed", debounce_copilot)
+  --
+  --         local function has_words_before()
+  --           local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+  --           return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match "%s" == nil
+  --         end
+  --
+  --         if not opts.mapping then opts.mapping = {} end
+  --         opts.mapping["<Tab>"] = cmp.mapping(function(fallback)
+  --           if copilot.is_visible() then
+  --             copilot.accept()
+  --           elseif cmp.visible() then
+  --             cmp.select_next_item()
+  --             -- debounce_copilot()
+  --           elseif luasnip.expand_or_jumpable() then
+  --             luasnip.expand_or_jump()
+  --           elseif has_words_before() then
+  --             cmp.complete()
+  --           else
+  --             fallback()
+  --           end
+  --         end, { "i", "s" })
+  --
+  --         opts.mapping["<C-x>"] = cmp.mapping(function()
+  --           if copilot.is_visible() then copilot.next() end
+  --         end)
+  --
+  --         opts.mapping["<C-z>"] = cmp.mapping(function()
+  --           if copilot.is_visible() then copilot.prev() end
+  --         end)
+  --
+  --         opts.mapping["<C-right>"] = cmp.mapping(function()
+  --           if copilot.is_visible() then copilot.accept_word() end
+  --         end)
+  --
+  --         opts.mapping["<C-l>"] = cmp.mapping(function()
+  --           if copilot.is_visible() then copilot.accept_word() end
+  --         end)
+  --
+  --         opts.mapping["<C-down>"] = cmp.mapping(function()
+  --           if copilot.is_visible() then copilot.accept_line() end
+  --         end)
+  --
+  --         opts.mapping["<C-j>"] = cmp.mapping(function()
+  --           if copilot.is_visible() then copilot.accept_line() end
+  --         end)
+  --
+  --         opts.mapping["<C-c>"] = cmp.mapping(function()
+  --           if copilot.is_visible() then copilot.dismiss() end
+  --         end)
+  --
+  --         return opts
+  --       end,
+  --     },
+  --   },
+  -- },
 }
 
 ---@type LazySpec
