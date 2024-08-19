@@ -7,8 +7,7 @@ return {
   "AstroNvim/astrocommunity",
 
   -- AI
-  -- { import = "astrocommunity.completion.copilot-lua-cmp" },
-  -- { import = "astrocommunity.editing-support.chatgpt-nvim" },
+  { import = "astrocommunity.completion.copilot-lua-cmp" },
 
   -- Packs
   { import = "astrocommunity.pack.bash" },
