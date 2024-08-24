@@ -8,6 +8,7 @@ return {
 
   -- AI
   { import = "astrocommunity.completion.copilot-lua-cmp" },
+  { import = "astrocommunity.editing-support.copilotchat-nvim" },
 
   -- Packs
   { import = "astrocommunity.pack.bash" },
