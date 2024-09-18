@@ -325,14 +325,14 @@ install_oh_my_zsh() {
 			git clone https://github.com/ohmyzsh/ohmyzsh.git "$HOME/.oh-my-zsh"
 
 			if command -v poetry &>/dev/null; then
-				mkdir "$ZSH_CUSTOM/plugins/poetry"
+				mkdir "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/poetry"
 				poetry completions zsh >"$ZSH_CUSTOM/plugins/poetry/_poetry"
 			fi
 
 			chsh -s /usr/bin/zsh
 
-			git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
-			git clone https://github.com/zsh-users/zsh-syntax-highlighting "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
+			git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
+			git clone https://github.com/zsh-users/zsh-syntax-highlighting "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
 
 			msg_succ "oh my zsh has been installed."
 		else
