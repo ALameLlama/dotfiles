@@ -40,6 +40,7 @@ alias zsh-git-gshow="git config oh-my-zsh.hide-info 0 --global"
 
 alias wttr='clear && curl -s "https://wttr.in/3805+Australia?2"'
 
-eval $(thefuck --alias)
+eval "$(pay-respects zsh --alias)"
+alias fuck="f"
 
 alias nv='nvim'
