@@ -44,8 +44,8 @@ main() {
 	install_package "zoxide"
 	install_package "entr"
 	install_package "mc"
-	install_package "thefuck"
 
+	install_pay_respects
 	install_eza
 
 	install_astro_nvim
@@ -359,6 +359,22 @@ install_bat() {
 	fi
 }
 
+install_pay_respects() {
+	if ! command -v pay-respects &>/dev/null; then
+		msg_warn "$(gum style --bold "pay-respects") is not installed."
+		if gum_choice "pay-respects"; then
+
+			cargo install pay-respects
+
+			msg_succ "pay-respects has been installed."
+		else
+			msg_err "pay-respects will not be installed."
+		fi
+	else
+		msg_succ "$(gum style --bold "pay-respects") is already installed."
+	fi
+}
+
 install_eza() {
 	if ! command -v eza &>/dev/null; then
 		msg_warn "$(gum style --bold "eza") is not installed."
@@ -405,9 +421,7 @@ install_astro_nvim() {
 
 		sudo ${APT_INSTALLER} install -y python3-launchpadlib
 
-		sudo add-apt-repository -y ppa:daniel-milde/gdu
-		sudo ${APT_INSTALLER} update
-		sudo ${APT_INSTALLER} install -y gdu
+		go install github.com/dundee/gdu/v5/cmd/gdu@latest
 
 		sudo ${APT_INSTALLER} install -y xdg-utils
 
