@@ -56,7 +56,6 @@ return {
   -- LSP
   { import = "astrocommunity.lsp.actions-preview-nvim" },
   { import = "astrocommunity.lsp.inc-rename-nvim" }, -- :IncRename
-  { import = "astrocommunity.lsp.lsp-lens-nvim" }, -- :LspLensToggle
   { import = "astrocommunity.lsp.lsp-signature-nvim" },
 
   -- Markdown
