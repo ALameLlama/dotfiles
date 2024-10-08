@@ -26,7 +26,7 @@ return {
   { import = "astrocommunity.debugging.nvim-dap-virtual-text" },
 
   -- Diagnostics
-  { import = "astrocommunity.diagnostics.lsp_lines-nvim" },
+  -- { import = "astrocommunity.diagnostics.lsp_lines-nvim" },
   { import = "astrocommunity.diagnostics.trouble-nvim" },
 
   -- Editing Support
