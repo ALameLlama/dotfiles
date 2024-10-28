@@ -18,6 +18,7 @@ return {
   { import = "astrocommunity.comment.ts-comments-nvim" }, -- Better commenting out code
 
   -- Completion
+  { import = "astrocommunity.completion.magazine-nvim" },
   { import = "astrocommunity.completion.cmp-cmdline" },
   { import = "astrocommunity.completion.cmp-emoji" },
   { import = "astrocommunity.completion.copilot-lua-cmp" },
@@ -27,13 +28,12 @@ return {
 
   -- Diagnostics
   -- { import = "astrocommunity.diagnostics.lsp_lines-nvim" },
-  { import = "astrocommunity.diagnostics.trouble-nvim" },
+  -- { import = "astrocommunity.diagnostics.trouble-nvim" },
 
   -- Editing Support
-  -- { import = "astrocommunity.editing-support.auto-save-nvim" }, -- I need to fix the debounce setting otherwise trying to use undo is unusable
+  { import = "astrocommunity.editing-support.auto-save-nvim" },
   -- { import = "astrocommunity.editing-support.bigfile-nvim" }, -- Need to see if this is better then astrocore large_buf
   { import = "astrocommunity.editing-support.copilotchat-nvim" }, -- Copilot chat,
-  { import = "astrocommunity.editing-support.cutlass-nvim" }, -- Cutlass overrides the delete operations to actually just delete and not affect the current yank.
   { import = "astrocommunity.editing-support.hypersonic-nvim" }, -- :Hypersonic for regex explainer
   { import = "astrocommunity.editing-support.mini-splitjoin" }, -- Split/Join params with gS
   { import = "astrocommunity.editing-support.neogen" }, -- Annotation generator
