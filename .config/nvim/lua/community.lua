@@ -27,8 +27,8 @@ return {
   { import = "astrocommunity.debugging.nvim-dap-virtual-text" },
 
   -- Diagnostics
-  -- { import = "astrocommunity.diagnostics.lsp_lines-nvim" },
-  -- { import = "astrocommunity.diagnostics.trouble-nvim" },
+  { import = "astrocommunity.diagnostics.tiny-inline-diagnostic-nvim" },
+  { import = "astrocommunity.diagnostics.trouble-nvim" },
 
   -- Editing Support
   { import = "astrocommunity.editing-support.auto-save-nvim" },
