@@ -1,14 +1,21 @@
 #!/usr/bin/env bash
 
-# install nix
-sh <(curl -L https://nixos.org/nix/install) --daemon
+function source_nix() {
+	if [ -f "$HOME/.nix-profile/etc/profile.d/nix.sh" ]; then
+		source "$HOME/.nix-profile/etc/profile.d/nix.sh"
+	elif [ -f "/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh" ]; then
+		source "/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh"
+	else
+		echo "Could not find Nix profile script. Please restart your shell manually."
+		exit 1
+	fi
+}
 
-# install nix home manager
-nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
-nix-channel --update
-
-# git clone my dotfiles
-git clone git@github.com:ALameLlama/dotfiles.git ~/.dotfiles
+function main() {
+	# install nix if not already installed
+	if [ ! -f /etc/profile.d/nix.sh ]; then
+		sh <(curl -L https://nixos.org/nix/install) --daemon
+	fi
 
 	# source nix
 	source_nix
@@ -16,29 +23,22 @@ git clone git@github.com:ALameLlama/dotfiles.git ~/.dotfiles
 	# install nix home manager
 	nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
 	nix-channel --update
-
 	nix-shell '<home-manager>' -A install
 
-	nix-env -iA nixpkgs.stow
-
+	# remove existing home-manager config
 	rm -rf ~/.config/home-manager
-	
+
 	# git clone my dotfiles
-	git clone git@github.com:ALameLlama/dotfiles.git ~/.dotfiles
-	# switch to the nix branch
-	( cd ~/.dotfiles && git checkout nix )
-	( cd ~/.dotfiles && stow .)
+	# git clone git@github.com:ALameLlama/dotfiles.git ~/.dotfiles
 
-	# mkdir -p ~/.config/home-manager
-	# ln -s ~/.dotfiles/.config/home-manager ~/.config/home-manager
-
+	# create user config
 	echo "{
 	\"username\": \"$(whoami)\",
 	\"homeDirectory\": \"$HOME\"
-	}" > ~/.config/home-manager/user-config.json
+	}" >~/.dotfiles/.config/home-manager/user-config.json
 
-	# install home manager
-	home-manager switch
+	# link home-manager config
+	home-manager switch -f ~/.dotfiles/.config/home-manager/home.nix
 }
 
 main

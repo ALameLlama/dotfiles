@@ -4,6 +4,10 @@ let
   userConfig = builtins.fromJSON (builtins.readFile ./user-config.json);
 in
 {
+  nix = {
+    package = pkgs.nix;
+  };
+
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = userConfig.username;
@@ -39,15 +43,38 @@ in
     # '')
     pkgs.nushell
     pkgs.starship
+
+    # nvim packages
     pkgs.neovim
+    pkgs.python3
     pkgs.rustc
     pkgs.cargo
     pkgs.nodejs
     pkgs.go
     pkgs.git
     pkgs.gcc
+    pkgs.gnumake
+    pkgs.unzip
+    pkgs.ripgrep
+    pkgs.lazygit
   ];
-  
+
+  programs.nushell = {
+    enable = true;
+  };
+
+  programs.starship = {
+    enable = true;
+  };
+
+  programs.git = {
+    enable = true;
+    userName = "Nicholas Ciechanowski";
+    userEmail = "nicholasaciechanowski@gmail.com";
+  };
+
+
+ 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
   home.file = {
@@ -61,8 +88,9 @@ in
     #   org.gradle.console=verbose
     #   org.gradle.daemon.idletimeout=3600000
     # '';
-    ".config/nvim".source = config.lib.file.mkOutOfStoreSymlink ~/.dotfiles/.config/nvim;
-    ".config/tmux".source =  ~/.dotfiles/.config/tmux;
+    ".config/nvim".source = config.lib.file.mkOutOfStoreSymlink  "${config.home.homeDirectory}/.dotfiles/.config/nvim";
+    ".config/tmux".source = "${config.home.homeDirectory}/.dotfiles/.config/tmux";
+    ".config/home-manager".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/.config/home-manager";
   };
 
   # Home Manager can also manage your environment variables through
@@ -82,7 +110,7 @@ in
   #  /etc/profiles/per-user/vagrant/etc/profile.d/hm-session-vars.sh
   #
   home.sessionVariables = {
-    # EDITOR = "emacs";
+    EDITOR = "nvim";
   };
 
   # Let Home Manager install and manage itself.
