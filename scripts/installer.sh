@@ -38,7 +38,7 @@ function main() {
 	}" >~/.dotfiles/.config/home-manager/user-config.json
 
 	# link home-manager config
-	home-manager switch -f ~/.dotfiles/.config/home-manager/home.nix
+	home-manager switch -f ~/.dotfiles/.config/home-manager/home.nix -b initbackup
 }
 
 main
