@@ -29,7 +29,7 @@ function main() {
 	rm -rf ~/.config/home-manager
 
 	# git clone my dotfiles
-	# git clone git@github.com:ALameLlama/dotfiles.git ~/.dotfiles
+	git clone git@github.com:ALameLlama/dotfiles.git ~/.dotfiles
 
 	# create user config
 	echo "{
