@@ -84,6 +84,7 @@ return {
   { import = "astrocommunity.pack.python" },
   { import = "astrocommunity.pack.rust" },
   { import = "astrocommunity.pack.yaml" },
+  { import = "astrocommunity.pack.nix" },
 
   -- Test
   { import = "astrocommunity.test.vim-test" },

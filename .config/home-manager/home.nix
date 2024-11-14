@@ -1,16 +1,17 @@
 # https://home-manager-options.extranix.com/
-
 # TODO: port rest of my .env and stuff over
 # look at anything else I need to configure via home-manager
-
-{ config, pkgs, ... }:
-
-let
-  userConfig = builtins.fromJSON (builtins.readFile ./user-config.json);
-in
+# ssh agent? eval "$(ssh-agents)" ssh-add ~/.ssh/id_ed25519
 {
+  config,
+  pkgs,
+  ...
+}: let
+  userConfig = builtins.fromJSON (builtins.readFile ./user-config.json);
+in {
   nix = {
     package = pkgs.nix;
+    settings.experimental-features = ["nix-command" "flakes"];
   };
 
   # Home Manager needs a bit of information about you and the paths it should
@@ -60,7 +61,7 @@ in
 
     python3
     python312Packages.pip
-    pipx 
+    pipx
 
     nodejs
 
@@ -70,6 +71,12 @@ in
 
     go
     lazygit
+
+    # nix packages
+    nixd
+    alejandra
+    deadnix
+    statix
 
     # extra packages
     tmux
@@ -97,8 +104,7 @@ in
     #   org.gradle.daemon.idletimeout=3600000
     # '';
     ".config/home-manager".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/.config/home-manager";
-    ".config/nvim".source = config.lib.file.mkOutOfStoreSymlink  "${config.home.homeDirectory}/.dotfiles/.config/nvim";
-    # ".config/tmux".source = "${config.home.homeDirectory}/.dotfiles/.config/tmux";
+    ".config/nvim".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/.config/nvim";
   };
 
   # Home Manager can also manage your environment variables through
@@ -154,7 +160,7 @@ in
       userEmail = "nicholasaciechanowski@gmail.com";
     };
     # TODO:, look into manually stying this since I can't see selected input
-    carapace = { 
+    carapace = {
       enable = true;
       enableZshIntegration = true;
     };
@@ -206,7 +212,7 @@ in
         golang = {
           format = "[ ](bold cyan)";
         };
-      
+
         aws = {
           format = "[$symbol(profile: \"$profile\" )(\(region: $region\) )]($style)";
           disabled = false;
@@ -217,7 +223,7 @@ in
         kubernetes = {
           symbol = "☸ ";
           disabled = true;
-          detect_files = [ "Dockerfile" ];
+          detect_files = ["Dockerfile"];
           format = "[$symbol$context( \\($namespace\\))]($style) ";
           contexts = [
             {
@@ -233,7 +239,7 @@ in
           disabled = true;
         };
 
-          palettes = {
+        palettes = {
           catppuccin_mocha = {
             rosewater = "#f5e0dc";
             flamingo = "#f2cdcd";
@@ -269,7 +275,7 @@ in
       enable = true;
 
       # Set your default shell and terminal
-      shell =  "${pkgs.zsh}/bin/zsh";
+      shell = "${pkgs.zsh}/bin/zsh";
       terminal = "xterm-256color";
 
       # Enable mouse and set escape time
