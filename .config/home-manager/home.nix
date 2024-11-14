@@ -3,6 +3,7 @@
 # look at anything else I need to configure via home-manager
 # ssh agent? eval "$(ssh-agents)" ssh-add ~/.ssh/id_ed25519
 {
+  lib,
   config,
   pkgs,
   ...
