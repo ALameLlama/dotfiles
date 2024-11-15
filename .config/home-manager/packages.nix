@@ -1,3 +1,4 @@
+# https://nixpk.gs
 {pkgs, ...}:
 with pkgs; [
   # # Adds the 'hello' command to your environment. It prints a friendly
@@ -16,9 +17,11 @@ with pkgs; [
   # (pkgs.writeShellScriptBin "my-hello" ''
   #   echo "Hello, ${config.home.username}!"
   # '')
+  
   # prompt
-  bash
   zsh
+  zsh-autosuggestions
+  zsh-syntax-highlighting
   starship
 
   # nvim packages
@@ -27,12 +30,17 @@ with pkgs; [
   gcc
   gnumake
   unzip
+  tree-sitter
+  bottom
+  gdu
 
   python3
   python312Packages.pip
   pipx
+  poetry
 
   nodejs
+  fnm
 
   rustc
   cargo
@@ -42,19 +50,19 @@ with pkgs; [
   lazygit
 
   # nix packages
-  nixd
   alejandra
   deadnix
+  nixd
   statix
 
   # extra packages
-  tmux
   bat
-  fzf
-  zoxide
-  entr
-  superfile # use mc if this doesn't work
-  eza
   carapace
-  fnm
+  entr
+  eza
+  fzf
+  superfile # use mc if this doesn't work
+  tmux
+  zoxide
+  # pay-respects https://nixpk.gs/pr-tracker.html?pr=355694
 ]

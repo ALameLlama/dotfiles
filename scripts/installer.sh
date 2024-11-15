@@ -11,6 +11,11 @@ function source_nix() {
 	fi
 }
 
+# TODO:
+# Fix timezone e.g sudo timedatectl set-timezone Australia/Melbourne
+# add login message to show git repo status
+# look into weird zsh prompt issue, having missing spaces?
+
 function main() {
 	# install nix if not already installed
 	if [ ! -f /etc/profile.d/nix.sh ]; then
@@ -38,7 +43,7 @@ function main() {
 	}" >~/.dotfiles/.config/home-manager/user-config.json
 
 	# link home-manager config
-	home-manager switch -f ~/.dotfiles/.config/home-manager/home.nix -b initbackup
+	home-manager switch -f ~/.dotfiles/.config/home-manager/home.nix -b init-backup
 }
 
 main
