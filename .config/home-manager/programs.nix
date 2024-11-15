@@ -1,3 +1,4 @@
+# https://home-manager-options.extranix.com/
 {pkgs}:
 with pkgs; {
   # Let Home Manager install and manage itself.
@@ -5,21 +6,70 @@ with pkgs; {
     enable = true;
   };
   # Enable set zsh as default shell
-  bash = {
-    enable = true;
-    # update .bashrc to start zsh
-    profileExtra = ''
-      if [ -z "$ZSH_VERSION" ]; then
-        exec zsh
-      fi
-    '';
-  };
+  # bash = {
+  #   enable = true;
+  #   # update .bashrc to start zsh
+  #   profileExtra = ''
+  #     if [ -z "$ZSH_VERSION" ]; then
+  #       exec zsh
+  #     fi
+  #   '';
+  # };
   zsh = {
     enable = true;
+
     # update .zshrc
     initExtra = ''
       eval "$(fnm env --use-on-cd --shell zsh)"
+
+      if command -v exa >/dev/null; then
+        alias ls="exa"
+        alias ll="exa -alh"
+        alias tree="exa --tree"
+      elif command -v eza >/dev/null; then
+        alias ls="eza"
+        alias ll="eza -alh"
+        alias tree="eza --tree"
+      else
+        alias ll="ls -alF"
+      fi
+
+      if command -v bat >/dev/null; then
+        alias cat="bat"
+      elif command -v batcat >/dev/null; then
+        alias cat="batcat"
+      fi
+
+      if command -v z >/dev/null; then
+        alias cd="z"
+        alias zz="z -"
+      fi
     '';
+    shellAliases = {
+      ".." = "cd ..";
+      "..." = "cd ../..";
+
+      h = "cd ~";
+      c = "clear";
+
+      # Aliases for directories
+      dfc = "cd \"$HOME/.dotfiles\"";
+      dfs = "(cd \"$HOME/.dotfiles\" && home-manager switch)";
+      dfg = "(cd \"$HOME/.dotfiles\" && lazygit)";
+      dfn = "(cd \"$HOME/.dotfiles\" && nvim .)";
+
+      # Miscellaneous aliases
+      wttr = "clear && curl -s \"https://wttr.in/3805+Australia?2\"";
+      fuck = "f";
+      nv = "nvim";
+    };
+    autocd = true;
+    syntaxHighlighting = {
+      enable = true;
+    };
+    autosuggestion = {
+      enable = true;
+    };
   };
   neovim = {
     defaultEditor = true;
@@ -42,48 +92,39 @@ with pkgs; {
     enableZshIntegration = true;
     settings = {
       add_newline = false;
-      format = "$directory$character";
+      format = "$time$directory$character";
       palette = "catppuccin_mocha";
       right_format = "$all";
       command_timeout = 1000;
 
-      directory = {
-        substitutions = {
-          "~/tests/starship-custom" = "work-project";
-        };
+      # directory = {
+      #   substitutions = {
+      #     "~/tests/starship-custom" = "work-project";
+      #   };
+      # };
+
+      time = {
+        disabled = false;
+        format = "[[ 🕒 $time ](fg:white)]($style)";
+        time_format = "%I:%M %p";
+      };
+
+      character = {
+        disabled = false;
+        success_symbol = "[❯](bold green)";
+        error_symbol = "[❯](bold red)";
+        vimcmd_symbol = "[❮](bold green)";
+        vimcmd_replace_one_symbol = "[❮](bold purple)";
+        vimcmd_replace_symbol = "[❮](bold purple)";
+        vimcmd_visual_symbol = "[❮](bold lavender)";
       };
 
       git_branch = {
         format = "[$symbol$branch(:$remote_branch)]($style)";
       };
 
-      # TODO: test these lol
-      php = {
-        symbol = "🐘 ";
-        format = "[$symbol$version]($style)";
-        style = "bold purple";
-      };
-
-      lua = {
-        symbol = "🌙 ";
-        format = "[$symbol$version]($style)";
-        style = "bold blue";
-      };
-
-      rust = {
-        symbol = "🦀 ";
-        format = "[$symbol$version]($style)";
-        style = "bold red";
-      };
-
-      nodejs = {
-        symbol = " ";
-        format = "[$symbol$version]($style)";
-        style = "bold green";
-      };
-
       golang = {
-        format = "[ ](bold cyan)";
+        format = "[ $version ](bold cyan)";
       };
 
       aws = {
@@ -205,5 +246,9 @@ with pkgs; {
       resurrect
       continuum
     ];
+  };
+  zoxide = {
+    enable = true;
+    enableZshIntegration = true;
   };
 }
