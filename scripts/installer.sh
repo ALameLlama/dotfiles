@@ -11,6 +11,51 @@ function source_nix() {
 	fi
 }
 
+function generate_user_config() {
+	case "$(uname -s)" in
+	Darwin)
+		case "$(uname -m)" in
+		arm64)
+			system="aarch64-darwin"
+			;;
+		x86_64)
+			system="x86_64-darwin"
+			;;
+		*)
+			echo "Unsupported architecture on macOS: $(uname -m)"
+			exit 1
+			;;
+		esac
+		;;
+	Linux)
+		case "$(uname -m)" in
+		arm64 | aarch64)
+			system="aarch64-linux"
+			;;
+		x86_64)
+			system="x86_64-linux"
+			;;
+		*)
+			echo "Unsupported architecture on Linux: $(uname -m)"
+			exit 1
+			;;
+		esac
+		;;
+	*)
+		echo "Unsupported OS: $(uname -s)"
+		exit 1
+		;;
+	esac
+
+	cat >~/.dotfiles/.config/home-manager/user-config.json <<EOF
+{
+  "username": "$(whoami)",
+  "homeDirectory": "$HOME",
+  "system": "$system"
+}
+EOF
+}
+
 # TODO:
 # Fix timezone e.g sudo timedatectl set-timezone Australia/Melbourne
 # add login message to show git repo status
@@ -35,12 +80,10 @@ function main() {
 
 	# git clone my dotfiles
 	git clone git@github.com:ALameLlama/dotfiles.git ~/.dotfiles
+	(cd ~/.dotfiles/ && git checkout nix)
 
 	# create user config
-	echo "{
-	\"username\": \"$(whoami)\",
-	\"homeDirectory\": \"$HOME\"
-	}" >~/.dotfiles/.config/home-manager/user-config.json
+	generate_user_config
 
 	# link home-manager config
 	home-manager switch -f ~/.dotfiles/.config/home-manager/home.nix -b init-backup
