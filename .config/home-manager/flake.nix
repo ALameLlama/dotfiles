@@ -16,9 +16,9 @@
     ...
   } @ inputs: let
     lib = nixpkgs.lib;
-    system = "x86_64-linux";
-    pkgs = import nixpkgs {inherit system;};
     userConfig = builtins.fromJSON (builtins.readFile ./user-config.json);
+    system = userConfig.system;
+    pkgs = import nixpkgs {inherit system;};
     overlays = [
       # inputs.neovim-nightly-overlay.overlays.default
     ];
