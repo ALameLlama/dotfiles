@@ -17,7 +17,7 @@ with pkgs; [
   # (pkgs.writeShellScriptBin "my-hello" ''
   #   echo "Hello, ${config.home.username}!"
   # '')
-  
+
   # prompt
   zsh
   zsh-autosuggestions
@@ -39,11 +39,12 @@ with pkgs; [
   pipx
   poetry
 
-  nodejs
+  nodejs # see if this is needed or if this causes conflicts with fnm
   fnm
 
-  rustc
-  cargo
+  rustup # this will install cargo and rustc without conflecting
+  # rustc
+  # cargo
   ripgrep
 
   go
@@ -64,5 +65,5 @@ with pkgs; [
   superfile # use mc if this doesn't work
   tmux
   zoxide
-  # pay-respects https://nixpk.gs/pr-tracker.html?pr=355694
+  pay-respects 
 ]
