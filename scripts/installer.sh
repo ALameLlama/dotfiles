@@ -57,7 +57,6 @@ EOF
 }
 
 # TODO:
-# Fix timezone e.g sudo timedatectl set-timezone Australia/Melbourne
 # look into weird zsh prompt issue, having missing spaces?
 
 function main() {
