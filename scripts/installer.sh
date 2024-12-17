@@ -66,6 +66,8 @@ function main() {
 		sh <(curl -L https://nixos.org/nix/install) --daemon
 	fi
 
+ 	sudo timedatectl set-timezone Australia/Melbourne
+
 	# source nix
 	source_nix
 
