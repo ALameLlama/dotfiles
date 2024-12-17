@@ -86,7 +86,7 @@ with pkgs; {
       format = "$time$directory$custom$character";
       palette = "catppuccin_mocha";
       right_format = "$all";
-      command_timeout = 1000;
+      command_timeout = 5000;
 
       # directory = {
       #   substitutions = {
