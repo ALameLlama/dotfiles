@@ -83,7 +83,7 @@ with pkgs; {
     enableZshIntegration = true;
     settings = {
       add_newline = false;
-      format = "$time$directory$character";
+      format = "$time$directory$custom$character";
       palette = "catppuccin_mocha";
       right_format = "$all";
       command_timeout = 1000;
@@ -137,6 +137,57 @@ with pkgs; {
       };
 
       docker_context = { disabled = true; };
+
+      custom = {
+        dotfiles_status = {
+          description = "Indicates when dotfiles need updating";
+          command = ''
+            CACHE_FILE="$HOME/.cache/dotfiles_status_cache"
+            SESSION_START_FILE="/tmp/.session_start_$(whoami)"
+
+            # Check if we need to refresh (no cache, old cache, or new session)
+            NEEDS_REFRESH=0
+
+            # Check if this is first login of session
+            if [ ! -f "$SESSION_START_FILE" ]; then
+              NEEDS_REFRESH=1
+              touch "$SESSION_START_FILE"
+            fi
+
+            # Check if cache is older than 24 hours
+            if [ ! -f "$CACHE_FILE" ] || [ "$(find "$CACHE_FILE" -mtime +1)" ]; then
+              NEEDS_REFRESH=1
+            fi
+
+            # If we need to refresh, do the git check
+            if [ "$NEEDS_REFRESH" = "1" ]; then
+              # Ensure cache directory exists
+              mkdir -p "$HOME/.cache"
+
+              if [ -d ~/.dotfiles ]; then
+                cd ~/.dotfiles
+                git fetch -q
+                BEHIND=$(git rev-list HEAD..@{u} --count 2>/dev/null)
+                if [ "$BEHIND" -gt 0 ]; then
+                  echo "yes" > "$CACHE_FILE"
+                else
+                  echo "no" > "$CACHE_FILE"
+                fi
+              fi
+            fi
+
+            # Read from cache
+            if [ -f "$CACHE_FILE" ]; then
+              cat "$CACHE_FILE"
+            fi
+          '';
+          when = "test -d ~/.dotfiles";
+          shell = [ "bash" "--noprofile" "--norc" ];
+          symbol = "📦";
+          format = "$symbol ";
+          disabled = false;
+        };
+      };
 
       palettes = {
         catppuccin_mocha = {

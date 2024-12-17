@@ -81,6 +81,11 @@ function main() {
 	# git clone my dotfiles
 	git clone git@github.com:ALameLlama/dotfiles.git ~/.dotfiles
 
+	mkdir -p ~/.dotfiles/.git/hooks
+	echo '#!/bin/bash
+	rm -f "$HOME/.cache/dotfiles_status_cache"' >~/.dotfiles/.git/hooks/post-merge
+	chmod +x ~/.dotfiles/.git/hooks/post-merge
+
 	# create user config
 	generate_user_config
 

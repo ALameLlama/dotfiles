@@ -35,6 +35,8 @@ with pkgs; [
   bottom
   gdu
 
+  nerd-fonts.fira-code
+
   python3
   python312Packages.pip
   pipx
