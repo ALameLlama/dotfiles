@@ -165,13 +165,13 @@ with pkgs; {
               mkdir -p "$HOME/.cache"
 
               if [ -d ~/.dotfiles ]; then
-                cd ~/.dotfiles
+                cd ~/.dotfiles || exit
                 git fetch -q
                 BEHIND=$(git rev-list HEAD..@{u} --count 2>/dev/null)
                 if [ "$BEHIND" -gt 0 ]; then
-                  echo "yes" > "$CACHE_FILE"
+                  echo "📦" > "$CACHE_FILE"
                 else
-                  echo "no" > "$CACHE_FILE"
+                  echo "" > "$CACHE_FILE"
                 fi
               fi
             fi
@@ -183,8 +183,7 @@ with pkgs; {
           '';
           when = "test -d ~/.dotfiles";
           shell = [ "bash" "--noprofile" "--norc" ];
-          symbol = "📦";
-          format = "$symbol ";
+          format = "$output";
           disabled = false;
         };
       };
