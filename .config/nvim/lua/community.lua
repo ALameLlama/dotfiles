@@ -86,6 +86,9 @@ return {
   { import = "astrocommunity.pack.yaml" },
   { import = "astrocommunity.pack.nix" },
 
+  -- Scrolling
+  { import = "astrocommunity.scrolling.nvim-scrollbar" },
+
   -- Test
   { import = "astrocommunity.test.vim-test" },
 }
