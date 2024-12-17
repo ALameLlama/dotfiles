@@ -1,19 +1,13 @@
 # https://home-manager-options.extranix.com/
-# TODO: port rest of my .env and stuff over
-# look at anything else I need to configure via home-manager
-# ssh agent? eval "$(ssh-agents)" ssh-add ~/.ssh/id_ed25519
-{
-  config,
-  pkgs,
-  ...
-}: let
+{ config, pkgs, ... }:
+let
   userConfig = builtins.fromJSON (builtins.readFile ./user-config.json);
-  packages = import ./packages.nix {inherit pkgs;};
-  programs = import ./programs.nix {inherit pkgs;};
+  packages = import ./packages.nix { inherit pkgs; };
+  programs = import ./programs.nix { inherit pkgs; };
 in {
   nix = {
     package = pkgs.nix;
-    settings.experimental-features = ["nix-command" "flakes"];
+    settings.experimental-features = [ "nix-command" "flakes" ];
   };
 
   # Home Manager needs a bit of information about you and the paths it should
@@ -41,14 +35,16 @@ in {
     # # the Nix store. Activating the configuration will then make '~/.screenrc' a
     # # symlink to the Nix store copy.
     # ".screenrc".source = dotfiles/screenrc;
-
+    #
     # # You can also set the file content immediately.
     # ".gradle/gradle.properties".text = ''
     #   org.gradle.console=verbose
     #   org.gradle.daemon.idletimeout=3600000
     # '';
-    ".config/home-manager".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/.config/home-manager";
-    ".config/nvim".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/.config/nvim";
+    ".config/home-manager".source = config.lib.file.mkOutOfStoreSymlink
+      "${config.home.homeDirectory}/.dotfiles/.config/home-manager";
+    ".config/nvim".source = config.lib.file.mkOutOfStoreSymlink
+      "${config.home.homeDirectory}/.dotfiles/.config/nvim";
   };
 
   # Home Manager can also manage your environment variables through
@@ -67,9 +63,7 @@ in {
   #
   #  /etc/profiles/per-user/vagrant/etc/profile.d/hm-session-vars.sh
   #
-  home.sessionVariables = {
-    EDITOR = "nvim";
-  };
+  home.sessionVariables = { EDITOR = "nvim"; };
 
   programs = programs;
 }

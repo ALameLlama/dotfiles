@@ -80,7 +80,6 @@ function main() {
 
 	# git clone my dotfiles
 	git clone git@github.com:ALameLlama/dotfiles.git ~/.dotfiles
-	(cd ~/.dotfiles/ && git checkout nix)
 
 	# create user config
 	generate_user_config

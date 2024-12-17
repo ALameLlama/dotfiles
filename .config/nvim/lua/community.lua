@@ -39,7 +39,7 @@ return {
   { import = "astrocommunity.editing-support.neogen" }, -- Annotation generator
   { import = "astrocommunity.editing-support.nvim-context-vt" }, -- Virtual Text for end statements
   { import = "astrocommunity.editing-support.nvim-origami" }, -- Code Folding
-  { import = "astrocommunity.editing-support.nvim-treesitter-context" }, -- Sticy scroll
+  { import = "astrocommunity.editing-support.nvim-treesitter-context" }, -- Sticky scroll
   { import = "astrocommunity.editing-support.rainbow-delimiters-nvim" }, -- Rainbow brackets
   { import = "astrocommunity.editing-support.refactoring-nvim" }, -- Refactoring keygroup
   { import = "astrocommunity.editing-support.suda-vim" }, -- Sudo write
@@ -84,7 +84,7 @@ return {
   { import = "astrocommunity.pack.python" },
   { import = "astrocommunity.pack.rust" },
   { import = "astrocommunity.pack.yaml" },
-  -- { import = "astrocommunity.pack.nix" }, # currently broken
+  { import = "astrocommunity.pack.nix" },
 
   -- Test
   { import = "astrocommunity.test.vim-test" },
