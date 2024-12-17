@@ -58,7 +58,6 @@ EOF
 
 # TODO:
 # Fix timezone e.g sudo timedatectl set-timezone Australia/Melbourne
-# add login message to show git repo status
 # look into weird zsh prompt issue, having missing spaces?
 
 function main() {
