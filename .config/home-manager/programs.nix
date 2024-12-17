@@ -1,10 +1,8 @@
 # https://home-manager-options.extranix.com/
-{pkgs}:
+{ pkgs }:
 with pkgs; {
   # Let Home Manager install and manage itself.
-  home-manager = {
-    enable = true;
-  };
+  home-manager = { enable = true; };
   # Enable set zsh as default shell
   # bash = {
   #   enable = true;
@@ -22,28 +20,15 @@ with pkgs; {
     initExtra = ''
       eval "$(fnm env --use-on-cd --shell zsh)"
 
-      if command -v exa >/dev/null; then
-        alias ls="exa"
-        alias ll="exa -alh"
-        alias tree="exa --tree"
-      elif command -v eza >/dev/null; then
-        alias ls="eza"
-        alias ll="eza -alh"
-        alias tree="eza --tree"
-      else
-        alias ll="ls -alF"
-      fi
+      eval "$(pay-respects zsh --alias)"
 
-      if command -v bat >/dev/null; then
-        alias cat="bat"
-      elif command -v batcat >/dev/null; then
-        alias cat="batcat"
-      fi
+      export GOBIN="$HOME/go/bin"
+      export PATH="$GOBIN:$PATH"
 
-      if command -v z >/dev/null; then
-        alias cd="z"
-        alias zz="z -"
-      fi
+      export PATH=$PATH:$HOME/.cargo/bin
+
+      export LUA_PATH="$HOME/.luarocks/share/lua/5.1/?.lua;$HOME/.luarocks/share/lua/5.1/?/init.lua;./?.lua;/usr/local/share/lua/5.1/?.lua;/usr/local/share/lua/5.1/?/init.lua;/usr/local/lib/lua/5.1/?.lua;/usr/local/lib/lua/5.1/?/init.lua;/usr/share/lua/5.1/?.lua;/usr/share/lua/5.1/?/init.lua"
+      export LUA_CPATH="$HOME/.luarocks/lib/lua/5.1/?.so;/usr/local/lib/lua/5.1/?.so;/usr/lib/x86_64-linux-gnu/lua/5.1/?.so;/usr/lib/lua/5.1/?.so;/usr/local/lib/lua/5.1/loadall.so"
     '';
     shellAliases = {
       ".." = "cd ..";
@@ -52,24 +37,30 @@ with pkgs; {
       h = "cd ~";
       c = "clear";
 
+      ls = "eza";
+      ll = "eza -alh";
+      tree = "eza --tree";
+
+      cat = "bat";
+
+      cd = "z";
+      zz = "z -";
+
       # Aliases for directories
-      dfc = "cd \"$HOME/.dotfiles\"";
-      dfs = "(cd \"$HOME/.dotfiles\" && home-manager switch)";
-      dfg = "(cd \"$HOME/.dotfiles\" && lazygit)";
-      dfn = "(cd \"$HOME/.dotfiles\" && nvim .)";
+      dfc = ''cd "$HOME/.dotfiles"'';
+      dfs = ''(cd "$HOME/.dotfiles" && home-manager switch)'';
+      dfu = ''(cd "$HOME/.dotfiles/.config/home-manager" && nix flake update)'';
+      dfg = ''(cd "$HOME/.dotfiles" && lazygit)'';
+      dfn = ''(cd "$HOME/.dotfiles" && nvim .)'';
 
       # Miscellaneous aliases
-      wttr = "clear && curl -s \"https://wttr.in/3805+Australia?2\"";
+      wttr = ''clear && curl -s "https://wttr.in/3805+Australia?2"'';
       fuck = "f";
       nv = "nvim";
     };
     autocd = true;
-    syntaxHighlighting = {
-      enable = true;
-    };
-    autosuggestion = {
-      enable = true;
-    };
+    syntaxHighlighting = { enable = true; };
+    autosuggestion = { enable = true; };
   };
   neovim = {
     defaultEditor = true;
@@ -119,16 +110,13 @@ with pkgs; {
         vimcmd_visual_symbol = "[❮](bold lavender)";
       };
 
-      git_branch = {
-        format = "[$symbol$branch(:$remote_branch)]($style)";
-      };
+      git_branch = { format = "[$symbol$branch(:$remote_branch)]($style)"; };
 
-      golang = {
-        format = "[ $version ](bold cyan)";
-      };
+      golang = { format = "[ $version ](bold cyan)"; };
 
       aws = {
-        format = "[$symbol(profile: \"$profile\" )(\(region: $region\) )]($style)";
+        format =
+          ''[$symbol(profile: "$profile" )((region: $region) )]($style)'';
         disabled = false;
         style = "bold blue";
         symbol = " ";
@@ -137,21 +125,18 @@ with pkgs; {
       kubernetes = {
         symbol = "☸ ";
         disabled = true;
-        detect_files = ["Dockerfile"];
+        detect_files = [ "Dockerfile" ];
         format = "[$symbol$context( \\($namespace\\))]($style) ";
-        contexts = [
-          {
-            context_pattern = "arn:aws:eks:us-west-2:577926974532:cluster/zd-pvc-omer";
-            style = "green";
-            context_alias = "omerxx";
-            symbol = " ";
-          }
-        ];
+        contexts = [{
+          context_pattern =
+            "arn:aws:eks:us-west-2:577926974532:cluster/zd-pvc-omer";
+          style = "green";
+          context_alias = "omerxx";
+          symbol = " ";
+        }];
       };
 
-      docker_context = {
-        disabled = true;
-      };
+      docker_context = { disabled = true; };
 
       palettes = {
         catppuccin_mocha = {
@@ -251,4 +236,8 @@ with pkgs; {
     enable = true;
     enableZshIntegration = true;
   };
+  # pay-respects = { # waiting for https://github.com/nix-community/home-manager/pull/6210
+  #   enable = true;
+  #   enableZshIntegration = true;
+  # };
 }

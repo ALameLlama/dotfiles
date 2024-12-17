@@ -1,5 +1,6 @@
-# https://nixpk.gs
-{pkgs, ...}:
+# https://nixpk.gs/pr-tracker.html
+# https://search.nixos.org/packages
+{ pkgs, ... }:
 with pkgs; [
   # # Adds the 'hello' command to your environment. It prints a friendly
   # # "Hello, world!" when run.
@@ -39,6 +40,9 @@ with pkgs; [
   pipx
   poetry
 
+  lua51Packages.lua
+  lua51Packages.luarocks
+
   nodejs # see if this is needed or if this causes conflicts with fnm
   fnm
 
@@ -55,6 +59,7 @@ with pkgs; [
   deadnix
   nixd
   statix
+  nixfmt
 
   # extra packages
   bat
@@ -65,5 +70,5 @@ with pkgs; [
   superfile # use mc if this doesn't work
   tmux
   zoxide
-  pay-respects 
+  pay-respects
 ]
