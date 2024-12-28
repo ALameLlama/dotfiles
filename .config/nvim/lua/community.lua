@@ -14,9 +14,6 @@ return {
   -- Code Runners
   { import = "astrocommunity.code-runner.compiler-nvim" }, -- :Compiler* commands
 
-  -- Comments
-  { import = "astrocommunity.comment.ts-comments-nvim" }, -- Better commenting out code
-
   -- Completion
   { import = "astrocommunity.completion.magazine-nvim" },
   { import = "astrocommunity.completion.cmp-cmdline" },
