@@ -20,8 +20,6 @@ with pkgs; {
     initExtra = ''
       eval "$(fnm env --use-on-cd --shell zsh)"
 
-      eval "$(pay-respects zsh --alias)"
-
       export GOBIN="$HOME/go/bin"
       export PATH="$GOBIN:$PATH"
 
@@ -286,8 +284,8 @@ with pkgs; {
     enable = true;
     enableZshIntegration = true;
   };
-  # pay-respects = { # waiting for https://github.com/nix-community/home-manager/pull/6210
-  #   enable = true;
-  #   enableZshIntegration = true;
-  # };
+  pay-respects = {
+    enable = true;
+    enableZshIntegration = true;
+  };
 }
