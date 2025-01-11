@@ -60,7 +60,7 @@ return {
   { import = "astrocommunity.markdown-and-latex.markview-nvim" },
 
   -- Motion
-  { import = "astrocommunity.motion.harpoon" },
+  -- { import = "astrocommunity.motion.harpoon" },
 
   -- Search
   { import = "astrocommunity.search.grug-far-nvim" },

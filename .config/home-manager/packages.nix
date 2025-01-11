@@ -24,8 +24,9 @@ with pkgs; [
   zsh-autosuggestions
   zsh-syntax-highlighting
   starship
+  carapace
 
-  # nvim packages
+  # AstroNvim packages
   neovim
   git
   gcc
@@ -34,21 +35,21 @@ with pkgs; [
   tree-sitter
   bottom
   gdu
-
-  nerd-fonts.fira-code
+  fd
 
   python3
   python312Packages.pip
   pipx
   poetry
 
-  lua51Packages.lua
+  # lua51Packages.lua
   lua51Packages.luarocks
+  luajit
 
   nodejs # see if this is needed or if this causes conflicts with fnm
   fnm
 
-  rustup # this will install cargo and rustc without conflecting
+  rustup # this will install cargo and rustc without conflicting
   # rustc
   # cargo
   ripgrep
@@ -65,7 +66,6 @@ with pkgs; [
 
   # extra packages
   bat
-  carapace
   entr
   eza
   fzf
@@ -73,4 +73,6 @@ with pkgs; [
   tmux
   zoxide
   pay-respects
+
+  nerd-fonts.fira-code
 ]
