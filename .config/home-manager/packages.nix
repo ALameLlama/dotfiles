@@ -75,4 +75,7 @@ with pkgs; [
   pay-respects
 
   nerd-fonts.fira-code
+
+  (php.withExtensions ({ enabled, all, }: enabled ++ [ all.imagick ]))
+  php.packages.composer
 ]
