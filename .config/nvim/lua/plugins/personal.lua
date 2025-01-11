@@ -8,6 +8,16 @@ return {
     },
     opts = {},
   },
+  {
+    "sphamba/smear-cursor.nvim",
+    event = "User AstroFile",
+    opts = {},
+  },
+  {
+    "gregorias/coerce.nvim",
+    event = "User AstroFile",
+    opts = {},
+  },
   -- {
   --   "Saghen/blink.cmp",
   --   event = "InsertEnter",

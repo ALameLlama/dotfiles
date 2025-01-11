@@ -228,7 +228,7 @@ with pkgs; {
 
     # Set your default shell and terminal
     shell = "${pkgs.zsh}/bin/zsh";
-    terminal = "xterm-256color";
+    terminal = "tmux-256color";
 
     # Enable mouse and set escape time
     mouse = true;
