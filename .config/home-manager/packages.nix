@@ -42,9 +42,9 @@ with pkgs; [
   pipx
   poetry
 
-  # lua51Packages.lua
+  lua51Packages.lua
   lua51Packages.luarocks
-  luajit
+  # luajit
 
   nodejs # see if this is needed or if this causes conflicts with fnm
   fnm
@@ -76,6 +76,6 @@ with pkgs; [
 
   nerd-fonts.fira-code
 
-  (php.withExtensions ({ enabled, all, }: enabled ++ [ all.imagick ]))
-  php.packages.composer
+  # (php.withExtensions ({ enabled, all, }: enabled ++ [ all.imagick ]))
+  # php.packages.composer
 ]
