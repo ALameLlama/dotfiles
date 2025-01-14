@@ -63,9 +63,7 @@ in {
   #
   #  /etc/profiles/per-user/vagrant/etc/profile.d/hm-session-vars.sh
   #
-  home.sessionVariables = {
-    EDITOR = "nvim";
-  };
+  home.sessionVariables = { EDITOR = "nvim"; };
 
   programs = programs;
 }

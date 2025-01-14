@@ -50,8 +50,8 @@ with pkgs; {
 
       # Aliases for directories
       dfc = ''cd "$HOME/.dotfiles"'';
-      dfs =
-        "home-manager switch -f ~/.dotfiles/.config/home-manager/home.nix && source ~/.zshrc";
+      dfs = ''
+        (cd "$HOME/.dotfiles/.config/home-manager" && home-manager switch && source "$HOME/.zshrc")'';
       dfu = ''(cd "$HOME/.dotfiles/.config/home-manager" && nix flake update)'';
       dfg = ''(cd "$HOME/.dotfiles" && lazygit)'';
       dfn = ''(cd "$HOME/.dotfiles" && nvim .)'';
