@@ -88,4 +88,7 @@ return {
 
   -- Test
   { import = "astrocommunity.test.vim-test" },
+
+  -- Utility
+  { import = "astrocommunity.utility.noice-nvim" },
 }
