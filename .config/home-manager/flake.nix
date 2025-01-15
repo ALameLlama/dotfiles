@@ -14,7 +14,11 @@
   outputs = { nixpkgs, home-manager, ... }@inputs:
     let
       lib = nixpkgs.lib;
-      userConfig = builtins.fromJSON (builtins.readFile ./user-config.json);
+      userConfig = {
+        username = builtins.getEnv "NIX_USERNAME";
+        homeDirectory = builtins.getEnv "NIX_HOME_DIRECTORY";
+        system = builtins.getEnv "NIX_SYSTEM";
+      };
       system = userConfig.system;
       pkgs = import nixpkgs { inherit system; };
       overlays = [ inputs.neovim-nightly-overlay.overlays.default ];
@@ -22,12 +26,7 @@
       homeConfigurations = {
         "${userConfig.username}" = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
-          modules = [
-            ./home.nix
-            {
-              nixpkgs.overlays = overlays;
-            }
-          ];
+          modules = [ ./home.nix { nixpkgs.overlays = overlays; } ];
         };
       };
     };

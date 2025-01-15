@@ -12,48 +12,21 @@ function source_nix() {
 }
 
 function generate_user_config() {
-	case "$(uname -s)" in
-	Darwin)
-		case "$(uname -m)" in
-		arm64)
-			system="aarch64-darwin"
-			;;
-		x86_64)
-			system="x86_64-darwin"
-			;;
-		*)
-			echo "Unsupported architecture on macOS: $(uname -m)"
-			exit 1
-			;;
-		esac
-		;;
-	Linux)
-		case "$(uname -m)" in
-		arm64 | aarch64)
-			system="aarch64-linux"
-			;;
-		x86_64)
-			system="x86_64-linux"
-			;;
-		*)
-			echo "Unsupported architecture on Linux: $(uname -m)"
-			exit 1
-			;;
-		esac
-		;;
+	local system
+	case "$(uname -s)-$(uname -m)" in
+	Darwin-x86_64) system="x86_64-darwin" ;;
+	Darwin-arm64) system="aarch64-darwin" ;;
+	Linux-x86_64) system="x86_64-linux" ;;
+	Linux-aarch64) system="aarch64-linux" ;;
 	*)
-		echo "Unsupported OS: $(uname -s)"
+		echo "Unsupported platform: $(uname -s)-$(uname -m)"
 		exit 1
 		;;
 	esac
 
-	cat >~/.dotfiles/.config/home-manager/user-config.json <<EOF
-{
-  "username": "$(whoami)",
-  "homeDirectory": "$HOME",
-  "system": "$system"
-}
-EOF
+	export NIX_USERNAME=$USER
+	export NIX_HOME_DIRECTORY=$HOME
+	export NIX_SYSTEM=$system
 }
 
 # TODO:
@@ -65,7 +38,7 @@ function main() {
 		sh <(curl -L https://nixos.org/nix/install) --daemon
 	fi
 
- 	sudo timedatectl set-timezone Australia/Melbourne
+	sudo timedatectl set-timezone Australia/Melbourne
 
 	# source nix
 	source_nix

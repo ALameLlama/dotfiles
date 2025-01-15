@@ -20,6 +20,32 @@ with pkgs; {
     initExtra = ''
       eval "$(fnm env --use-on-cd --shell zsh)"
 
+      function generate_user_config() {
+        # Get system info in a more compact form
+        local system
+        case "$(uname -s)-$(uname -m)" in
+          Darwin-x86_64) system="x86_64-darwin" ;;
+          Darwin-arm64) system="aarch64-darwin" ;;
+          Linux-x86_64) system="x86_64-linux" ;;
+          Linux-aarch64) system="aarch64-linux" ;;
+          *)
+            echo "Unsupported platform: $(uname -s)-$(uname -m)"
+            exit 1
+            ;;
+        esac
+
+        export NIX_USERNAME=$USER
+        export NIX_HOME_DIRECTORY=$HOME
+        export NIX_SYSTEM=$system
+      }
+
+      generate_user_config
+
+      if [[ -f ~/.bash_aliases ]]; then
+        source ~/.bash_aliases
+      fi
+    '';
+    envExtra = ''
       export GOBIN="$HOME/go/bin"
       export PATH="$GOBIN:$PATH"
 
@@ -27,10 +53,6 @@ with pkgs; {
 
       export LUA_PATH="$HOME/.luarocks/share/lua/5.1/?.lua;$HOME/.luarocks/share/lua/5.1/?/init.lua;./?.lua;/usr/local/share/lua/5.1/?.lua;/usr/local/share/lua/5.1/?/init.lua;/usr/local/lib/lua/5.1/?.lua;/usr/local/lib/lua/5.1/?/init.lua;/usr/share/lua/5.1/?.lua;/usr/share/lua/5.1/?/init.lua"
       export LUA_CPATH="$HOME/.luarocks/lib/lua/5.1/?.so;/usr/local/lib/lua/5.1/?.so;/usr/lib/x86_64-linux-gnu/lua/5.1/?.so;/usr/lib/lua/5.1/?.so;/usr/local/lib/lua/5.1/loadall.so"
-
-      if [[ -f ~/.bash_aliases ]]; then
-        source ~/.bash_aliases
-      fi
     '';
     shellAliases = {
       ".." = "cd ..";
@@ -51,7 +73,7 @@ with pkgs; {
       # Aliases for directories
       dfc = ''cd "$HOME/.dotfiles"'';
       dfs = ''
-        (cd "$HOME/.dotfiles/.config/home-manager" && home-manager switch && source "$HOME/.zshrc")'';
+        (cd "$HOME/.dotfiles/.config/home-manager" && home-manager switch --impure && source "$HOME/.zshrc")'';
       dfu = ''(cd "$HOME/.dotfiles/.config/home-manager" && nix flake update)'';
       dfg = ''(cd "$HOME/.dotfiles" && lazygit)'';
       dfn = ''(cd "$HOME/.dotfiles" && nvim .)'';
