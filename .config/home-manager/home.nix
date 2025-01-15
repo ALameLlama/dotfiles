@@ -1,7 +1,11 @@
 # https://home-manager-options.extranix.com/
 { config, pkgs, ... }:
 let
-  userConfig = builtins.fromJSON (builtins.readFile ./user-config.json);
+  userConfig = {
+    username = builtins.getEnv "NIX_USERNAME";
+    homeDirectory = builtins.getEnv "NIX_HOME_DIRECTORY";
+    system = builtins.getEnv "NIX_SYSTEM";
+  };
   packages = import ./packages.nix { inherit pkgs; };
   programs = import ./programs.nix { inherit pkgs; };
 in {
