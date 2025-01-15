@@ -34,7 +34,7 @@ function generate_user_config() {
 
 function main() {
 	# install nix if not already installed
-	if [ ! -f /etc/profile.d/nix.sh ]; then
+	if ! command -v nix >/dev/null; then
 		sh <(curl -L https://nixos.org/nix/install) --daemon
 	fi
 
