@@ -18,6 +18,7 @@ with pkgs; {
 
     # update .zshrc
     initExtra = ''
+      bindkey '^[[3~' delete-char
       bindkey -a '^[[3~' delete-char
 
       eval "$(fnm env --use-on-cd --shell zsh)"
