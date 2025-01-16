@@ -54,6 +54,7 @@ return {
   { import = "astrocommunity.lsp.actions-preview-nvim" },
   { import = "astrocommunity.lsp.inc-rename-nvim" }, -- :IncRename
   { import = "astrocommunity.lsp.lsp-signature-nvim" },
+  { import = "astrocommunity.lsp.nvim-lsp-file-operations" },
 
   -- Markdown
   { import = "astrocommunity.markdown-and-latex.glow-nvim" },
