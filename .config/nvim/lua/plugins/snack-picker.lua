@@ -1,6 +1,7 @@
 return {
   "folke/snacks.nvim",
-  init = function() require("astrocore").load_plugin_with_func("snacks.nvim", vim.ui, "select") end,
+  priority = 1000,
+  lazy = false,
   dependencies = { "nvim-treesitter/nvim-treesitter" },
   opts = { picker = { ui_select = true } },
   specs = {
@@ -11,6 +12,7 @@ return {
         maps.n["<Leader>f"] = vim.tbl_get(opts, "_map_sections", "f")
         if vim.fn.executable "git" == 1 then
           maps.n["<Leader>g"] = vim.tbl_get(opts, "_map_sections", "g")
+          maps.n["<Leader>gb"] = { function() require("snacks").picker.git_branches() end, desc = "Git branches" }
           maps.n["<Leader>gc"] = {
             function() require("snacks").picker.git_log() end,
             desc = "Git commits (repository)",
@@ -51,7 +53,10 @@ return {
         maps.n["<Leader>fk"] = { function() require("snacks").picker.keymaps() end, desc = "Find keymaps" }
         maps.n["<Leader>fm"] = { function() require("snacks").picker.man() end, desc = "Find man" }
         maps.n["<Leader>fo"] = { function() require("snacks").picker.recent() end, desc = "Find old files" }
+        maps.n["<Leader>fO"] =
+          { function() require("snacks").picker.recent { cwd = true } end, desc = "Find old files (cwd)" }
         maps.n["<Leader>fr"] = { function() require("snacks").picker.registers() end, desc = "Find registers" }
+        maps.n["<Leader>fs"] = { function() require("snacks").picker.smart() end, desc = "Find buffers/recent/files" }
         maps.n["<Leader>ft"] = { function() require("snacks").picker.colorschemes() end, desc = "Find themes" }
         if vim.fn.executable "rg" == 1 then
           maps.n["<Leader>fw"] = { function() require("snacks").picker.grep() end, desc = "Find words" }
@@ -74,12 +79,15 @@ return {
           opts = {
             mappings = {
               n = {
-                ["<Leader>fT"] = function()
-                  if not package.loaded["todo-comments"] then -- make sure to load todo-comments
-                    require("lazy").load { plugins = { "todo-comments.nvim" } }
-                  end
-                  require("snacks").picker.todo_comments()
-                end,
+                ["<Leader>fT"] = {
+                  function()
+                    if not package.loaded["todo-comments"] then -- make sure to load todo-comments
+                      require("lazy").load { plugins = { "todo-comments.nvim" } }
+                    end
+                    require("snacks").picker.todo_comments()
+                  end,
+                  desc = "Todo Comments",
+                },
               },
             },
           },
@@ -104,3 +112,4 @@ return {
     { "stevearc/dressing.nvim", opts = { select = { enabled = false } } },
   },
 }
+

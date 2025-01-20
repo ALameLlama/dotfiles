@@ -10,6 +10,7 @@ return {
       "yaml",
       "json",
       "nix",
+      "diff",
       -- add more arguments for adding more treesitter parsers
     },
   },
