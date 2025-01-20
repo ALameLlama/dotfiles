@@ -80,6 +80,7 @@ return {
   { import = "astrocommunity.pack.markdown" },
   { import = "astrocommunity.pack.php" },
   { import = "astrocommunity.pack.python" },
+  { import = "astrocommunity.pack.typescript" },
   { import = "astrocommunity.pack.rust" },
   { import = "astrocommunity.pack.yaml" },
   { import = "astrocommunity.pack.nix" },
