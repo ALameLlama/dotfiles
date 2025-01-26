@@ -44,6 +44,9 @@ return {
   { import = "astrocommunity.editing-support.text-case-nvim" }, -- :TextCaseOpenTelescope
   { import = "astrocommunity.editing-support.vim-visual-multi" }, -- More info https://github.com/mg979/vim-visual-multi
 
+  -- Fuzzy Finder
+  { import = "astrocommunity.fuzzy-finder.snacks-picker" },
+
   -- Git
   { import = "astrocommunity.git.blame-nvim" }, -- <Leader>gB
   { import = "astrocommunity.git.diffview-nvim" }, -- <Leader>gd
