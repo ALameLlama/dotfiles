@@ -18,6 +18,13 @@ with pkgs; {
 
     # update .zshrc
     initExtra = ''
+     ## Need this for my mac to work??
+     # Nix
+      if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+          . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+      fi
+      # End Nix
+
       bindkey '^[[3~' delete-char
       bindkey -a '^[[3~' delete-char
 
@@ -47,6 +54,10 @@ with pkgs; {
       if [[ -f ~/.bash_aliases ]]; then
         source ~/.bash_aliases
       fi
+
+      prefetch-sri() {
+        nix-prefetch-url "$1" | xargs nix hash convert --hash-algo sha256 --to sri
+      }
     '';
     envExtra = ''
       export GOBIN="$HOME/go/bin"
@@ -85,6 +96,10 @@ with pkgs; {
       wttr = ''clear && curl -s "https://wttr.in/3805+Australia?2"'';
       fuck = "f";
       nv = "nvim";
+
+      ## TODO: make this work for linux and mac
+      code =
+        "/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code";
     };
     autocd = true;
     syntaxHighlighting = { enable = true; };
@@ -287,11 +302,6 @@ with pkgs; {
       # Shift Alt vim keys to switch windows
       bind -n M-H previous-window
       bind -n M-L next-window
-
-      # Keybindings for vi-mode copy
-      bind-key -T copy-mode-vi v send-keys -X begin-selection
-      bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle
-      bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
 
       # Astronvim-style splits
       unbind '"'
