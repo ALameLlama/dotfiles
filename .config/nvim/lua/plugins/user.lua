@@ -14,12 +14,12 @@ return {
 
   -- == Examples of Overriding Plugins ==
 
-  -- customize alpha options
+  -- customize snacks dashboard options
   {
-    "goolord/alpha-nvim",
+    "folke/snacks.nvim",
     opts = function(_, opts)
       -- customize the dashboard header
-      opts.section.header.val = {
+      opts.dashboard.preset.header = table.concat({
         "              --==============             :::::::::::::",
         "              ---=============             :::::::::::::",
         "             -----=============           ::::::::::::: ",
@@ -47,7 +47,8 @@ return {
         " ----------------             ---::::::::::::-===       ",
         "----------------              --:::::::::::::-====      ",
         "----------------               -::::::::::::-==-===     ",
-      }
+      }, "\n")
+
       return opts
     end,
   },
