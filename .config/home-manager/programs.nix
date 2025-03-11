@@ -1,6 +1,17 @@
 # https://home-manager-options.extranix.com/
-{ pkgs }:
-with pkgs; {
+{ pkgs, ... }:
+let
+  catppuccin = pkgs.tmuxPlugins.mkTmuxPlugin {
+    pluginName = "catppuccin";
+    version = "unstable-2023-01-06";
+    src = pkgs.fetchFromGitHub {
+      owner = "dreamsofcode-io";
+      repo = "catppuccin-tmux";
+      rev = "main";
+      sha256 = "sha256-FJHM6LJkiAwxaLd5pnAoF3a7AE1ZqHWoCpUJE0ncCA8=";
+    };
+  };
+in {
   # Let Home Manager install and manage itself.
   home-manager = { enable = true; };
   # Enable set zsh as default shell
@@ -115,7 +126,9 @@ with pkgs; {
     enable = true;
     userName = "Nicholas Ciechanowski";
     userEmail = "nicholasaciechanowski@gmail.com";
+    extraConfig.init.defaultBranch = "main";
   };
+  gh = { enable = true; };
   # TODO:, look into manually stying this since I can't see selected input
   carapace = {
     enable = true;
@@ -283,6 +296,16 @@ with pkgs; {
     # Use vi-style keybindings
     keyMode = "vi";
 
+    # Enable tmux plugins and install them automatically
+    plugins = with pkgs.tmuxPlugins; [
+      sensible
+      yank
+      vim-tmux-navigator
+      catppuccin
+      resurrect
+      continuum
+    ];
+
     # Additional configuration for custom bindings and plugins
     extraConfig = ''
       # Enable clipboard and color overrides
@@ -303,22 +326,14 @@ with pkgs; {
       bind -n M-H previous-window
       bind -n M-L next-window
 
+      run '~/.tmux/plugins/tpm/tpm'
+
       # Astronvim-style splits
       unbind '"'
       unbind '%'
       bind '\' split-window -v -c "#{pane_current_path}"
       bind '|' split-window -h -c "#{pane_current_path}"
     '';
-
-    # Enable tmux plugins and install them automatically
-    plugins = with pkgs.tmuxPlugins; [
-      sensible
-      yank
-      vim-tmux-navigator
-      catppuccin
-      resurrect
-      continuum
-    ];
   };
   zoxide = {
     enable = true;
