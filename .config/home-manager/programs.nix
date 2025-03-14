@@ -69,6 +69,36 @@ in {
        prefetch-sri() {
          nix-prefetch-url "$1" | xargs nix hash convert --hash-algo sha256 --to sri
        }
+
+      autoload -Uz add-zsh-hook
+
+      chpwd_php_hook() {
+        local php_version=""
+        
+        if [[ -f ".php-version" ]]; then
+          php_version=$(cat .php-version)
+          # echo "Found .php-version: $php_version"
+        elif [[ -f "composer.json" ]]; then
+          php_version=$(jq -r '.config.platform.php // empty' composer.json 2>/dev/null)
+          if [[ -n "$php_version" ]]; then
+            # echo "Found PHP version in composer.json: $php_version"
+          fi
+        fi
+
+        if [[ -n "$php_version" ]]; then
+          # Remove the dot (e.g., 7.3 → 73)
+          formatted_version="php''${php_version//./}"
+          # echo "Running command: $formatted_version"
+
+          if command -v "$formatted_version" &>/dev/null; then
+            "$formatted_version"
+          else
+            echo "Command '$formatted_version' not found."
+          fi
+        fi
+      }
+
+      add-zsh-hook chpwd chpwd_php_hook
     '';
     envExtra = ''
       export GOBIN="$HOME/go/bin"
