@@ -15,7 +15,7 @@ return {
   { import = "astrocommunity.code-runner.compiler-nvim" }, -- :Compiler* commands
 
   -- Completion
-  { import = "astrocommunity.completion.magazine-nvim" },
+  -- { import = "astrocommunity.completion.magazine-nvim" },
   { import = "astrocommunity.completion.cmp-cmdline" },
   { import = "astrocommunity.completion.cmp-emoji" },
   { import = "astrocommunity.completion.copilot-lua-cmp" },
