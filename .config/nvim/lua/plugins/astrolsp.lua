@@ -6,8 +6,6 @@
 ---@type LazySpec
 return {
   "AstroNvim/astrolsp",
-  -- TODO: REMOVE
-  branch = "v3",
   ---@type AstroLSPOpts
   opts = {
     -- Configuration table of features provided by AstroLSP
