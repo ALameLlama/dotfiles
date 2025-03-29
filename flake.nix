@@ -38,10 +38,17 @@
 
       homeConfigurations = {
         vagrant = home-manager.lib.homeManagerConfiguration {
-          inherit system;
-          users.vagrant = {
-            imports = [ ./home/default.nix ./modules/neovim.nix ];
-          };
+          pkgs = pkgs;
+          modules = [
+            ./home/default.nix
+            ./modules/neovim.nix
+            {
+              home = {
+                username = "vagrant";
+                homeDirectory = "/home/vagrant";
+              };
+            }
+          ];
         };
       };
     };
