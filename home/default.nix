@@ -123,46 +123,49 @@ in {
 
       # update .zshrc
       initExtra = ''
-        ## Need this for my mac to work??
-        # Nix
-         if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
-             . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
-         fi
-         # End Nix
+        bindkey '^[[3~' delete-char
+        bindkey -a '^[[3~' delete-char
 
-         bindkey '^[[3~' delete-char
-         bindkey -a '^[[3~' delete-char
+        eval "$(fnm env --use-on-cd --shell zsh)"
 
-         eval "$(fnm env --use-on-cd --shell zsh)"
+        function generate_user_config() {
+          # Get system info in a more compact form
+          local system
+          case "$(uname -s)-$(uname -m)" in
+            Darwin-x86_64) system="x86_64-darwin" ;;
+            Darwin-arm64) system="aarch64-darwin" ;;
+            Linux-x86_64) system="x86_64-linux" ;;
+            Linux-aarch64) system="aarch64-linux" ;;
+            *)
+              echo "Unsupported platform: $(uname -s)-$(uname -m)"
+              exit 1
+              ;;
+          esac
 
-         function generate_user_config() {
-           # Get system info in a more compact form
-           local system
-           case "$(uname -s)-$(uname -m)" in
-             Darwin-x86_64) system="x86_64-darwin" ;;
-             Darwin-arm64) system="aarch64-darwin" ;;
-             Linux-x86_64) system="x86_64-linux" ;;
-             Linux-aarch64) system="aarch64-linux" ;;
-             *)
-               echo "Unsupported platform: $(uname -s)-$(uname -m)"
-               exit 1
-               ;;
-           esac
+          export NIX_USERNAME=$USER
+          export NIX_HOME_DIRECTORY=$HOME
+          export NIX_SYSTEM=$system
+        }
 
-           export NIX_USERNAME=$USER
-           export NIX_HOME_DIRECTORY=$HOME
-           export NIX_SYSTEM=$system
-         }
+        generate_user_config
 
-         generate_user_config
+        if [[ -f ~/.bash_aliases ]]; then
+          source ~/.bash_aliases
+        fi
 
-         if [[ -f ~/.bash_aliases ]]; then
-           source ~/.bash_aliases
-         fi
+        prefetch-sri() {
+          nix-prefetch-url "$1" | xargs nix hash convert --hash-algo sha256 --to sri
+        }
 
-         prefetch-sri() {
-           nix-prefetch-url "$1" | xargs nix hash convert --hash-algo sha256 --to sri
-         }
+        function dfs() {
+          flake_host="''${1:-}"
+          if command -v nixos-rebuild &>/dev/null; then
+            sudo nixos-rebuild switch --flake ~/.dotfiles''${flake_host:+\#''${flake_host}}
+          else
+            nix run home-manager -- --flake ~/.dotfiles''${flake_host:+\#''${flake_host}} switch
+          fi
+          source "$HOME/.zshrc"
+        }
 
         autoload -Uz add-zsh-hook
 
@@ -221,10 +224,7 @@ in {
 
         # Aliases for directories
         dfc = ''cd "$HOME/.dotfiles"'';
-        dfs = ''
-          (cd "$HOME/.dotfiles/.config/home-manager" && home-manager switch --impure && source "$HOME/.zshrc")'';
-        dfu =
-          ''(cd "$HOME/.dotfiles/.config/home-manager" && nix flake update)'';
+        dfu = ''(cd "$HOME/.dotfiles" && nix flake update)'';
         dfg = ''(cd "$HOME/.dotfiles" && lazygit)'';
         dfn = ''(cd "$HOME/.dotfiles" && nvim .)'';
 
@@ -232,10 +232,6 @@ in {
         wttr = ''clear && curl -s "https://wttr.in/3805+Australia?2"'';
         fuck = "f";
         nv = "nvim";
-
-        ## TODO: make this work for linux and mac
-        code =
-          "/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code";
       };
       autocd = true;
       syntaxHighlighting = { enable = true; };
