@@ -13,7 +13,7 @@ let
   };
 in {
   nix = {
-    package = pkgs.nix;
+    # package = pkgs.nix;
     settings.experimental-features = [ "nix-command" "flakes" ];
   };
   # compatible with. This helps avoid breakage when a new Home Manager release
