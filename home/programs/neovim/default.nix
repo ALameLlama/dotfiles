@@ -22,7 +22,7 @@
 
   home.file = {
     ".config/nvim".source =
-      config.lib.file.mkOutOfStoreSymlink "${toString ./../../.config/nvim}";
+      config.lib.file.mkOutOfStoreSymlink "${toString ./nvim}";
   };
 }
 
