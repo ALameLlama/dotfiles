@@ -2,4 +2,7 @@
   - make it have generic modules
   - update readme
   - update installer script
-
+  - 1password finger print doesnt work
+  - screen has a weird green flicker?
+  - cant paste into firefox? wayland issue?
+  - update dfu to do sudo nix flake update when on nixos
