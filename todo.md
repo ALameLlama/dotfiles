@@ -2,7 +2,6 @@
   - make it have generic modules
   - update readme
   - update installer script
-  - 1password finger print doesnt work
+  - 1password finger print doesnt work, i think i need polkit/PAM more setup?
   - screen has a weird green flicker?
-  - cant paste into firefox? wayland issue?
   - update dfu to do sudo nix flake update when on nixos
