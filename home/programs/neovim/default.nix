@@ -21,8 +21,11 @@
   };
 
   home.file = {
-    ".config/nvim".source =
-      config.lib.file.mkOutOfStoreSymlink "${toString ./nvim}";
+    ".config/nvim".source = config.lib.file.mkOutOfStoreSymlink
+      "${config.home.homeDirectory}/.dotfiles/home/programs/neovim/nvim";
+    # mkOutOfStoreSymlink dpes not work with relative paths :(
+    # ".config/nvim".source =
+    #   config.lib.file.mkOutOfStoreSymlink "${toString ./nvim}";
   };
 }
 
