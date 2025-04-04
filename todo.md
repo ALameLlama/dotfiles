@@ -1,7 +1,8 @@
 - Add nvim stuff
-  - make it have generic modules
   - update readme
   - update installer script
   - 1password finger print doesnt work, i think i need polkit/PAM more setup?
   - screen has a weird green flicker?
   - update dfu to do sudo nix flake update when on nixos
+  - move language specific stuff from home/programes/shell to separate modules
+  - move to hyper land? create a module to make swapping between de and wm easier
