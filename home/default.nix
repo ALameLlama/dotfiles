@@ -60,6 +60,7 @@
     # (php.withExtensions ({ enabled, all, }: enabled ++ [ all.imagick ]))
     # php.packages.composer
 
+    git
     gh
   ];
 

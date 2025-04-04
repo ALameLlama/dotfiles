@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{ config, lib, pkgs, ... }: {
   home.packages = with pkgs; [
     bat
     entr
@@ -10,6 +10,21 @@
   ];
 
   programs = {
+    zsh = {
+      shellAliases = lib.mkAfter {
+        ls = "eza --icons";
+        ll = "eza -alh --icons";
+        tree = "eza --tree --icons";
+
+        cat = "bat";
+
+        cd = "z";
+        zz = "z -";
+
+        fuck = "f";
+      };
+
+    };
     zoxide = {
       enable = true;
       enableZshIntegration = true;

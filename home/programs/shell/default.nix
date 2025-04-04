@@ -30,27 +30,6 @@
 
         eval "$(fnm env --use-on-cd --shell zsh)"
 
-        function generate_user_config() {
-          # Get system info in a more compact form
-          local system
-          case "$(uname -s)-$(uname -m)" in
-            Darwin-x86_64) system="x86_64-darwin" ;;
-            Darwin-arm64) system="aarch64-darwin" ;;
-            Linux-x86_64) system="x86_64-linux" ;;
-            Linux-aarch64) system="aarch64-linux" ;;
-            *)
-              echo "Unsupported platform: $(uname -s)-$(uname -m)"
-              exit 1
-              ;;
-          esac
-
-          export NIX_USERNAME=$USER
-          export NIX_HOME_DIRECTORY=$HOME
-          export NIX_SYSTEM=$system
-        }
-
-        generate_user_config
-
         if [[ -f ~/.bash_aliases ]]; then
           source ~/.bash_aliases
         fi
@@ -116,15 +95,6 @@
         h = "cd ~";
         c = "clear";
 
-        ls = "eza";
-        ll = "eza -alh";
-        tree = "eza --tree";
-
-        cat = "bat";
-
-        cd = "z";
-        zz = "z -";
-
         # Aliases for directories
         dfc = ''cd "$HOME/.dotfiles"'';
         dfu = ''(cd "$HOME/.dotfiles" && nix flake update)'';
@@ -133,7 +103,6 @@
 
         # Miscellaneous aliases
         wttr = ''clear && curl -s "https://wttr.in/3805+Australia?2"'';
-        fuck = "f";
         nv = "nvim";
       };
       autocd = true;
