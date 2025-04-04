@@ -140,6 +140,7 @@
       syntaxHighlighting = { enable = true; };
       autosuggestion = { enable = true; };
     };
+    # TODO:, look into manually stying this since I can't see selected input
     carapace = {
       enable = true;
       enableZshIntegration = true;
@@ -286,6 +287,6 @@
         };
       };
     };
-    
+
   };
 }
