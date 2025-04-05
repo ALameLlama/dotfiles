@@ -24,7 +24,7 @@
       enable = true;
 
       # update .zshrc
-      initExtra = ''
+      initContent = ''
         bindkey '^[[3~' delete-char
         bindkey -a '^[[3~' delete-char
 
