@@ -20,7 +20,10 @@
       nixosConfigurations = {
         framework16 = let
           username = "nciechanowski";
-          specialArgs = { inherit username; };
+          specialArgs = {
+            inherit username;
+            inherit pkgs;
+          };
         in nixpkgs.lib.nixosSystem {
           inherit specialArgs;
           modules = [
