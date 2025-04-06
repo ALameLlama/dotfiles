@@ -9,40 +9,52 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs: {
-    nixosConfigurations = {
-      framework16 = let
-        username = "nciechanowski";
-        specialArgs = { inherit username; };
-      in nixpkgs.lib.nixosSystem {
-        inherit specialArgs;
-        modules = [
-          ./hosts/framework16/configuration.nix
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = inputs // specialArgs;
-            home-manager.users.${username} =
-              import ./users/${username}/home.nix;
-          }
-        ];
+  outputs = { self, nixpkgs, home-manager, ... }@inputs:
+    let
+      system = "x86_64-linux";
+      pkgs = import nixpkgs {
+        inherit system;
+        config = { allowUnfree = true; };
       };
-    };
+    in {
+      nixosConfigurations = {
+        framework16 = let
+          username = "nciechanowski";
+          specialArgs = { inherit username; };
+        in nixpkgs.lib.nixosSystem {
+          inherit specialArgs;
+          modules = [
+            ./hosts/framework16/configuration.nix
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs = inputs // specialArgs;
+              home-manager.users.${username} =
+                import ./users/${username}/home.nix;
+            }
+          ];
+        };
+      };
 
-    homeConfigurations = {
-      vagrant = home-manager.lib.homeManagerConfiguration {
-        modules = [
-          ./home/default.nix
-          ./home/neovim.nix
-          {
-            home = {
-              username = "vagrant";
-              homeDirectory = "/home/vagrant";
-            };
-          }
-        ];
+      homeConfigurations = {
+        vagrant = home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          modules = [
+            ./home/default.nix
+            ./home/programs/neovim
+            ./home/programs/tmux
+            ./home/programs/shell
+            ./home/programs/cli-tooling
+            {
+              home = {
+                username = "vagrant";
+                homeDirectory = "/home/vagrant";
+              };
+              nix.package = pkgs.nix;
+            }
+          ];
+        };
       };
     };
-  };
 }
