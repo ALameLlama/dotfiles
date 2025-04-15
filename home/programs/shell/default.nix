@@ -41,10 +41,13 @@
         function dfs() {
           flake_host="''${1:-}"
           if command -v nixos-rebuild &>/dev/null; then
-            sudo nixos-rebuild switch --flake ~/.dotfiles''${flake_host:+\#''${flake_host}}
+            sudo nixos-rebuild switch --flake ~/.dotfiles''${flake_host:+\#''${flake_host}} --impure
           else
-            nix run home-manager -- --flake ~/.dotfiles''${flake_host:+\#''${flake_host}} switch
+            home-manager --flake ~/.dotfiles''${flake_host:+\#''${flake_host}} switch --impure
           fi
+
+          # make this dynamic if I have nvim module setup
+          nvim --headless "+Lazy! sync" +qa
 
           zsh
         }
