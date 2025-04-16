@@ -102,7 +102,7 @@
         dfc = ''cd "$HOME/.dotfiles"'';
         dfu = ''(cd "$HOME/.dotfiles" && nix flake update)'';
         dfg = ''(cd "$HOME/.dotfiles" && lazygit)'';
-        dfn = ''(cd "$HOME/.dotfiles" && nvim .)'';
+        dfn = ''(cd "$HOME/.dotfiles" && nvim)'';
 
         # Miscellaneous aliases
         wttr = ''clear && curl -s "https://wttr.in/3805+Australia?2"'';
