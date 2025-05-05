@@ -52,18 +52,36 @@
           zsh
         }
 
+        function dfu() {
+            (cd "$HOME/.dotfiles" && nix flake update)
+
+          # make this dynamic if I have nvim module setup
+          nvim --headless "+Lazy! update" +qa
+        }
+
         autoload -Uz add-zsh-hook
 
         chpwd_php_hook() {
           local php_version=""
-          
+
           if [[ -f ".php-version" ]]; then
             php_version=$(cat .php-version)
-            # echo "Found .php-version: $php_version"
+            echo "Found .php-version: $php_version"
           elif [[ -f "composer.json" ]]; then
             php_version=$(jq -r '.config.platform.php // empty' composer.json 2>/dev/null)
             if [[ -n "$php_version" ]]; then
-              # echo "Found PHP version in composer.json: $php_version"
+              echo "Found PHP version in composer.json (config.platform.php): $php_version"
+            else
+              php_versions=$(jq -r '.require.php // empty' composer.json 2>/dev/null)
+              if [[ -n "$php_versions" ]]; then
+                versions=$(echo "$php_versions" | grep -oP '\d+\.\d+(\.\d+)?' | sort -V)
+
+                # If versions were found, pick the lowest one
+                if [[ -n "$versions" ]]; then
+                  php_version=$(echo "$versions" | head -n 1)
+                  echo "Found PHP version in composer.json (require.php): $php_version"
+                fi
+              fi
             fi
           fi
 
@@ -259,6 +277,5 @@
         };
       };
     };
-
   };
 }
