@@ -53,7 +53,7 @@
         }
 
         function dfu() {
-            (cd "$HOME/.dotfiles" && nix flake update)
+          (cd "$HOME/.dotfiles" && nix flake update)
 
           # make this dynamic if I have nvim module setup
           nvim --headless "+Lazy! update" +qa
@@ -66,11 +66,11 @@
 
           if [[ -f ".php-version" ]]; then
             php_version=$(cat .php-version)
-            echo "Found .php-version: $php_version"
+            echo "Found .php-version:\e[0;34m $php_version\e[0m"
           elif [[ -f "composer.json" ]]; then
             php_version=$(jq -r '.config.platform.php // empty' composer.json 2>/dev/null)
             if [[ -n "$php_version" ]]; then
-              echo "Found PHP version in composer.json (config.platform.php): $php_version"
+              echo "Found PHP version in composer.json (config.platform.php):\e[0;34m $php_version\e[0m"
             else
               php_versions=$(jq -r '.require.php // empty' composer.json 2>/dev/null)
               if [[ -n "$php_versions" ]]; then
@@ -79,7 +79,7 @@
                 # If versions were found, pick the lowest one
                 if [[ -n "$versions" ]]; then
                   php_version=$(echo "$versions" | head -n 1)
-                  echo "Found PHP version in composer.json (require.php): $php_version"
+                  echo "Found PHP version in composer.json (require.php):\e[0;34m $php_version\e[0m"
                 fi
               fi
             fi
@@ -118,7 +118,6 @@
 
         # Aliases for directories
         dfc = ''cd "$HOME/.dotfiles"'';
-        dfu = ''(cd "$HOME/.dotfiles" && nix flake update)'';
         dfg = ''(cd "$HOME/.dotfiles" && lazygit)'';
         dfn = ''(cd "$HOME/.dotfiles" && nvim)'';
 
