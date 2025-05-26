@@ -123,6 +123,8 @@
 
         # Miscellaneous aliases
         wttr = ''clear && curl -s "https://wttr.in/3805+Australia?2"'';
+        gitc = ''
+          git branch --merged | grep -Ev "(^\*|^\+|master|main|dev)" | xargs --no-run-if-empty git branch -d && git fsck && git gc && git prune && git fsck'';
         nv = "nvim";
       };
       autocd = true;
