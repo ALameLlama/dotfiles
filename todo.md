@@ -1,0 +1,5 @@
+- Add nvim stuff
+- 1password finger print doesnt work, i think i need polkit/PAM more setup?
+- screen has a weird green flicker?
+- move language specific stuff from home/programes/shell to separate modules
+- move to hyper land? create a module to make swapping between de and wm easier
