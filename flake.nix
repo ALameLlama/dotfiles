@@ -2,6 +2,7 @@
   description = "NixOS Configuration";
 
   inputs = {
+    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -9,7 +10,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, determinate, ... }@inputs:
     let
       system = builtins.currentSystem;
       pkgs = import nixpkgs {
@@ -25,8 +26,8 @@
             inherit pkgs;
           };
         in nixpkgs.lib.nixosSystem {
-          inherit specialArgs;
           modules = [
+            determinate.nixosModules.default
             ./hosts/framework16/configuration.nix
             home-manager.nixosModules.home-manager
             {
