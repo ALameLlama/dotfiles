@@ -75,6 +75,7 @@ return {
 
 	-- Packs
 	{ import = "astrocommunity.pack.bash" },
+	{ import = "astrocommunity.pack.lua" },
 	-- { import = "astrocommunity.pack.blade" },
 	-- { import = "astrocommunity.pack.gleam" },
 	-- { import = "astrocommunity.pack.go" },
@@ -86,6 +87,7 @@ return {
 	-- { import = "astrocommunity.pack.python" },
 	-- { import = "astrocommunity.pack.typescript" },
 	{ import = "astrocommunity.pack.rust" },
+	{ import = "astrocommunity.pack.zig" },
 	{ import = "astrocommunity.pack.yaml" },
 	{ import = "astrocommunity.pack.nix" },
 
