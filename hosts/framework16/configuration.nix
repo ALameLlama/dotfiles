@@ -107,7 +107,6 @@
     git
     _1password-gui
     _1password-cli
-    wezterm
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

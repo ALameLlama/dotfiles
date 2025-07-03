@@ -5,5 +5,6 @@
     ../../home/programs/tmux
     ../../home/programs/cli-tooling
     ../../home/programs/neovim
+    ../../home/programs/wezterm
   ];
 }

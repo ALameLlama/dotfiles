@@ -50,7 +50,7 @@
             ./home/programs/tmux
             ./home/programs/shell
             ./home/programs/cli-tooling
-            ./home/programs/language/php
+            # ./home/programs/language/php
             {
               home = {
                 username = "vagrant";
