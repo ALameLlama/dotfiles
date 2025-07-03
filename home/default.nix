@@ -47,6 +47,7 @@
     # rustc
     # cargo
     go
+    zig
 
     # nix packages
     alejandra
