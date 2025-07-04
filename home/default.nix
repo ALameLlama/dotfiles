@@ -31,13 +31,9 @@
     #   echo "Hello, ${config.home.username}!"
     # '')
 
-    python3
-    python312Packages.pip
-    pipx
-    poetry
+    (python313.withPackages (p: with p; [ playwright pip ]))
 
-    lua51Packages.lua
-    lua51Packages.luarocks
+    (lua5_1.withPackages (p: with p; [ luarocks ]))
     # luajit
 
     nodejs # see if this is needed or if this causes conflicts with fnm
@@ -46,8 +42,8 @@
     rustup # this will install cargo and rustc without conflicting
     # rustc
     # cargo
-    go
     zig
+    go
 
     # nix packages
     alejandra
@@ -60,6 +56,9 @@
 
     git
     gh
+
+    dive
+    posting
   ];
 
   programs = {
