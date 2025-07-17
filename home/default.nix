@@ -67,7 +67,7 @@
     git = {
       enable = true;
       userName = "Nicholas Ciechanowski";
-      userEmail = "nicholasaciechanowski@gmail.com";
+      userEmail = "nicholas@ciech.anow.ski";
       # extraConfig.init.defaultBranch = "main";
     };
     gh = { enable = true; };
