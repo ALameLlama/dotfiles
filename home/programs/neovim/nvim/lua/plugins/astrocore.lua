@@ -3,6 +3,12 @@
 -- NOTE: We highly recommend setting up the Lua Language Server (`:LspInstall lua_ls`)
 --       as this provides autocomplete and documentation while editing
 
+diagnostics = {
+	virtual_text = false,
+	virtual_lines = true,
+	underline = true,
+}
+
 ---@type LazySpec
 return {
 	"AstroNvim/astrocore",
@@ -13,16 +19,12 @@ return {
 			large_buf = { size = 1024 * 256, lines = 10000 },          -- set global limits for large files for disabling features like treesitter
 			autopairs = true,                                          -- enable autopairs at start
 			cmp = true,                                                -- enable completion at start
-			diagnostics = { virtual_text = false, virtual_lines = true }, -- diagnostic settings on startup
+			diagnostics = diagnostics, -- diagnostic settings on startup
 			highlighturl = true,                                       -- highlight URLs at start
 			notifications = true,                                      -- enable notifications at start
 		},
 		-- Diagnostics configuration (for vim.diagnostics.config({...})) when diagnostics are on
-		diagnostics = {
-			virtual_text = false,
-			virtual_lines = true,
-			underline = true,
-		},
+		diagnostics = diagnostics,
 		-- passed to `vim.filetype.add`
 		-- filetypes = {
 		--   -- see `:h vim.filetype.add` for usage

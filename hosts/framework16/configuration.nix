@@ -15,6 +15,13 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # Use the latest kernel packages.
+  # As recommended in https://wiki.nixos.org/wiki/Hardware/Framework/Laptop_16
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelParams = [ "amdgpu.abmlevel=0" ];
+
+  services.power-profiles-daemon.enable = true;
+
   networking.hostName = "framework16"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -69,7 +76,7 @@
     alsa.support32Bit = true;
     pulse.enable = true;
     # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
+    jack.enable = true;
 
     # use the example session manager (no others are packaged yet so this is enabled by default,
     # no need to redefine it in your config for now)
@@ -107,6 +114,8 @@
     git
     _1password-gui
     _1password-cli
+    obsidian
+    spotify
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -122,7 +131,11 @@
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
 
+  # Enable fingerprint reader support.
   services.fprintd.enable = true;
+
+  # Enable firmware updates via fwupd.
+  services.fwupd.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
@@ -137,5 +150,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.11"; # Did you read the comment?
-
 }

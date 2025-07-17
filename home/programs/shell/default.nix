@@ -41,7 +41,7 @@
         function dfs() {
           flake_host="''${1:-}"
           if command -v nixos-rebuild &>/dev/null; then
-            sudo nixos-rebuild switch --flake ~/.dotfiles''${flake_host:+\#''${flake_host}} --impure
+            sudo nixos-rebuild switch --flake ~/.dotfiles''${flake_host:+\#''${flake_host}} --impure --verbose
           else
             home-manager --flake ~/.dotfiles''${flake_host:+\#''${flake_host}} switch --impure
           fi
