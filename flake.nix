@@ -3,9 +3,7 @@
 
   inputs = {
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
-    # disabled until this is fixed: https://github.com/NixOS/nixpkgs/issues/425335
-    # nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -31,8 +29,8 @@
         in nixpkgs.lib.nixosSystem {
           modules = [
             determinate.nixosModules.default
-              ./hosts/framework16/configuration.nix
-              inputs.nixos-hardware.nixosModules.framework-16-7040-amd
+            ./hosts/framework16/configuration.nix
+            inputs.nixos-hardware.nixosModules.framework-16-7040-amd
             ./users/${username}/home.nix
             home-manager.nixosModules.home-manager
             {

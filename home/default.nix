@@ -58,7 +58,7 @@
     gh
 
     dive
-    posting
+    # posting
   ];
 
   programs = {
