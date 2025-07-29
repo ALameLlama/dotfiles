@@ -5,10 +5,15 @@
 { config, pkgs, ... }:
 
 {
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
-  imports = [ # Include the results of the hardware scan.
+  imports = [
+    # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    ./lid.nix
   ];
 
   # Bootloader.
@@ -52,17 +57,17 @@
 
   # Enable the X11 windowing system.
   # You can disable this if you're only using the Wayland session.
-  services.xserver.enable = true;
+  services.xserver.enable = false;
 
   # Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
 
   # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
-  };
+  # services.xserver.xkb = {
+  #   layout = "us";
+  #   variant = "";
+  # };
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -78,6 +83,16 @@
     # If you want to use JACK applications, uncomment this
     jack.enable = true;
 
+    extraConfig.pipewire.adjust-sample-rate = {
+      "context.properties" = {
+        # "default.clock.rate" = 192000;
+        "default.clock.rate" = 44100;
+        #"defautlt.allowed-rates" = [ 192000 48000 44100 ];
+        #"default.clock.quantum" = 32;
+        #"default.clock.min-quantum" = 32;
+        #"default.clock.max-quantum" = 32;
+      };
+    };
     # use the example session manager (no others are packaged yet so this is enabled by default,
     # no need to redefine it in your config for now)
     #media-session.enable = true;
@@ -90,16 +105,16 @@
   users.users.nciechanowski = {
     isNormalUser = true;
     description = "Nicholas Ciechanowski";
-    extraGroups = [ "networkmanager" "wheel" "input" ];
-    packages = with pkgs;
-      [
-        kdePackages.kate
-        #  thunderbird
-      ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "input"
+    ];
+    packages = with pkgs; [
+      kdePackages.kate
+      #  thunderbird
+    ];
   };
-
-  # Install firefox.
-  programs.firefox.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -116,6 +131,8 @@
     _1password-cli
     obsidian
     spotify
+    firefox
+    discord
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

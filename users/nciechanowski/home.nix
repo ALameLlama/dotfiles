@@ -1,8 +1,12 @@
 { pkgs, ... }:
-let username = "nciechanowski";
-in {
+let
+  username = "nciechanowski";
+in
+{
   programs.zsh.enable = true;
-  users.users.${username} = { shell = pkgs.zsh; };
+  users.users.${username} = {
+    shell = pkgs.zsh;
+  };
 
   home-manager.users.${username} = {
     imports = [

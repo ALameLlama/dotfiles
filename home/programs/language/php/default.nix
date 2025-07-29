@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   phpWithConfig = pkgs.php.buildEnv {
@@ -9,5 +14,10 @@ let
       post_max_size = 64M
     '';
   };
-in { home.packages = [ phpWithConfig pkgs.php.packages.composer ]; }
-
+in
+{
+  home.packages = [
+    phpWithConfig
+    pkgs.php.packages.composer
+  ];
+}

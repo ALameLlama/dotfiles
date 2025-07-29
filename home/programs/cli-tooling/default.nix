@@ -1,4 +1,10 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
   home.packages = with pkgs; [
     bat
     entr
@@ -7,6 +13,7 @@
     superfile # use mc if this doesn't work
     zoxide
     pay-respects
+    jq
   ];
 
   programs = {

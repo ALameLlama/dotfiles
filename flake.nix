@@ -11,35 +11,47 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, determinate, ... }@inputs:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      determinate,
+      ...
+    }@inputs:
     let
       system = builtins.currentSystem;
       pkgs = import nixpkgs {
         inherit system;
-        config = { allowUnfree = true; };
-      };
-    in {
-      nixosConfigurations = {
-        framework16 = let
-          username = "nciechanowski";
-          specialArgs = {
-            inherit username;
-            inherit pkgs;
-          };
-        in nixpkgs.lib.nixosSystem {
-          modules = [
-            determinate.nixosModules.default
-            ./hosts/framework16/configuration.nix
-            inputs.nixos-hardware.nixosModules.framework-16-7040-amd
-            ./users/${username}/home.nix
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = inputs // specialArgs;
-            }
-          ];
+        config = {
+          allowUnfree = true;
         };
+      };
+    in
+    {
+      nixosConfigurations = {
+        framework16 =
+          let
+            username = "nciechanowski";
+            specialArgs = {
+              inherit username;
+              inherit pkgs;
+            };
+          in
+          nixpkgs.lib.nixosSystem {
+            modules = [
+              determinate.nixosModules.default
+              ./hosts/framework16/configuration.nix
+              inputs.nixos-hardware.nixosModules.framework-16-7040-amd
+              ./users/${username}/home.nix
+              home-manager.nixosModules.home-manager
+              {
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+                home-manager.extraSpecialArgs = inputs // specialArgs;
+              }
+            ];
+          };
       };
 
       homeConfigurations = {

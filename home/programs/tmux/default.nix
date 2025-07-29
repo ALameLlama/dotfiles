@@ -11,7 +11,8 @@ let
       sha256 = "sha256-FJHM6LJkiAwxaLd5pnAoF3a7AE1ZqHWoCpUJE0ncCA8=";
     };
   };
-in {
+in
+{
   home.packages = with pkgs; [ tmux ];
 
   programs = {
