@@ -3,7 +3,10 @@
 {
   nix = {
     # package = pkgs.nix;
-    settings.experimental-features = [ "nix-command" "flakes" ];
+    settings.experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
   };
   # compatible with. This helps avoid breakage when a new Home Manager release
   # introduces backwards incompatible changes.
@@ -31,7 +34,12 @@
     #   echo "Hello, ${config.home.username}!"
     # '')
 
-    (python313.withPackages (p: with p; [ playwright pip ]))
+    (python313.withPackages (
+      p: with p; [
+        playwright
+        pip
+      ]
+    ))
 
     (lua5_1.withPackages (p: with p; [ luarocks ]))
     # luajit
@@ -63,13 +71,17 @@
 
   programs = {
     # Let Home Manager install and manage itself.
-    home-manager = { enable = true; };
+    home-manager = {
+      enable = true;
+    };
     git = {
       enable = true;
       userName = "Nicholas Ciechanowski";
       userEmail = "nicholas@ciech.anow.ski";
       # extraConfig.init.defaultBranch = "main";
     };
-    gh = { enable = true; };
+    gh = {
+      enable = true;
+    };
   };
 }

@@ -123,13 +123,16 @@
 
         # Miscellaneous aliases
         wttr = ''clear && curl -s "https://wttr.in/3805+Australia?2"'';
-        gitc = ''
-          git branch --merged | grep -Ev "(^\*|^\+|master|main|dev)" | xargs --no-run-if-empty git branch -d && git fsck && git gc && git prune && git fsck'';
+        gitc = ''git branch --merged | grep -Ev "(^\*|^\+|master|main|dev)" | xargs --no-run-if-empty git branch -d && git fsck && git gc && git prune && git fsck'';
         nv = "nvim";
       };
       autocd = true;
-      syntaxHighlighting = { enable = true; };
-      autosuggestion = { enable = true; };
+      syntaxHighlighting = {
+        enable = true;
+      };
+      autosuggestion = {
+        enable = true;
+      };
     };
     # TODO:, look into manually stying this since I can't see selected input
     carapace = {
@@ -168,13 +171,16 @@
           vimcmd_visual_symbol = "[❮](bold lavender)";
         };
 
-        git_branch = { format = "[$symbol$branch(:$remote_branch)]($style)"; };
+        git_branch = {
+          format = "[$symbol$branch(:$remote_branch)]($style)";
+        };
 
-        golang = { format = "[ $version ](bold cyan)"; };
+        golang = {
+          format = "[ $version ](bold cyan)";
+        };
 
         aws = {
-          format =
-            ''[$symbol(profile: "$profile" )((region: $region) )]($style)'';
+          format = ''[$symbol(profile: "$profile" )((region: $region) )]($style)'';
           disabled = false;
           style = "bold blue";
           symbol = " ";
@@ -185,16 +191,19 @@
           disabled = true;
           detect_files = [ "Dockerfile" ];
           format = "[$symbol$context( \\($namespace\\))]($style) ";
-          contexts = [{
-            context_pattern =
-              "arn:aws:eks:us-west-2:577926974532:cluster/zd-pvc-omer";
-            style = "green";
-            context_alias = "omerxx";
-            symbol = " ";
-          }];
+          contexts = [
+            {
+              context_pattern = "arn:aws:eks:us-west-2:577926974532:cluster/zd-pvc-omer";
+              style = "green";
+              context_alias = "omerxx";
+              symbol = " ";
+            }
+          ];
         };
 
-        docker_context = { disabled = true; };
+        docker_context = {
+          disabled = true;
+        };
 
         custom = {
           dotfiles_status = {
@@ -240,7 +249,11 @@
               fi
             '';
             when = "test -d ~/.dotfiles";
-            shell = [ "bash" "--noprofile" "--norc" ];
+            shell = [
+              "bash"
+              "--noprofile"
+              "--norc"
+            ];
             format = "$output";
             disabled = false;
           };
