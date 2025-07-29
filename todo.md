@@ -2,3 +2,6 @@
   - Add toggleable config options for this instead of imports
 - move to hyper land? create a module to make swapping between de and wm easier
 - I need to clean up hosts/framework16 file, it's a bit messy atm
+- 1password sshkeys
+  - I have this working but it's not like how they do it in the docs, I think I've hacked mine togehter to get the home-manager side to work
+  - git signing again, I think this works but idk
