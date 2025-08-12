@@ -26,6 +26,7 @@ return {
 	-- { import = "astrocommunity.completion.magazine-nvim" },
 	-- { import = "astrocommunity.completion.cmp-cmdline" },
 	-- { import = "astrocommunity.completion.cmp-emoji" },
+  { import = "astrocommunity.completion.avante-nvim" },
 
 	-- blink-cmp
 	{ import = "astrocommunity.completion.blink-cmp-emoji" },
