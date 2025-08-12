@@ -22,7 +22,10 @@
 
   # Use the latest kernel packages.
   # As recommended in https://wiki.nixos.org/wiki/Hardware/Framework/Laptop_16
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # 6.16 has a regression that I spent hours trouble shooting :))
+  # https://gitlab.freedesktop.org/drm/amd/-/issues/4403
+  boot.kernelPackages = pkgs.linuxPackages_6_15;
+  # boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelParams = [ "amdgpu.abmlevel=0" ];
 
   services.power-profiles-daemon.enable = true;
@@ -133,7 +136,26 @@
     spotify
     firefox
     discord
+    (aspellWithDicts (
+      dicts: with dicts; [
+        en
+        en-computers
+        en-science
+      ]
+    ))
+    jetbrains-toolbox
   ];
+
+  # This is needed for FNM since is uses generic linux node versions
+  programs.nix-ld = {
+    enable = true;
+    libraries = with pkgs; [
+      stdenv.cc.cc
+      zlib
+      glib
+      libgcc
+    ];
+  };
 
   # 1passwork firefox support
   programs._1password.enable = true;
