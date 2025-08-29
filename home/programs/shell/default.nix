@@ -42,9 +42,9 @@
           flake_host="''${1:-}"
           if command -v nixos-rebuild &>/dev/null; then
             # add --verbose if you want more
-            sudo nixos-rebuild switch --flake ~/.dotfiles''${flake_host:+\#''${flake_host}} --impure
+            sudo nixos-rebuild switch --flake ~/.dotfiles''${flake_host:+\#''${flake_host}} --impure || return 1
           else
-            home-manager --flake ~/.dotfiles''${flake_host:+\#''${flake_host}} switch --impure
+            home-manager --flake ~/.dotfiles''${flake_host:+\#''${flake_host}} switch --impure || return 1
           fi
 
           # make this dynamic if I have nvim module setup
@@ -102,6 +102,8 @@
         add-zsh-hook chpwd chpwd_php_hook
       '';
       envExtra = ''
+        export ZSH_COMPDUMP=$ZSH/cache/.zcompdump-$HOST
+
         export GOBIN="$HOME/go/bin"
         export PATH="$GOBIN:$PATH"
 
