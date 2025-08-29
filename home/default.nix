@@ -60,7 +60,8 @@
     statix
     nixfmt
 
-    nerd-fonts.fira-code
+    # nerd-fonts.fira-code
+    maple-mono.NF
 
     git
     gh

@@ -24,9 +24,32 @@
   # As recommended in https://wiki.nixos.org/wiki/Hardware/Framework/Laptop_16
   # 6.16 has a regression that I spent hours trouble shooting :))
   # https://gitlab.freedesktop.org/drm/amd/-/issues/4403
-  boot.kernelPackages = pkgs.linuxPackages_6_15;
   # boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.kernelParams = [ "amdgpu.abmlevel=0" ];
+
+  boot.kernelPackages = pkgs.linuxPackages_6_15;
+  # boot.kernelPackages = pkgs.linuxPackagesFor (
+  #   pkgs.linuxPackages_latest.override {
+  #     argsOverride = rec {
+  #       src = pkgs.fetchFromGitHub {
+  #         owner = "torvalds";
+  #         repo = "linux";
+  #         # rev = "";
+  #         tag = "v6.17-rc2";
+  #         sha256 = "sha256-n3FQ+oDHtcIjkX6QJMBeu3Xnex2e43H5fBdRopd8oqs=";
+  #       };
+  #       dontStrip = true;
+  #       ignoreConfigErrors = true;
+  #       version = "6.17.0-rc2";
+  #       modDirVersion = "6.17.0-rc2";
+  #     };
+  #   }
+  # );
+
+  boot.kernelParams = [
+    "amdgpu.abmlevel=0"
+    # "drm.debug=0x100"
+    # "log_buf_len=50M"
+  ];
 
   services.power-profiles-daemon.enable = true;
 
@@ -197,6 +220,12 @@
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
+
+  nix.gc = {
+    automatic = true;
+    randomizedDelaySec = "14m";
+    options = "--delete-older-than 10d";
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

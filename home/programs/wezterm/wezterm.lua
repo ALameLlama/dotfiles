@@ -1,5 +1,5 @@
 -- Pull in the wezterm API
-local wezterm = require 'wezterm'
+local wezterm = require("wezterm")
 
 -- This will hold the configuration.
 local config = wezterm.config_builder()
@@ -13,9 +13,10 @@ local config = wezterm.config_builder()
 --     [16] = "#00000080",
 --   }
 -- }
-config.color_scheme = 'Catppuccin Mocha (Gogh)'
+config.color_scheme = "Catppuccin Mocha (Gogh)"
 
-config.font = wezterm.font('FiraCode Nerd Font', { weight = 'Bold' })
+-- config.font = wezterm.font('FiraCode Nerd Font', { weight = 'Bold' })
+config.font = wezterm.font("Maple Mono NF", { weight = "Bold" })
 
 -- and finally, return the configuration to wezterm
 return config
