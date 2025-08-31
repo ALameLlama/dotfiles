@@ -60,6 +60,31 @@
           nvim --headless "+Lazy! update" +qa
         }
 
+        update-php() {
+          local domain=$1
+          local php_version=$2
+
+          if [[ -z "$domain" || -z "$php_version" ]]; then
+              echo "Usage: update-php {domain} {php_version (e.g., 8.2)}"
+              return 1
+          fi
+
+          for file in /etc/apache2/sites-enabled/''${domain}.conf /etc/apache2/sites-enabled/''${domain}-ssl.conf; do
+              if [[ -f "$file" ]]; then
+                  echo "Updating PHP version in $file to php$php_version"
+                  sudo sed -i -E "s/php[0-9]+\.[0-9]+/php$php_version/g" "$file"
+              else
+                  echo "File not found: $file"
+              fi
+          done
+
+          echo "Restarting Apache..."
+          sudo systemctl restart apache2
+
+          echo "Done."
+        }
+
+
         autoload -Uz add-zsh-hook
 
         chpwd_php_hook() {
@@ -126,7 +151,6 @@
 
         # Miscellaneous aliases
         wttr = ''clear && curl -s "https://wttr.in/3805+Australia?2"'';
-        gitc = ''git branch --merged | grep -Ev "(^\*|^\+|master|main|dev)" | xargs --no-run-if-empty git branch -d && git fsck && git gc && git prune && git fsck'';
         nv = "nvim";
       };
       autocd = true;
