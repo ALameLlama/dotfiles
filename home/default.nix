@@ -1,5 +1,16 @@
 { config, pkgs, ... }:
 
+let
+  gitPr = pkgs.writeShellScriptBin "git-pr" ''
+    gh pr create \
+      --title "$(git rev-parse --abbrev-ref HEAD)" \
+      --body-file .github/pull_request_template.md \
+      --draft
+  '';
+  gitC = pkgs.writeShellScriptBin "git-c" ''
+    git branch --merged | grep -Ev "(^\*|^\+|master|main|dev)" | xargs --no-run-if-empty git branch -d && git fsck && git gc && git prune && git fsck
+  '';
+in
 {
   nix = {
     # package = pkgs.nix;
@@ -65,6 +76,8 @@
 
     git
     gh
+    gitPr
+    gitC
 
     dive
     # posting
