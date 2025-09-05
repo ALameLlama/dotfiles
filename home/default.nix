@@ -8,8 +8,31 @@ let
       --draft
   '';
   gitC = pkgs.writeShellScriptBin "git-c" ''
-    git branch --merged | grep -Ev "(^\*|^\+|master|main|dev)" | xargs --no-run-if-empty git branch -d && git fsck && git gc && git prune && git fsck
+    git fetch --prune
+
+    for branch in $(git for-each-ref --format='%(refname:short)' refs/heads/); do
+      # Skip main branches
+      if echo "$branch" | grep -Eq '^(master|main|dev)$'; then
+        continue
+      fi
+
+      # Check if branch is fully merged into HEAD
+      if git branch --merged | grep -qE "^\s+$branch$"; then
+        # Check if upstream is gone
+        upstream=$(git for-each-ref --format='%(upstream:short)' "refs/heads/$branch")
+        if [ -n "$upstream" ] && ! git show-ref --verify --quiet "refs/remotes/$upstream"; then
+          echo "Deleting local branch '$branch' (upstream gone)"
+          git branch -d "$branch"
+        fi
+      fi
+    done
+
+    git fsck
+    git gc
+    git prune
+    git fsck
   '';
+
 in
 {
   nix = {
@@ -49,11 +72,12 @@ in
       p: with p; [
         playwright
         pip
+        uv
       ]
     ))
 
+    # (luajit.withPackages (p: with p; [ luarocks ]))
     (lua5_1.withPackages (p: with p; [ luarocks ]))
-    # luajit
 
     nodejs # see if this is needed or if this causes conflicts with fnm
     fnm
@@ -61,7 +85,9 @@ in
     rustup # this will install cargo and rustc without conflicting
     # rustc
     # cargo
-    zig
+
+    # zig
+    zig_0_15
     go
 
     # nix packages

@@ -26,29 +26,36 @@
   # https://gitlab.freedesktop.org/drm/amd/-/issues/4403
   # boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  boot.kernelPackages = pkgs.linuxPackages_6_15;
-  # boot.kernelPackages = pkgs.linuxPackagesFor (
-  #   pkgs.linuxPackages_latest.override {
-  #     argsOverride = rec {
-  #       src = pkgs.fetchFromGitHub {
-  #         owner = "torvalds";
-  #         repo = "linux";
-  #         # rev = "";
-  #         tag = "v6.17-rc2";
-  #         sha256 = "sha256-n3FQ+oDHtcIjkX6QJMBeu3Xnex2e43H5fBdRopd8oqs=";
-  #       };
-  #       dontStrip = true;
-  #       ignoreConfigErrors = true;
-  #       version = "6.17.0-rc2";
-  #       modDirVersion = "6.17.0-rc2";
-  #     };
-  #   }
-  # );
+  boot.kernelPackages = pkgs.linuxPackagesFor (
+    pkgs.linux_6_16.override {
+      argsOverride = rec {
+        src = pkgs.fetchFromGitHub {
+          owner = "torvalds";
+          repo = "linux";
+          # rev = "";
+          tag = "v6.17-rc5";
+          sha256 = "sha256-Pc1QfnFOj5hpn9gGeIOFsy8ZSbMYVpP6frENtjaCu5E=";
+        };
+        dontStrip = true;
+        ignoreConfigErrors = true;
+        version = "6.17.0-rc5";
+        modDirVersion = "6.17.0-rc5";
+      };
+    }
+  );
 
   boot.kernelParams = [
     "amdgpu.abmlevel=0"
     # "drm.debug=0x100"
     # "log_buf_len=50M"
+  ];
+
+  boot.kernelPatches = [
+    {
+      # https://gitlab.freedesktop.org/drm/amd/-/issues/4500
+      name = "0001-drm-dp-Disable-DPCD-probing";
+      patch = ./patches/0001-drm-dp-Disable-DPCD-probing.patch;
+    }
   ];
 
   services.power-profiles-daemon.enable = true;
