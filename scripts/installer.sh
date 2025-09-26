@@ -34,7 +34,9 @@ function main() {
 	git clone git@github.com:ALameLlama/dotfiles.git ~/.dotfiles
 
 	mkdir -p ~/.dotfiles/.git/hooks
-	echo '#!/bin/bash
+
+	echo '
+	#!/usr/bin/env sh
 	rm -f "$HOME/.cache/dotfiles_status_cache"' >~/.dotfiles/.git/hooks/post-merge
 	chmod +x ~/.dotfiles/.git/hooks/post-merge
 
