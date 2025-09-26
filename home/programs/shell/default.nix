@@ -170,10 +170,10 @@
       enable = true;
       enableZshIntegration = true;
       settings = {
-        add_newline = false;
-        format = "$time$directory$custom$character";
+        add_newline = true;
+        # format = "$time$directory$custom$character";
         palette = "catppuccin_mocha";
-        right_format = "$all";
+        # right_format = "$all";
         command_timeout = 5000;
 
         # directory = {
