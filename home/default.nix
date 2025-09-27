@@ -2,10 +2,14 @@
 
 let
   gitPr = pkgs.writeShellScriptBin "git-pr" ''
-    gh pr create \
-      --title "$(git rev-parse --abbrev-ref HEAD)" \
-      --body-file .github/pull_request_template.md \
-      --draft
+    title="$(git rev-parse --abbrev-ref HEAD)"
+    cmd=(gh pr create --title "$title" --draft)
+
+    if [ -f ".github/pull_request_template.md" ]; then
+      cmd+=(--body-file .github/pull_request_template.md)
+    fi
+
+    "''${cmd[@]}"
   '';
   gitC = pkgs.writeShellScriptBin "git-c" ''
     git fetch --prune
