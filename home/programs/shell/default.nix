@@ -202,6 +202,10 @@
           format = "[$symbol$branch(:$remote_branch)]($style)";
         };
 
+        git_status = {
+          disabled = true;
+        };
+
         golang = {
           format = "[ $version ](bold cyan)";
         };
