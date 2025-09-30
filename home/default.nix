@@ -36,7 +36,11 @@ let
     git prune
     git fsck
   '';
-
+  gitAttr = pkgs.writeShellScriptBin "git-attr" ''
+    git archive --format=tar HEAD > latest.tar 
+    tar -tvf latest.tar
+    rm -rf latest.tar
+  '';
 in
 {
   nix = {
@@ -108,6 +112,7 @@ in
     gh
     gitPr
     gitC
+    gitAttr
 
     dive
     # posting
