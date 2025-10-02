@@ -26,12 +26,9 @@ return {
 	-- { import = "astrocommunity.completion.magazine-nvim" },
 	-- { import = "astrocommunity.completion.cmp-cmdline" },
 	-- { import = "astrocommunity.completion.cmp-emoji" },
-  { import = "astrocommunity.completion.avante-nvim" },
 
 	-- blink-cmp
 	{ import = "astrocommunity.completion.blink-cmp-emoji" },
-
-	{ import = "astrocommunity.completion.copilot-lua-cmp" },
 
 	-- Debugging
 	-- 	{ import = "astrocommunity.debugging.nvim-dap-virtual-text" },
@@ -42,10 +39,9 @@ return {
 
 	-- Editing Support
 	{ import = "astrocommunity.editing-support.auto-save-nvim" },
-	{ import = "astrocommunity.editing-support.copilotchat-nvim" }, -- Copilot chat,
 	{ import = "astrocommunity.editing-support.hypersonic-nvim" }, -- :Hypersonic for regex explainer
-	{ import = "astrocommunity.editing-support.mini-splitjoin" },  -- Split/Join params with gS
-	{ import = "astrocommunity.editing-support.neogen" },          -- Annotation generator
+	{ import = "astrocommunity.editing-support.mini-splitjoin" }, -- Split/Join params with gS
+	{ import = "astrocommunity.editing-support.neogen" },         -- Annotation generator
 	-- { import = "astrocommunity.editing-support.nvim-context-vt" }, -- Virtual Text for end statements
 	-- { import = "astrocommunity.editing-support.nvim-origami" }, -- Code Folding
 	{ import = "astrocommunity.editing-support.nvim-treesitter-context" }, -- Sticky scroll
@@ -77,16 +73,16 @@ return {
 	-- Packs
 	{ import = "astrocommunity.pack.bash" },
 	{ import = "astrocommunity.pack.lua" },
-	-- { import = "astrocommunity.pack.blade" },
-	-- { import = "astrocommunity.pack.gleam" },
-	-- { import = "astrocommunity.pack.go" },
+	{ import = "astrocommunity.pack.blade" },
+	{ import = "astrocommunity.pack.gleam" },
+	{ import = "astrocommunity.pack.go" },
 	{ import = "astrocommunity.pack.html-css" },
 	{ import = "astrocommunity.pack.json" },
-	-- { import = "astrocommunity.pack.laravel" },
 	{ import = "astrocommunity.pack.markdown" },
 	-- { import = "astrocommunity.pack.php" },
-	-- { import = "astrocommunity.pack.python" },
-	-- { import = "astrocommunity.pack.typescript" },
+	-- { import = "astrocommunity.pack.laravel" },
+	{ import = "astrocommunity.pack.python" },
+	{ import = "astrocommunity.pack.typescript" },
 	{ import = "astrocommunity.pack.rust" },
 	{ import = "astrocommunity.pack.zig" },
 	{ import = "astrocommunity.pack.yaml" },
@@ -100,4 +96,9 @@ return {
 
 	-- Utility
 	{ import = "astrocommunity.utility.noice-nvim" },
+
+	-- Ai Stuff
+	-- { import = "astrocommunity.completion.avante-nvim" },
+	{ import = "astrocommunity.completion.copilot-lua-cmp" },
+	{ import = "astrocommunity.editing-support.copilotchat-nvim" }, -- Copilot chat,
 }

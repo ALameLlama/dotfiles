@@ -1,7 +1,58 @@
 return {
-	{ import = "astrocommunity.pack.php" },
 	{ import = "astrocommunity.pack.html-css" },
 	{ import = "astrocommunity.pack.blade" },
+	{
+		"nvim-treesitter/nvim-treesitter",
+		optional = true,
+		opts = function(_, opts)
+			if opts.ensure_installed ~= "all" then
+				opts.ensure_installed =
+					require("astrocore").list_insert_unique(opts.ensure_installed, { "php", "phpdoc" })
+			end
+		end,
+	},
+	{
+		"williamboman/mason-lspconfig.nvim",
+		optional = true,
+		opts = function(_, opts)
+			-- opts.ensure_installed = require("astrocore").list_insert_unique(opts.ensure_installed, { "phpactor" })
+			opts.ensure_installed = require("astrocore").list_insert_unique(opts.ensure_installed, { "intelephense" })
+		end,
+	},
+	{
+		"jay-babu/mason-nvim-dap.nvim",
+		optional = true,
+		opts = function(_, opts)
+			opts.ensure_installed = require("astrocore").list_insert_unique(opts.ensure_installed, { "php" })
+		end,
+	},
+	{
+		"jay-babu/mason-null-ls.nvim",
+		optional = true,
+		opts = function(_, opts)
+			opts.ensure_installed = require("astrocore").list_insert_unique(opts.ensure_installed, { "php-cs-fixer" })
+		end,
+	},
+	{
+		"WhoIsSethDaniel/mason-tool-installer.nvim",
+		optional = true,
+		opts = function(_, opts)
+			opts.ensure_installed = require("astrocore").list_insert_unique(
+				opts.ensure_installed,
+				-- { "phpactor", "php-debug-adapter", "php-cs-fixer" }
+				{ "intelephense", "php-debug-adapter", "php-cs-fixer" }
+			)
+		end,
+	},
+	{
+		"stevearc/conform.nvim",
+		optional = true,
+		opts = {
+			formatters_by_ft = {
+				php = { "php_cs_fixer" },
+			},
+		},
+	},
 	{
 		"adibhanna/laravel.nvim",
 		event = { "VeryLazy" },
@@ -34,11 +85,21 @@ return {
 				optional = true,
 				opts = {
 					sources = {
-						default = { "laravel", "lsp", "path", "snippets", "buffer" },
+						default = { "laravel" },
 						providers = {
 							laravel = {
 								name = "laravel",
 								module = "laravel.blink_source",
+								-- https://github.com/Saghen/blink.cmp/issues/1098
+								-- There currently really isn't a way to do what I want, I want this to exist after the lsp
+								score_offset = -4000,
+								transform_items = function(ctx, items)
+									for _, item in ipairs(items) do
+										item.kind_icon = "󰫐"
+										item.kind_name = "Laravel"
+									end
+									return items
+								end,
 							},
 						},
 					},
@@ -55,5 +116,9 @@ return {
 		opts = {
 			notifications = false,
 		},
+	},
+	{
+		"windwp/nvim-ts-autotag",
+		enabled = false,
 	},
 }
