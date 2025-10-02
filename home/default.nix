@@ -116,6 +116,8 @@ in
 
     dive
     # posting
+
+    opencode
   ];
 
   programs = {
