@@ -118,6 +118,7 @@ in
     # posting
 
     opencode
+    lsof
   ];
 
   programs = {
