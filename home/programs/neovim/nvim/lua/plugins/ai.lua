@@ -6,7 +6,7 @@ return {
 	-- Ai Stuff
 	-- { import = "astrocommunity.completion.avante-nvim" },
 	{ import = "astrocommunity.completion.copilot-lua-cmp" },
-	{ import = "astrocommunity.editing-support.copilotchat-nvim" }, -- Copilot chat,
+	-- { import = "astrocommunity.editing-support.copilotchat-nvim" }, -- Copilot chat,
 	{ import = "astrocommunity.ai.opencode-nvim" },
 }
 
