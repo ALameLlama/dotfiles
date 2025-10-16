@@ -16,23 +16,16 @@ return {
 			return opts
 		end,
 	},
-	{ import = "astrocommunity.bars-and-lines.vim-illuminate" }, -- Highlight words under cursor, <a-n> <a-p> <a-i> to navigate
 
 	-- Code Runners
-	-- { import = "astrocommunity.code-runner.compiler-nvim" }, -- :Compiler* commands
+	-- { import = "astrocommunity.code-runner.compiler-nvim" }, -- :Compiler* commands -- waiting for PR to fix snacks support
 	{ import = "astrocommunity.code-runner.overseer-nvim" }, -- :Compiler* commands
-
-	-- Completion
-	-- nvim-cmp
-	-- { import = "astrocommunity.completion.magazine-nvim" },
-	-- { import = "astrocommunity.completion.cmp-cmdline" },
-	-- { import = "astrocommunity.completion.cmp-emoji" },
 
 	-- blink-cmp
 	{ import = "astrocommunity.completion.blink-cmp-emoji" },
 
 	-- Debugging
-	-- 	{ import = "astrocommunity.debugging.nvim-dap-virtual-text" },
+	{ import = "astrocommunity.debugging.nvim-dap-virtual-text" },
 
 	-- 	-- Diagnostics
 	{ import = "astrocommunity.diagnostics.tiny-inline-diagnostic-nvim" },
@@ -40,20 +33,22 @@ return {
 
 	-- Editing Support
 	{ import = "astrocommunity.editing-support.auto-save-nvim" },
-	{ import = "astrocommunity.editing-support.hypersonic-nvim" }, -- :Hypersonic for regex explainer
-	{ import = "astrocommunity.editing-support.mini-splitjoin" }, -- Split/Join params with gS
-	{ import = "astrocommunity.editing-support.neogen" }, -- Annotation generator
-	-- { import = "astrocommunity.editing-support.nvim-context-vt" }, -- Virtual Text for end statements
-	-- { import = "astrocommunity.editing-support.nvim-origami" }, -- Code Folding
+	{ import = "astrocommunity.editing-support.hypersonic-nvim" },        -- :Hypersonic for regex explainer
+	{ import = "astrocommunity.editing-support.mini-splitjoin" },         -- Split/Join params with gS
+	{ import = "astrocommunity.editing-support.neogen" },                 -- Annotation generator
+	{ import = "astrocommunity.editing-support.nvim-context-vt" },        -- Virtual Text for end statements
 	{ import = "astrocommunity.editing-support.nvim-treesitter-context" }, -- Sticky scroll
 	{ import = "astrocommunity.editing-support.rainbow-delimiters-nvim" }, -- Rainbow brackets
-	{ import = "astrocommunity.editing-support.refactoring-nvim" }, -- Refactoring keygroup
-	{ import = "astrocommunity.editing-support.suda-vim" }, -- Sudo write
+	{ import = "astrocommunity.editing-support.refactoring-nvim" },       -- Refactoring keygroup
+	{ import = "astrocommunity.editing-support.suda-vim" },               -- Sudo write
 	-- { import = "astrocommunity.editing-support.text-case-nvim" }, -- :TextCaseOpenTelescope
-	{ import = "astrocommunity.editing-support.vim-visual-multi" }, -- More info https://github.com/mg979/vim-visual-multi
+	{ import = "astrocommunity.editing-support.vim-visual-multi" },       -- More info https://github.com/mg979/vim-visual-multi
+
+	-- Fuzzy Finder
+	-- { import = "astrocommunity.fuzzy-finder.snacks-picker" },
 
 	-- Git
-	{ import = "astrocommunity.git.blame-nvim" }, -- <Leader>gB
+	{ import = "astrocommunity.git.blame-nvim" },    -- <Leader>gB
 	{ import = "astrocommunity.git.diffview-nvim" }, -- <Leader>gd
 	{ import = "astrocommunity.git.gitgraph-nvim" }, -- <Leader>g|
 	{ import = "astrocommunity.git.gitlinker-nvim" }, -- <Leader>gy
