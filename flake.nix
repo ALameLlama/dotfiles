@@ -58,12 +58,19 @@
         vagrant = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           modules = [
-            ./home/default.nix
+            ./home/features.nix
+            ./home/core.nix
             ./home/programs/neovim
             ./home/programs/tmux
             ./home/programs/shell
             ./home/programs/cli-tooling
-            # ./home/programs/language/php
+            ./home/programs/wezterm
+            ./home/programs/git
+            ./home/programs/language
+            ./home/nix-tools.nix
+            ./home/fonts.nix
+            ./home/utilities.nix
+            ./home/profiles/developer.nix
             {
               home = {
                 username = "vagrant";

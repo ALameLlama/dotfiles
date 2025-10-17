@@ -4,7 +4,7 @@
   pkgs,
   ...
 }:
-
+with lib;
 let
   phpWithConfig = pkgs.php.buildEnv {
     extensions = { enabled, all }: enabled ++ [ all.imagick ];
@@ -16,8 +16,10 @@ let
   };
 in
 {
-  home.packages = [
-    phpWithConfig
-    pkgs.php.packages.composer
-  ];
+  config = mkIf config.features.languages.php.enable {
+    home.packages = [
+      phpWithConfig
+      pkgs.php.packages.composer
+    ];
+  };
 }
