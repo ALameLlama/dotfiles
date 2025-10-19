@@ -12,7 +12,7 @@
     };
 
     languages = {
-      php.enable = true;
+      php.enable = false;
       python.enable = true;
       javascript.enable = true;
       rust.enable = true;

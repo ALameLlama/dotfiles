@@ -48,10 +48,13 @@ with lib;
             flake_host="''${1:-}"
             if command -v nixos-rebuild &>/dev/null; then
               # add --verbose if you want more
-              sudo nixos-rebuild switch --flake ~/.dotfiles''${flake_host:+\#''${flake_host}} --impure || return 1
+              cmd='sudo nixos-rebuild switch --flake ~/.dotfiles''${flake_host:+\#''${flake_host}} --impure'
             else
-              home-manager --flake ~/.dotfiles''${flake_host:+\#''${flake_host}} switch --impure || return 1
+              cmd='home-manager --flake ~/.dotfiles''${flake_host:+\#''${flake_host}} switch --impure'
             fi
+
+            echo "Running: $cmd"
+            eval $cmd || return 1
 
             # make this dynamic if I have nvim module setup
             nvim --headless "+Lazy! sync" +qa
@@ -142,6 +145,8 @@ with lib;
 
           # export LUA_PATH="$HOME/.luarocks/share/lua/5.1/?.lua;$HOME/.luarocks/share/lua/5.1/?/init.lua;./?.lua;/usr/local/share/lua/5.1/?.lua;/usr/local/share/lua/5.1/?/init.lua;/usr/local/lib/lua/5.1/?.lua;/usr/local/lib/lua/5.1/?/init.lua;/usr/share/lua/5.1/?.lua;/usr/share/lua/5.1/?/init.lua"
           # export LUA_CPATH="$HOME/.luarocks/lib/lua/5.1/?.so;/usr/local/lib/lua/5.1/?.so;/usr/lib/x86_64-linux-gnu/lua/5.1/?.so;/usr/lib/lua/5.1/?.so;/usr/local/lib/lua/5.1/loadall.so"
+
+          export EDITOR="neovim"
         '';
         shellAliases = {
           ".." = "cd ..";
