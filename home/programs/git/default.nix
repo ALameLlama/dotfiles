@@ -60,8 +60,10 @@ in
     programs = {
       git = {
         enable = true;
-        userName = "Nicholas Ciechanowski";
-        userEmail = "nicholas@ciech.anow.ski";
+        settings.user = {
+          name = "Nicholas Ciechanowski";
+          email = "nicholas@ciech.anow.ski";
+        };
       };
       gh = {
         enable = true;

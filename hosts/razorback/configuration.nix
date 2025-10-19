@@ -24,25 +24,25 @@
   # As recommended in https://wiki.nixos.org/wiki/Hardware/Framework/Laptop_16
   # 6.16 has a regression that I spent hours trouble shooting :))
   # https://gitlab.freedesktop.org/drm/amd/-/issues/4403
-  # boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  boot.kernelPackages = pkgs.linuxPackagesFor (
-    pkgs.linux_6_16.override {
-      argsOverride = rec {
-        src = pkgs.fetchFromGitHub {
-          owner = "torvalds";
-          repo = "linux";
-          # rev = "";
-          tag = "v6.17-rc5";
-          sha256 = "sha256-Pc1QfnFOj5hpn9gGeIOFsy8ZSbMYVpP6frENtjaCu5E=";
-        };
-        dontStrip = true;
-        ignoreConfigErrors = true;
-        version = "6.17.0-rc5";
-        modDirVersion = "6.17.0-rc5";
-      };
-    }
-  );
+  # boot.kernelPackages = pkgs.linuxPackagesFor (
+  #   pkgs.linux_6_16.override {
+  #     argsOverride = rec {
+  #       src = pkgs.fetchFromGitHub {
+  #         owner = "torvalds";
+  #         repo = "linux";
+  #         # rev = "";
+  #         tag = "v6.17-rc5";
+  #         sha256 = "sha256-Pc1QfnFOj5hpn9gGeIOFsy8ZSbMYVpP6frENtjaCu5E=";
+  #       };
+  #       dontStrip = true;
+  #       ignoreConfigErrors = true;
+  #       version = "6.17.0-rc5";
+  #       modDirVersion = "6.17.0-rc5";
+  #     };
+  #   }
+  # );
 
   boot.kernelParams = [
     "amdgpu.abmlevel=0"
@@ -50,17 +50,17 @@
     # "log_buf_len=50M"
   ];
 
-  boot.kernelPatches = [
-    {
-      # https://gitlab.freedesktop.org/drm/amd/-/issues/4500
-      name = "0001-drm-dp-Disable-DPCD-probing";
-      patch = ./patches/0001-drm-dp-Disable-DPCD-probing.patch;
-    }
-  ];
+  # boot.kernelPatches = [
+  #   {
+  #     # https://gitlab.freedesktop.org/drm/amd/-/issues/4500
+  #     name = "0001-drm-dp-Disable-DPCD-probing";
+  #     patch = ./patches/0001-drm-dp-Disable-DPCD-probing.patch;
+  #   }
+  # ];
 
   services.power-profiles-daemon.enable = true;
 
-  networking.hostName = "framework16"; # Define your hostname.
+  networking.hostName = "razorback"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -147,6 +147,9 @@
       kdePackages.kate
       #  thunderbird
     ];
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL6TjYBrTgivTS8LTp7aawD4VknVD0+3MYqWxPsNSc3V home"
+    ];
   };
 
   # Allow unfree packages
@@ -214,7 +217,14 @@
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+  services.openssh = {
+    enable = true;
+    ports = [ 22 ];
+    settings = {
+      PasswordAuthentication = false;
+      PermitRootLogin = "no";
+    };
+  };
 
   # Enable fingerprint reader support.
   services.fprintd.enable = true;

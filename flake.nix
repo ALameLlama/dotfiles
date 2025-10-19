@@ -30,7 +30,7 @@
     in
     {
       nixosConfigurations = {
-        framework16 =
+        razorback =
           let
             username = "nciechanowski";
             specialArgs = {
@@ -41,7 +41,7 @@
           nixpkgs.lib.nixosSystem {
             modules = [
               determinate.nixosModules.default
-              ./hosts/framework16/configuration.nix
+              ./hosts/razorback/configuration.nix
               inputs.nixos-hardware.nixosModules.framework-16-7040-amd
               ./users/${username}/home.nix
               home-manager.nixosModules.home-manager
