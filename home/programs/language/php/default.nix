@@ -17,9 +17,9 @@ let
 in
 {
   config = mkIf config.features.languages.php.enable {
-    home.packages = [
+    home.packages =  with pkgs; [
       phpWithConfig
-      pkgs.php.packages.composer
+      php.packages.composer
     ];
   };
 }

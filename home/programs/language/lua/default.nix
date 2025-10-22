@@ -7,10 +7,9 @@
 with lib;
 {
   config = mkIf config.features.languages.lua.enable {
-    home.packages = [
-      pkgs.pkg-config
-      pkgs.lux-cli
-      (pkgs.luajit.withPackages (
+    home.packages = with pkgs; [
+      lux-cli
+      (luajit.withPackages (
         p: with p; [
           luarocks
           lux-lua
