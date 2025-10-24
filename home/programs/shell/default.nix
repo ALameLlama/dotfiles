@@ -4,9 +4,8 @@
   pkgs,
   ...
 }:
-with lib;
 {
-  config = mkIf config.features.programs.shell.enable {
+  config = lib.mkIf config.features.programs.shell.enable {
     home.packages = with pkgs; [
       zsh
       zsh-autosuggestions

@@ -4,9 +4,8 @@
   pkgs,
   ...
 }:
-with lib;
 {
-  config = mkIf config.features.tools.utilities.enable {
+  config = lib.mkIf config.features.tools.utilities.enable {
     home.packages = with pkgs; [
       dive
       opencode

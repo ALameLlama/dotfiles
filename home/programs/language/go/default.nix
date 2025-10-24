@@ -4,9 +4,8 @@
   pkgs,
   ...
 }:
-with lib;
 {
-  config = mkIf config.features.languages.go.enable {
+  config = lib.mkIf config.features.languages.go.enable {
     home.packages = with pkgs; [
       go
     ];

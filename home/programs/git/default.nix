@@ -4,7 +4,6 @@
   pkgs,
   ...
 }:
-with lib;
 let
   gitPr = pkgs.writeShellScriptBin "git-pr" ''
     title="$(git rev-parse --abbrev-ref HEAD)"
@@ -48,7 +47,7 @@ let
   '';
 in
 {
-  config = mkIf config.features.programs.git.enable {
+  config = lib.mkIf config.features.programs.git.enable {
     home.packages = with pkgs; [
       git
       gh

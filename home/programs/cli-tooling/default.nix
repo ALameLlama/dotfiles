@@ -4,9 +4,8 @@
   pkgs,
   ...
 }:
-with lib;
 {
-  config = mkIf config.features.programs.cli-tooling.enable {
+  config = lib.mkIf config.features.programs.cli-tooling.enable {
     home.packages = with pkgs; [
       bat
       entr

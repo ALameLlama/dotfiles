@@ -4,9 +4,8 @@
   pkgs,
   ...
 }:
-with lib;
 {
-  config = mkIf config.features.languages.zig.enable {
+  config = lib.mkIf config.features.languages.zig.enable {
     home.packages = with pkgs; [
       zig_0_15
     ];
