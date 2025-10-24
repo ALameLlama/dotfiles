@@ -1,5 +1,5 @@
 {
-  description = "NixOS Configuration";
+  description = "Llamas NixOS Configuration";
 
   inputs = {
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
@@ -58,25 +58,37 @@
         vagrant = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           modules = [
-            ./home/features.nix
-            ./home/core.nix
-            ./home/programs/neovim
-            ./home/programs/tmux
-            ./home/programs/shell
-            ./home/programs/cli-tooling
-            ./home/programs/wezterm
-            ./home/programs/git
-            ./home/programs/language
-            ./home/nix-tools.nix
-            ./home/fonts.nix
-            ./home/utilities.nix
-            ./home/profiles/developer.nix
+            ./home
             {
               home = {
                 username = "vagrant";
                 homeDirectory = "/home/vagrant";
               };
               nix.package = pkgs.nix;
+              features = {
+                programs = {
+                  neovim.enable = true;
+                  tmux.enable = true;
+                  shell.enable = true;
+                  cli-tooling.enable = true;
+                  wezterm.enable = false;
+                  git.enable = true;
+                };
+                languages = {
+                  php.enable = false;
+                  python.enable = true;
+                  javascript.enable = true;
+                  rust.enable = false;
+                  lua.enable = true;
+                  go.enable = false;
+                  zig.enable = false;
+                };
+                tools = {
+                  nix-tools.enable = true;
+                  utilities.enable = true;
+                  fonts.enable = true;
+                };
+              };
             }
           ];
         };

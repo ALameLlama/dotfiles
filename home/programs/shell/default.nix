@@ -68,6 +68,11 @@
             nvim --headless "+Lazy! update" +qa
           }
 
+          function dfd() {
+            nix-collect-garbage -d
+            sudo nix-collect-garbage -d
+          }
+
           update-php() {
             local domain=$1
             local php_version=$2
