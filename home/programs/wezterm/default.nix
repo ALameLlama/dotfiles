@@ -4,9 +4,8 @@
   pkgs,
   ...
 }:
-with lib;
 {
-  config = mkIf config.features.programs.wezterm.enable {
+  config = lib.mkIf config.features.programs.wezterm.enable {
     home.packages = with pkgs; [ wezterm ];
 
     home.file = {

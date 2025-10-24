@@ -4,7 +4,6 @@
   pkgs,
   ...
 }:
-with lib;
 let
   catppuccin = pkgs.tmuxPlugins.mkTmuxPlugin {
     pluginName = "catppuccin";
@@ -18,7 +17,7 @@ let
   };
 in
 {
-  config = mkIf config.features.programs.tmux.enable {
+  config = lib.mkIf config.features.programs.tmux.enable {
     home.packages = with pkgs; [ tmux ];
 
     programs = {

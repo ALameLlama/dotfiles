@@ -4,9 +4,8 @@
   pkgs,
   ...
 }:
-with lib;
 {
-  config = mkIf config.features.programs.neovim.enable {
+  config = lib.mkIf config.features.programs.neovim.enable {
     home.packages = with pkgs; [
       # AstroNvim packages
       git

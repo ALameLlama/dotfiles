@@ -4,9 +4,8 @@
   pkgs,
   ...
 }:
-with lib;
 {
-  config = mkIf config.features.languages.rust.enable {
+  config = lib.mkIf config.features.languages.rust.enable {
     home.packages = with pkgs; [
       rustup
     ];
