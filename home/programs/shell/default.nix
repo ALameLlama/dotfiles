@@ -52,7 +52,7 @@
               cmd='home-manager --flake ~/.dotfiles''${flake_host:+\#''${flake_host}} switch --impure'
             fi
 
-            echo "Running: $cmd"
+            echo "Running: ''$cmd"
             eval $cmd || return 1
 
             # make this dynamic if I have nvim module setup
