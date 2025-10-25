@@ -173,15 +173,15 @@
   ];
 
   # This is needed for FNM since is uses generic linux node versions
-  # programs.nix-ld = {
-  #   enable = true;
-  #   libraries = with pkgs; [
-  #     stdenv.cc.cc
-  #     zlib
-  #     glib
-  #     libgcc
-  #   ];
-  # };
+  programs.nix-ld = {
+    enable = true;
+    libraries = with pkgs; [
+      stdenv.cc.cc
+      zlib
+      glib
+      libgcc
+    ];
+  };
 
   # 1passwork firefox support
   programs._1password.enable = true;
