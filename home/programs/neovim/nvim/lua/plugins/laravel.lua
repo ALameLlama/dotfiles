@@ -106,6 +106,19 @@ return {
 						},
 					},
 				},
+				dependencies = {
+					{
+						-- We disable autotag closing in php files since it breaks blink.cmp
+						---@see https://github.com/saghen/blink.cmp/issues/2234#issuecomment-3461410965
+						"windwp/nvim-ts-autotag",
+						optional = true,
+						opts = {
+							per_filetype = {
+								["php"] = { enable_close = false },
+							},
+						},
+					},
+				},
 			},
 			{
 				"hrsh7th/nvim-cmp",
@@ -118,9 +131,5 @@ return {
 		opts = {
 			notifications = false,
 		},
-	},
-	{
-		"windwp/nvim-ts-autotag",
-		enabled = false,
 	},
 }
