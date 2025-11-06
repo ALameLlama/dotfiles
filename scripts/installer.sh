@@ -40,6 +40,8 @@ function main() {
 	rm -f "$HOME/.cache/dotfiles_status_cache"' >~/.dotfiles/.git/hooks/post-merge
 	chmod +x ~/.dotfiles/.git/hooks/post-merge
 
+	rm -rf ~/.zshrc
+
 	home-manager --flake ~/.dotfiles switch --impure
 }
 
