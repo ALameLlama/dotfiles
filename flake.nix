@@ -1,5 +1,5 @@
 {
-  description = "NixOS Configuration";
+  description = "Llamas NixOS Configuration";
 
   inputs = {
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
@@ -30,7 +30,7 @@
     in
     {
       nixosConfigurations = {
-        framework16 =
+        razorback =
           let
             username = "nciechanowski";
             specialArgs = {
@@ -41,7 +41,7 @@
           nixpkgs.lib.nixosSystem {
             modules = [
               determinate.nixosModules.default
-              ./hosts/framework16/configuration.nix
+              ./hosts/razorback/configuration.nix
               inputs.nixos-hardware.nixosModules.framework-16-7040-amd
               ./users/${username}/home.nix
               home-manager.nixosModules.home-manager
@@ -58,18 +58,37 @@
         vagrant = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           modules = [
-            ./home/default.nix
-            ./home/programs/neovim
-            ./home/programs/tmux
-            ./home/programs/shell
-            ./home/programs/cli-tooling
-            # ./home/programs/language/php
+            ./home
             {
               home = {
                 username = "vagrant";
                 homeDirectory = "/home/vagrant";
               };
               nix.package = pkgs.nix;
+              features = {
+                programs = {
+                  neovim.enable = true;
+                  tmux.enable = true;
+                  shell.enable = true;
+                  cli-tooling.enable = true;
+                  wezterm.enable = false;
+                  git.enable = true;
+                };
+                languages = {
+                  php.enable = false;
+                  python.enable = true;
+                  javascript.enable = true;
+                  rust.enable = false;
+                  lua.enable = true;
+                  go.enable = false;
+                  zig.enable = false;
+                };
+                tools = {
+                  nix-tools.enable = true;
+                  utilities.enable = true;
+                  fonts.enable = true;
+                };
+              };
             }
           ];
         };
