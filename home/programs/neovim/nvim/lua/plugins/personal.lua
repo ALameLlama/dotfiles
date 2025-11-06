@@ -18,28 +18,63 @@ return {
 		event = "User AstroFile",
 		opts = {},
 	},
-	-- {
-	--   "Saghen/blink.cmp",
-	--   event = "InsertEnter",
-	--   version = "v0.*",
-	--   dependencies = { "rafamadriz/friendly-snippets" },
-	--   opts = {
-	--     highlight = { use_nvim_cmp_as_default = true },
-	--     windows = {
-	--       autocomplete = {
-	--         border = "rounded",
-	--       },
-	--       documentation = {
-	--         border = "rounded",
-	--       },
-	--     },
-	--   },
-	--   specs = {
-	--     -- disable built in completion plugins
-	--     { "hrsh7th/nvim-cmp", enabled = false },
-	--     { "rcarriga/cmp-dap", enabled = false },
-	--     { "L3MON4D3/LuaSnip", enabled = false },
-	--     { "onsails/lspkind.nvim", enabled = false },
-	--   },
-	-- },
+	{
+		"rachartier/tiny-glimmer.nvim",
+		event = "VeryLazy",
+		priority = 10,
+		opts = {
+			enabled = true,
+			overwrite = {
+				yank = {
+					enabled = true,
+					default_animation = {
+						name = "fade",
+						settings = {
+							from_color = "DiffChange",
+							min_duration = 1000,
+						},
+					},
+				},
+				search = {
+					enabled = true,
+					default_animation = {
+						name = "pulse",
+						settings = {
+							min_duration = 1000,
+						},
+					},
+				},
+				paste = {
+					enabled = true,
+					default_animation = {
+						name = "reverse_fade",
+						settings = {
+							from_color = "DiffChange",
+							min_duration = 1000,
+						},
+					},
+				},
+				undo = {
+					enabled = true,
+					default_animation = {
+						name = "fade",
+						settings = {
+							from_color = "DiffAdd",
+							min_duration = 1000,
+						},
+					},
+				},
+				redo = {
+					enabled = true,
+					default_animation = {
+						name = "fade",
+						settings = {
+							from_color = "DiffDelete",
+							min_duration = 1000,
+						},
+					},
+				},
+			},
+		},
+	},
 }
