@@ -11,11 +11,11 @@ in
   home-manager.users.${username} = {
     imports = [
       ../../home
-      ../../home/programs/shell
-      ../../home/programs/tmux
-      ../../home/programs/cli-tooling
-      ../../home/programs/neovim
-      ../../home/programs/wezterm
+      ../../home/profiles/full.nix
+    ];
+
+    home.packages = with pkgs; [
+      # wtfutil
     ];
   };
 }

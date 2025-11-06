@@ -1,5 +1,3 @@
-- move language specific stuff from home/programes/shell to separate modules
-  - Add toggleable config options for this instead of imports
 - move to hyper land? create a module to make swapping between de and wm easier
 - I need to clean up hosts/framework16 file, it's a bit messy atm
 - 1password sshkeys

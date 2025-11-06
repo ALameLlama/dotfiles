@@ -15,8 +15,8 @@ return {
 		"williamboman/mason-lspconfig.nvim",
 		optional = true,
 		opts = function(_, opts)
-			-- opts.ensure_installed = require("astrocore").list_insert_unique(opts.ensure_installed, { "phpactor" })
-			opts.ensure_installed = require("astrocore").list_insert_unique(opts.ensure_installed, { "intelephense" })
+			opts.ensure_installed = require("astrocore").list_insert_unique(opts.ensure_installed, { "phpactor" })
+			-- opts.ensure_installed = require("astrocore").list_insert_unique(opts.ensure_installed, { "intelephense" })
 		end,
 	},
 	{
@@ -30,7 +30,8 @@ return {
 		"jay-babu/mason-null-ls.nvim",
 		optional = true,
 		opts = function(_, opts)
-			opts.ensure_installed = require("astrocore").list_insert_unique(opts.ensure_installed, { "php-cs-fixer" })
+			-- opts.ensure_installed = require("astrocore").list_insert_unique(opts.ensure_installed, { "php-cs-fixer" })
+			opts.ensure_installed = require("astrocore").list_insert_unique(opts.ensure_installed, { "pint" })
 		end,
 	},
 	{
@@ -39,8 +40,8 @@ return {
 		opts = function(_, opts)
 			opts.ensure_installed = require("astrocore").list_insert_unique(
 				opts.ensure_installed,
-				-- { "phpactor", "php-debug-adapter", "php-cs-fixer" }
-				{ "intelephense", "php-debug-adapter", "php-cs-fixer" }
+				{ "phpactor", "php-debug-adapter", "pint" }
+				-- { "intelephense", "php-debug-adapter", "php-cs-fixer" }
 			)
 		end,
 	},
@@ -49,7 +50,8 @@ return {
 		optional = true,
 		opts = {
 			formatters_by_ft = {
-				php = { "php_cs_fixer" },
+				-- php = { "php_cs_fixer" },
+				php = { "pint" },
 			},
 		},
 	},
@@ -104,6 +106,19 @@ return {
 						},
 					},
 				},
+				dependencies = {
+					{
+						-- We disable autotag closing in php files since it breaks blink.cmp
+						---@see https://github.com/saghen/blink.cmp/issues/2234#issuecomment-3461410965
+						"windwp/nvim-ts-autotag",
+						optional = true,
+						opts = {
+							per_filetype = {
+								["php"] = { enable_close = false },
+							},
+						},
+					},
+				},
 			},
 			{
 				"hrsh7th/nvim-cmp",
@@ -116,9 +131,5 @@ return {
 		opts = {
 			notifications = false,
 		},
-	},
-	{
-		"windwp/nvim-ts-autotag",
-		enabled = false,
 	},
 }
