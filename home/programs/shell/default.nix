@@ -33,8 +33,6 @@
           bindkey '^[[3~' delete-char
           bindkey -a '^[[3~' delete-char
 
-          eval "$(fnm env --use-on-cd --shell zsh)"
-
           if [[ -f ~/.bash_aliases ]]; then
             source ~/.bash_aliases
           fi

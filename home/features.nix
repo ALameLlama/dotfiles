@@ -13,7 +13,10 @@
     languages = {
       php.enable = lib.mkEnableOption "PHP development environment";
       python.enable = lib.mkEnableOption "Python development environment";
-      javascript.enable = lib.mkEnableOption "JavaScript/Node.js development environment";
+      javascript = {
+        enable = lib.mkEnableOption "JavaScript/Node.js development environment";
+        fnm.enable = lib.mkEnableOption "Fast Node Manager (fnm) with shell integration";
+      };
       rust.enable = lib.mkEnableOption "Rust development environment";
       lua.enable = lib.mkEnableOption "Lua development environment";
       go.enable = lib.mkEnableOption "Go development environment";
