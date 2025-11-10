@@ -14,7 +14,10 @@
     languages = {
       php.enable = false;
       python.enable = false;
-      javascript.enable = false;
+      javascript = {
+        enable = false;
+        fnm.enable = false;
+      };
       rust.enable = false;
       lua.enable = false;
       go.enable = false;
