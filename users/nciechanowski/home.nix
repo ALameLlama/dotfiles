@@ -26,7 +26,7 @@ in
 
       languages = {
         php.enable = false;
-        python.enable = false;
+        python.enable = true;
         javascript = {
           enable = true;
           fnm.enable = false;

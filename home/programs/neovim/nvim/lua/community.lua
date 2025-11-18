@@ -6,6 +6,9 @@
 return {
 	"AstroNvim/astrocommunity",
 
+	{ import = "astrocommunity.completion.copilot-lua-cmp" },
+
+
 	-- Bars and Lines
 	-- 	{ import = "astrocommunity.bars-and-lines.scope-nvim" }, -- Adds Tabs :tabnew,:tabnext and :tabprevious
 	{ import = "astrocommunity.bars-and-lines.smartcolumn-nvim" }, -- Max characater limit
