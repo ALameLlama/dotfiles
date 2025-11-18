@@ -72,7 +72,7 @@ return {
 	-- Packs
 	{ import = "astrocommunity.pack.bash" },
 	{ import = "astrocommunity.pack.lua" },
-	{ import = "astrocommunity.pack.blade" },
+	-- { import = "astrocommunity.pack.blade" },
 	{ import = "astrocommunity.pack.gleam" },
 	{ import = "astrocommunity.pack.go" },
 	{ import = "astrocommunity.pack.html-css" },
