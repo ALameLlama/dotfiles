@@ -92,6 +92,9 @@
                   fonts.enable = true;
                 };
               };
+              home.packages = with pkgs; [
+                hyperfine
+              ];
             }
           ];
         };
