@@ -1,252 +1,253 @@
 ---@type LazySpec
-return {
-	{ import = "astrocommunity.completion.copilot-lua-cmp" },
-
-	{
-		"folke/sidekick.nvim",
-		specs = {
-			{
-				"AstroNvim/astrocore",
-				---@param opts AstroCoreOpts
-				opts = function(_, opts)
-					local maps = assert(opts.mappings)
-					local prefix = "<Leader>A"
-
-					-- Normal mode mappings
-					maps.n[prefix] = { desc = require("astroui").get_icon("Sidekick", 1, true) .. "Sidekick" }
-					maps.n[prefix .. "a"] = {
-						function()
-							require("sidekick.cli").toggle()
-						end,
-						desc = "Sidekick Toggle CLI",
-					}
-					maps.n[prefix .. "s"] = {
-						function()
-							require("sidekick.cli").select()
-						end,
-						desc = "Select CLI",
-					}
-					maps.n[prefix .. "d"] = {
-						function()
-							require("sidekick.cli").close()
-						end,
-						desc = "Detach a CLI Session",
-					}
-					maps.n[prefix .. "t"] = {
-						function()
-							require("sidekick.cli").send({ msg = "{this}" })
-						end,
-						desc = "Send This",
-					}
-					maps.n[prefix .. "f"] = {
-						function()
-							require("sidekick.cli").send({ msg = "{file}" })
-						end,
-						desc = "Send File",
-					}
-					maps.n[prefix .. "p"] = {
-						function()
-							require("sidekick.cli").prompt()
-						end,
-						desc = "Select Prompt",
-					}
-
-					maps.n[prefix .. "n"] = { desc = require("astroui").get_icon("SidekickBrain", 1, true) .. "NES" }
-					maps.n[prefix .. "nt"] = {
-						function()
-							require("sidekick.nes").toggle()
-						end,
-						desc = "Toggle NES",
-					}
-					maps.n[prefix .. "ne"] = {
-						function()
-							require("sidekick.nes").enable()
-						end,
-						desc = "Enable NES",
-					}
-					maps.n[prefix .. "nd"] = {
-						function()
-							require("sidekick.nes").disable()
-						end,
-						desc = "Disable NES",
-					}
-					maps.n[prefix .. "nu"] = {
-						function()
-							require("sidekick.nes").update()
-						end,
-						desc = "Update Suggestions",
-					}
-
-					maps.n["<Tab>"] = {
-						function()
-							if not require("sidekick").nes_jump_or_apply() then
-								return "<Tab>"
-							end
-						end,
-						expr = true,
-						desc = "Goto/Apply Next Edit Suggestion",
-					}
-					maps.n["<C-.>"] = {
-						function()
-							require("sidekick.cli").toggle({})
-						end,
-						desc = "Sidekick Toggle",
-					}
-
-					-- Visual mode mappings
-					maps.x[prefix] = { desc = require("astroui").get_icon("Sidekick", 1, true) .. "Sidekick" }
-					maps.x[prefix .. "t"] = {
-						function()
-							require("sidekick.cli").send({ msg = "{this}" })
-						end,
-						desc = "Send This",
-					}
-					maps.x[prefix .. "v"] = {
-						function()
-							require("sidekick.cli").send({ msg = "{selection}" })
-						end,
-						desc = "Send Visual Selection",
-					}
-					maps.x[prefix .. "p"] = {
-						function()
-							require("sidekick.cli").prompt({})
-						end,
-						desc = "Select Prompt",
-					}
-					maps.x["<C-.>"] = {
-						function()
-							require("sidekick.cli").toggle({})
-						end,
-						desc = "Sidekick Toggle",
-					}
-
-					-- Insert mode mappings
-					maps.i["<C-.>"] = {
-						function()
-							require("sidekick.cli").toggle({})
-						end,
-						desc = "Sidekick Toggle",
-					}
-
-					-- Terminal mode mappings
-					maps.t["<C-.>"] = {
-						function()
-							require("sidekick.cli").toggle({})
-						end,
-						desc = "Sidekick Toggle",
-					}
-				end,
-			},
-			{ "AstroNvim/astroui", opts = { icons = { Sidekick = "", SidekickBrain = "󰧑" } } },
-		},
-		opts = {
-			nes = {
-				enabled = true, -- If the user doesn't have the copilot LSP running internally this gets set as false
-			},
-			cli = {
-				mux = {
-					enabled = true,
-				},
-			},
-		},
-	},
-}
 -- return {
--- 	-- Ai Stuff
--- 	-- { import = "astrocommunity.completion.avante-nvim" },
 -- 	{ import = "astrocommunity.completion.copilot-lua-cmp" },
--- 	-- { import = "astrocommunity.editing-support.copilotchat-nvim" }, -- Copilot chat,
--- 	-- { import = "astrocommunity.ai.opencode-nvim" },
+--
 -- 	{
--- 		"NickvanDyke/opencode.nvim",
--- 		dependencies = {
--- 			{
--- 				"folke/snacks.nvim",
--- 				opts = { input = { enabled = true }, picker = { enabled = true }, terminal = { enabled = true } },
--- 			},
--- 		},
+-- 		"folke/sidekick.nvim",
 -- 		specs = {
 -- 			{
 -- 				"AstroNvim/astrocore",
 -- 				---@param opts AstroCoreOpts
 -- 				opts = function(_, opts)
 -- 					local maps = assert(opts.mappings)
--- 					local prefix = "<Leader>O"
--- 					maps.n[prefix] = { desc = require("astroui").get_icon("OpenCode", 1, true) .. "OpenCode" }
--- 					maps.n[prefix .. "t"] = {
--- 						function()
--- 							require("opencode").toggle()
--- 						end,
--- 						desc = "Toggle embedded",
--- 					}
+-- 					local prefix = "<Leader>A"
+--
+-- 					-- Normal mode mappings
+-- 					maps.n[prefix] = { desc = require("astroui").get_icon("Sidekick", 1, true) .. "Sidekick" }
 -- 					maps.n[prefix .. "a"] = {
 -- 						function()
--- 							require("opencode").ask("@cursor: ")
+-- 							require("sidekick.cli").toggle()
 -- 						end,
--- 						desc = "Ask about this",
--- 					}
--- 					maps.n[prefix .. "+"] = {
--- 						function()
--- 							require("opencode").prompt("@buffer", { append = true })
--- 						end,
--- 						desc = "Add buffer to prompt",
--- 					}
--- 					maps.n[prefix .. "e"] = {
--- 						function()
--- 							require("opencode").prompt("Explain @cursor and its context")
--- 						end,
--- 						desc = "Explain this code",
--- 					}
--- 					maps.n[prefix .. "n"] = {
--- 						function()
--- 							require("opencode").command("session_new")
--- 						end,
--- 						desc = "New session",
+-- 						desc = "Sidekick Toggle CLI",
 -- 					}
 -- 					maps.n[prefix .. "s"] = {
 -- 						function()
--- 							require("opencode").select()
+-- 							require("sidekick.cli").select()
 -- 						end,
--- 						desc = "Select prompt",
+-- 						desc = "Select CLI",
 -- 					}
--- 					maps.n["<S-C-u>"] = {
+-- 					maps.n[prefix .. "d"] = {
 -- 						function()
--- 							require("opencode").command("messages_half_page_up")
+-- 							require("sidekick.cli").close()
 -- 						end,
--- 						desc = "Messages half page up",
+-- 						desc = "Detach a CLI Session",
 -- 					}
--- 					maps.n["<S-C-d>"] = {
+-- 					maps.n[prefix .. "t"] = {
 -- 						function()
--- 							require("opencode").command("messages_half_page_down")
+-- 							require("sidekick.cli").send({ msg = "{this}" })
 -- 						end,
--- 						desc = "Messages half page down",
+-- 						desc = "Send This",
+-- 					}
+-- 					maps.n[prefix .. "f"] = {
+-- 						function()
+-- 							require("sidekick.cli").send({ msg = "{file}" })
+-- 						end,
+-- 						desc = "Send File",
+-- 					}
+-- 					maps.n[prefix .. "p"] = {
+-- 						function()
+-- 							require("sidekick.cli").prompt()
+-- 						end,
+-- 						desc = "Select Prompt",
 -- 					}
 --
--- 					maps.v[prefix] = { desc = require("astroui").get_icon("OpenCode", 1, true) .. "OpenCode" }
--- 					maps.v[prefix .. "a"] = {
+-- 					maps.n[prefix .. "n"] = { desc = require("astroui").get_icon("SidekickBrain", 1, true) .. "NES" }
+-- 					maps.n[prefix .. "nt"] = {
 -- 						function()
--- 							require("opencode").ask("@selection: ")
+-- 							require("sidekick.nes").toggle()
 -- 						end,
--- 						desc = "Ask about selection",
+-- 						desc = "Toggle NES",
 -- 					}
--- 					maps.v[prefix .. "+"] = {
+-- 					maps.n[prefix .. "ne"] = {
 -- 						function()
--- 							require("opencode").prompt("@selection", { append = true })
+-- 							require("sidekick.nes").enable()
 -- 						end,
--- 						desc = "Add selection to prompt",
+-- 						desc = "Enable NES",
 -- 					}
--- 					maps.v[prefix .. "s"] = {
+-- 					maps.n[prefix .. "nd"] = {
 -- 						function()
--- 							require("opencode").select()
+-- 							require("sidekick.nes").disable()
 -- 						end,
--- 						desc = "Select prompt",
+-- 						desc = "Disable NES",
+-- 					}
+-- 					maps.n[prefix .. "nu"] = {
+-- 						function()
+-- 							require("sidekick.nes").update()
+-- 						end,
+-- 						desc = "Update Suggestions",
+-- 					}
+--
+-- 					maps.n["<Tab>"] = {
+-- 						function()
+-- 							if not require("sidekick").nes_jump_or_apply() then
+-- 								return "<Tab>"
+-- 							end
+-- 						end,
+-- 						expr = true,
+-- 						desc = "Goto/Apply Next Edit Suggestion",
+-- 					}
+-- 					maps.n["<C-.>"] = {
+-- 						function()
+-- 							require("sidekick.cli").toggle({})
+-- 						end,
+-- 						desc = "Sidekick Toggle",
+-- 					}
+--
+-- 					-- Visual mode mappings
+-- 					maps.x[prefix] = { desc = require("astroui").get_icon("Sidekick", 1, true) .. "Sidekick" }
+-- 					maps.x[prefix .. "t"] = {
+-- 						function()
+-- 							require("sidekick.cli").send({ msg = "{this}" })
+-- 						end,
+-- 						desc = "Send This",
+-- 					}
+-- 					maps.x[prefix .. "v"] = {
+-- 						function()
+-- 							require("sidekick.cli").send({ msg = "{selection}" })
+-- 						end,
+-- 						desc = "Send Visual Selection",
+-- 					}
+-- 					maps.x[prefix .. "p"] = {
+-- 						function()
+-- 							require("sidekick.cli").prompt({})
+-- 						end,
+-- 						desc = "Select Prompt",
+-- 					}
+-- 					maps.x["<C-.>"] = {
+-- 						function()
+-- 							require("sidekick.cli").toggle({})
+-- 						end,
+-- 						desc = "Sidekick Toggle",
+-- 					}
+--
+-- 					-- Insert mode mappings
+-- 					maps.i["<C-.>"] = {
+-- 						function()
+-- 							require("sidekick.cli").toggle({})
+-- 						end,
+-- 						desc = "Sidekick Toggle",
+-- 					}
+--
+-- 					-- Terminal mode mappings
+-- 					maps.t["<C-.>"] = {
+-- 						function()
+-- 							require("sidekick.cli").toggle({})
+-- 						end,
+-- 						desc = "Sidekick Toggle",
 -- 					}
 -- 				end,
 -- 			},
--- 			{ "AstroNvim/astroui", opts = { icons = { OpenCode = "" } } },
+-- 			{ "AstroNvim/astroui", opts = { icons = { Sidekick = "", SidekickBrain = "󰧑" } } },
+-- 		},
+-- 		opts = {
+-- 			nes = {
+-- 				enabled = true, -- If the user doesn't have the copilot LSP running internally this gets set as false
+-- 			},
+-- 			cli = {
+-- 				mux = {
+-- 					enabled = true,
+-- 				},
+-- 			},
 -- 		},
 -- 	},
 -- }
+
+return {
+	-- Ai Stuff
+	-- { import = "astrocommunity.completion.avante-nvim" },
+	{ import = "astrocommunity.completion.copilot-lua-cmp" },
+	-- { import = "astrocommunity.editing-support.copilotchat-nvim" }, -- Copilot chat,
+	-- { import = "astrocommunity.ai.opencode-nvim" },
+	{
+		"NickvanDyke/opencode.nvim",
+		dependencies = {
+			{
+				"folke/snacks.nvim",
+				opts = { input = { enabled = true }, picker = { enabled = true }, terminal = { enabled = true } },
+			},
+		},
+		specs = {
+			{
+				"AstroNvim/astrocore",
+				---@param opts AstroCoreOpts
+				opts = function(_, opts)
+					local maps = assert(opts.mappings)
+					local prefix = "<Leader>O"
+					maps.n[prefix] = { desc = require("astroui").get_icon("OpenCode", 1, true) .. "OpenCode" }
+					maps.n[prefix .. "t"] = {
+						function()
+							require("opencode").toggle()
+						end,
+						desc = "Toggle embedded",
+					}
+					maps.n[prefix .. "a"] = {
+						function()
+							require("opencode").ask("@cursor: ")
+						end,
+						desc = "Ask about this",
+					}
+					maps.n[prefix .. "+"] = {
+						function()
+							require("opencode").prompt("@buffer", { append = true })
+						end,
+						desc = "Add buffer to prompt",
+					}
+					maps.n[prefix .. "e"] = {
+						function()
+							require("opencode").prompt("Explain @cursor and its context")
+						end,
+						desc = "Explain this code",
+					}
+					maps.n[prefix .. "n"] = {
+						function()
+							require("opencode").command("session_new")
+						end,
+						desc = "New session",
+					}
+					maps.n[prefix .. "s"] = {
+						function()
+							require("opencode").select()
+						end,
+						desc = "Select prompt",
+					}
+					maps.n["<S-C-u>"] = {
+						function()
+							require("opencode").command("messages_half_page_up")
+						end,
+						desc = "Messages half page up",
+					}
+					maps.n["<S-C-d>"] = {
+						function()
+							require("opencode").command("messages_half_page_down")
+						end,
+						desc = "Messages half page down",
+					}
+
+					maps.v[prefix] = { desc = require("astroui").get_icon("OpenCode", 1, true) .. "OpenCode" }
+					maps.v[prefix .. "a"] = {
+						function()
+							require("opencode").ask("@selection: ")
+						end,
+						desc = "Ask about selection",
+					}
+					maps.v[prefix .. "+"] = {
+						function()
+							require("opencode").prompt("@selection", { append = true })
+						end,
+						desc = "Add selection to prompt",
+					}
+					maps.v[prefix .. "s"] = {
+						function()
+							require("opencode").select()
+						end,
+						desc = "Select prompt",
+					}
+				end,
+			},
+			{ "AstroNvim/astroui", opts = { icons = { OpenCode = "" } } },
+		},
+	},
+}
 
 ---@type LazySpec
 -- return {
