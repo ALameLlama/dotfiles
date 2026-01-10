@@ -64,6 +64,7 @@
 
             # make this dynamic if I have nvim module setup
             nvim --headless "+Lazy! update" +qa
+            nvim --headless "+TSUpdate" +qa
           }
 
           function dfd() {
