@@ -22,19 +22,19 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # boot.kernelPackages = pkgs.linuxPackagesFor (
-  #   pkgs.linux_6_16.override {
+  #   pkgs.linux_6_18.override {
   #     argsOverride = rec {
   #       src = pkgs.fetchFromGitHub {
   #         owner = "torvalds";
   #         repo = "linux";
   #         # rev = "";
-  #         tag = "v6.17-rc5";
-  #         sha256 = "sha256-Pc1QfnFOj5hpn9gGeIOFsy8ZSbMYVpP6frENtjaCu5E=";
+  #         tag = "v6.19-rc4";
+  #         sha256 = "sha256-OmVBKpofnCRDEZhYYb5s1frxrb0Cecp28PX4W+u7c8c=";
   #       };
   #       dontStrip = true;
   #       ignoreConfigErrors = true;
-  #       version = "6.17.0-rc5";
-  #       modDirVersion = "6.17.0-rc5";
+  #       version = "6.19.0-rc4";
+  #       modDirVersion = "6.19.0-rc4";
   #     };
   #   }
   # );
@@ -114,8 +114,8 @@
         # "default.clock.rate" = 192000;
         "default.clock.rate" = 44100;
         #"defautlt.allowed-rates" = [ 192000 48000 44100 ];
-        #"default.clock.quantum" = 32;
-        #"default.clock.min-quantum" = 32;
+        "default.clock.quantum" = 1024;
+        "default.clock.min-quantum" = 512;
         #"default.clock.max-quantum" = 32;
       };
     };
@@ -162,6 +162,7 @@
     spotify
     firefox
     discord
+    vlc
     (aspellWithDicts (
       dicts: with dicts; [
         en
@@ -218,6 +219,13 @@
       PasswordAuthentication = false;
       PermitRootLogin = "no";
     };
+  };
+
+  # Configure logind to suspend on lid close when on battery power.
+  services.logind = {
+    lidSwitch = "suspend";
+    lidSwitchExternalPower = "ignore";
+    lidSwitchDocked = "ignore";
   };
 
   # Enable fingerprint reader support.
