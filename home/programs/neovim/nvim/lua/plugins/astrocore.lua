@@ -7,6 +7,7 @@ local diagnostics = {
 	virtual_text = false,
 	virtual_lines = false,
 	underline = true,
+	update_in_insert = false,
 }
 
 ---@type LazySpec
