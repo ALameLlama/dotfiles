@@ -12,6 +12,7 @@
       nixd
       statix
       nixfmt
+      nixpkgs-review
     ];
   };
 }
