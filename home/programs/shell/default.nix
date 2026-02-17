@@ -67,9 +67,10 @@
             nvim --headless "+TSUpdate" +qa
           }
 
-          function dfd() {
+          function dfc() {
             nix-collect-garbage -d
             sudo nix-collect-garbage -d
+            nix-store --optimize
           }
 
           update-php() {
@@ -159,7 +160,7 @@
           c = "clear";
 
           # Aliases for directories
-          dfc = ''cd "$HOME/.dotfiles"'';
+          dfcd = ''cd "$HOME/.dotfiles"'';
           dfg = ''(cd "$HOME/.dotfiles" && lazygit)'';
           dfn = ''(cd "$HOME/.dotfiles" && nvim)'';
 
