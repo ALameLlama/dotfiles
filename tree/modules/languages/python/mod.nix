@@ -9,7 +9,7 @@
   ...
 }:
 {
-  options.features.languages.python.enable = lib.mkEnableOption "Python development environment";
+  options.features.languages.python.enable = lib.mkEnableOption "Python development";
 
   config = lib.mkIf config.features.languages.python.enable {
     home.packages = with pkgs; [

@@ -9,8 +9,7 @@
   ...
 }:
 {
-  options.features.tools.nix-tools.enable =
-    lib.mkEnableOption "Nix development tools (alejandra, nixd, etc.)";
+  options.features.tools.nix-tools.enable = lib.mkEnableOption "Nix development tools";
 
   config = lib.mkIf config.features.tools.nix-tools.enable {
     home.packages = with pkgs; [

@@ -19,7 +19,7 @@ let
   };
 in
 {
-  options.features.languages.php.enable = lib.mkEnableOption "PHP development environment";
+  options.features.languages.php.enable = lib.mkEnableOption "PHP development";
 
   config = lib.mkIf config.features.languages.php.enable {
     home.packages = with pkgs; [

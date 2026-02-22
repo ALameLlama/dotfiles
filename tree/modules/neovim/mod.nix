@@ -9,7 +9,7 @@
   ...
 }:
 {
-  options.features.programs.neovim.enable = lib.mkEnableOption "Neovim configuration";
+  options.features.programs.neovim.enable = lib.mkEnableOption "Neovim editor";
 
   config = lib.mkIf config.features.programs.neovim.enable {
     home.packages = with pkgs; [

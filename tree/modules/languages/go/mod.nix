@@ -9,7 +9,7 @@
   ...
 }:
 {
-  options.features.languages.go.enable = lib.mkEnableOption "Go development environment";
+  options.features.languages.go.enable = lib.mkEnableOption "Go development";
 
   config = lib.mkIf config.features.languages.go.enable {
     home.packages = with pkgs; [

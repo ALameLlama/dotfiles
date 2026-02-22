@@ -10,10 +10,8 @@
 }:
 {
   options.features.languages.javascript = {
-    enable = lib.mkEnableOption "JavaScript/Node.js development environment";
-    fnm = {
-      enable = lib.mkEnableOption "Fast Node Manager (fnm) with shell integration";
-    };
+    enable = lib.mkEnableOption "JavaScript/Node.js development";
+    fnm.enable = lib.mkEnableOption "Fast Node Manager (fnm)";
   };
 
   config = lib.mkMerge [

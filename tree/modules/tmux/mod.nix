@@ -21,7 +21,7 @@ let
   };
 in
 {
-  options.features.programs.tmux.enable = lib.mkEnableOption "Tmux configuration";
+  options.features.programs.tmux.enable = lib.mkEnableOption "Tmux terminal multiplexer";
 
   config = lib.mkIf config.features.programs.tmux.enable {
     home.packages = with pkgs; [ tmux ];
