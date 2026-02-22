@@ -29,6 +29,9 @@
     username = "vagrant";
     homeDirectory = "/home/vagrant";
     stateVersion = "25.05";
-    packages = with pkgs; [ hyperfine ];
+    packages = with pkgs; [
+      hyperfine
+      home-manager
+    ];
   };
 }
