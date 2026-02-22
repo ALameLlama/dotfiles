@@ -1,4 +1,4 @@
-# Fonts dendritic module
+# Fonts
 # Provides custom fonts for home-manager
 
 { lib }:

@@ -1,4 +1,4 @@
-# Git dendritic module
+# Git
 # Provides git and gh configuration for home-manager
 
 { lib }:

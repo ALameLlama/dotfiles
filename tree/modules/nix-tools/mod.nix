@@ -1,4 +1,4 @@
-# Nix Tools dendritic module
+# Nix Tools
 # Provides Nix development tools for home-manager
 
 { lib }:

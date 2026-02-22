@@ -1,4 +1,4 @@
-# Lua dendritic module
+# Lua
 # Provides Lua development environment for home-manager
 
 { lib }:

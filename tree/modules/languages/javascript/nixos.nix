@@ -15,17 +15,15 @@ let
   );
 in
 {
-  # No options needed - we read from home-manager config
-
   config = lib.mkIf anyUserHasFnm {
     programs.nix-ld = {
       enable = true;
-      # libraries = with pkgs; [
-      #   stdenv.cc.cc
-      #   zlib
-      #   glib
-      #   libgcc
-      # ];
+      libraries = with pkgs; [
+        stdenv.cc.cc
+        zlib
+        glib
+        libgcc
+      ];
     };
   };
 }

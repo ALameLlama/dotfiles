@@ -3,7 +3,6 @@
 
 { lib }:
 let
-  # Get the directory of this file
   treeDir = ./.;
   modulesDir = treeDir + "/modules";
 

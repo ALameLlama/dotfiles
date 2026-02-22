@@ -1,4 +1,4 @@
-# Shell (zsh) dendritic module
+# Shell (zsh)
 # Provides zsh/starship/carapace configuration for home-manager
 
 { lib }:
@@ -41,7 +41,7 @@
             
             if command -v nixos-rebuild &>/dev/null; then
               # NixOS: use host name directly (e.g., razorback)
-              cmd='sudo nixos-rebuild switch --flake ~/.dotfiles''${flake_host:+#''${flake_host}} --impure'
+              cmd='sudo nixos-rebuild switch --flake ~/.dotfiles''${flake_host:+#''${flake_host}}'
             else
               # Home-manager: append system architecture (e.g., vagrant-x86_64-linux)
               local host=''${flake_host:-vagrant}
@@ -61,7 +61,7 @@
                 esac
               fi
               
-              cmd="home-manager --flake ~/.dotfiles#''${host}-''${sys} switch --impure"
+              cmd="home-manager --flake ~/.dotfiles#''${host}-''${sys} switch"
             fi
 
             echo "Running: ''$cmd"

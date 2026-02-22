@@ -1,4 +1,4 @@
-# Python dendritic module
+# Python
 # Provides Python development environment for home-manager
 
 { lib }:

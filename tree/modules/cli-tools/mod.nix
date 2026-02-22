@@ -1,4 +1,4 @@
-# CLI Tools dendritic module
+# CLI Tools
 # Provides CLI tooling configuration for home-manager
 
 { lib }:

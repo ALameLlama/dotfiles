@@ -1,4 +1,4 @@
-# Rust dendritic module
+# Rust
 # Provides Rust development environment for home-manager
 
 { lib }:

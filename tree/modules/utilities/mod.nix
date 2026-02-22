@@ -1,4 +1,4 @@
-# Utilities dendritic module
+# Utilities
 # Provides general utilities for home-manager
 
 { lib }:
