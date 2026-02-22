@@ -1,4 +1,4 @@
-# Zig dendritic module
+# Zig
 # Provides Zig development environment for home-manager
 
 { lib }:

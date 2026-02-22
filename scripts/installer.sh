@@ -42,7 +42,7 @@ function main() {
 
 	rm -rf ~/.zshrc
 
-	home-manager --flake ~/.dotfiles switch --impure
+	home-manager --flake ~/.dotfiles switch
 }
 
 main

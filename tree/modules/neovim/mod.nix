@@ -1,4 +1,4 @@
-# Neovim dendritic module
+# Neovim
 # Provides Neovim configuration for home-manager
 
 { lib }:

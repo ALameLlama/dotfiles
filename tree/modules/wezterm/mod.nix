@@ -1,4 +1,4 @@
-# WezTerm dendritic module
+# WezTerm
 # Provides WezTerm configuration for home-manager
 
 { lib }:

@@ -1,4 +1,4 @@
-# Tmux dendritic module
+# Tmux
 # Provides tmux configuration for home-manager
 
 { lib }:

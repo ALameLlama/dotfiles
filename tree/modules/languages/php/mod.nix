@@ -1,4 +1,4 @@
-# PHP dendritic module
+# PHP
 # Provides PHP development environment for home-manager
 
 { lib }:

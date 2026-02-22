@@ -1,4 +1,4 @@
-# Go dendritic module
+# Go
 # Provides Go development environment for home-manager
 
 { lib }:

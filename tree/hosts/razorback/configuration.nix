@@ -137,7 +137,7 @@
   users.users.nciechanowski = {
     isNormalUser = true;
     description = "Nicholas Ciechanowski";
-    initialPassword = "test";
+    # initialPassword = "test"; # Only set this when testing VM builds
     extraGroups = [
       "networkmanager"
       "wheel"
@@ -170,7 +170,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    #  wget
+    wget
     fprintd
     home-manager
     git
