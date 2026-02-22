@@ -14,7 +14,7 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ./lid.nix
-    (modulesPath + "/virtualisation/qemu-vm.nix")
+    # (modulesPath + "/virtualisation/qemu-vm.nix")
   ];
 
   # Bootloader.
@@ -138,6 +138,7 @@
     isNormalUser = true;
     description = "Nicholas Ciechanowski";
     # initialPassword = "test"; # Only set this when testing VM builds
+    useDefaultShell = true;
     extraGroups = [
       "networkmanager"
       "wheel"
@@ -152,16 +153,16 @@
     ];
   };
 
-  virtualisation = {
-    sharedDirectories = {
-      dotfiles = {
-        source = "/home/nciechanowski/.dotfiles";
-        target = "/home/nciechanowski/.dotfiles";
-      };
-    };
-    cores = 4;
-    memorySize = 1024 * 4;
-  };
+  # virtualisation = {
+  #   sharedDirectories = {
+  #     dotfiles = {
+  #       source = "/home/nciechanowski/.dotfiles";
+  #       target = "/home/nciechanowski/.dotfiles";
+  #     };
+  #   };
+  #   cores = 4;
+  #   memorySize = 1024 * 4;
+  # };
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
