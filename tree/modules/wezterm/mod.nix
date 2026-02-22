@@ -16,7 +16,7 @@
 
     home.file = {
       ".wezterm.lua".source =
-        config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/home/programs/wezterm/wezterm.lua";
+        config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/tree/modules/wezterm/wezterm.lua";
     };
   };
 }

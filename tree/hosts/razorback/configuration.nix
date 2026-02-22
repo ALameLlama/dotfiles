@@ -2,13 +2,19 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  modulesPath,
+  ...
+}:
 
 {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ./lid.nix
+    (modulesPath + "/virtualisation/qemu-vm.nix")
   ];
 
   # Bootloader.
@@ -131,6 +137,7 @@
   users.users.nciechanowski = {
     isNormalUser = true;
     description = "Nicholas Ciechanowski";
+    initialPassword = "test";
     extraGroups = [
       "networkmanager"
       "wheel"
@@ -143,6 +150,17 @@
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL6TjYBrTgivTS8LTp7aawD4VknVD0+3MYqWxPsNSc3V home"
     ];
+  };
+
+  virtualisation = {
+    sharedDirectories = {
+      dotfiles = {
+        source = "/home/nciechanowski/.dotfiles";
+        target = "/home/nciechanowski/.dotfiles";
+      };
+    };
+    cores = 4;
+    memorySize = 1024 * 4;
   };
 
   # Allow unfree packages
@@ -210,10 +228,10 @@
   };
 
   # Configure logind to suspend on lid close when on battery power.
-  services.logind = {
-    lidSwitch = "suspend";
-    lidSwitchExternalPower = "ignore";
-    lidSwitchDocked = "ignore";
+  services.logind.settings.Login = {
+    HandleLidSwitch = "suspend";
+    HandleLidSwitchExternalPower = "ignore";
+    HandleLidSwitchDocked = "ignore";
   };
 
   # Enable fingerprint reader support.
