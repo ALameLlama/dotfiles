@@ -68,9 +68,9 @@
           }
 
           function dfc() {
+            nix-store --optimize
             nix-collect-garbage -d
             sudo nix-collect-garbage -d
-            nix-store --optimize
           }
 
           update-php() {
