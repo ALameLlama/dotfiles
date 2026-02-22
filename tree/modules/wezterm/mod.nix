@@ -9,7 +9,7 @@
   ...
 }:
 {
-  options.features.programs.wezterm.enable = lib.mkEnableOption "WezTerm terminal configuration";
+  options.features.programs.wezterm.enable = lib.mkEnableOption "WezTerm terminal";
 
   config = lib.mkIf config.features.programs.wezterm.enable {
     home.packages = with pkgs; [ wezterm ];

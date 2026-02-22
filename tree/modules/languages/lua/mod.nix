@@ -9,7 +9,7 @@
   ...
 }:
 {
-  options.features.languages.lua.enable = lib.mkEnableOption "Lua development environment";
+  options.features.languages.lua.enable = lib.mkEnableOption "Lua development";
 
   config = lib.mkIf config.features.languages.lua.enable {
     home.packages = with pkgs; [

@@ -9,7 +9,7 @@
   ...
 }:
 {
-  options.features.languages.rust.enable = lib.mkEnableOption "Rust development environment";
+  options.features.languages.rust.enable = lib.mkEnableOption "Rust development";
 
   config = lib.mkIf config.features.languages.rust.enable {
     home.packages = with pkgs; [

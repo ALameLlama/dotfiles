@@ -9,7 +9,7 @@
   ...
 }:
 {
-  options.features.languages.zig.enable = lib.mkEnableOption "Zig development environment";
+  options.features.languages.zig.enable = lib.mkEnableOption "Zig development";
 
   config = lib.mkIf config.features.languages.zig.enable {
     home.packages = with pkgs; [

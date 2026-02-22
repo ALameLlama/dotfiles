@@ -48,7 +48,7 @@ let
   '';
 in
 {
-  options.features.programs.git.enable = lib.mkEnableOption "Git configuration and scripts";
+  options.features.programs.git.enable = lib.mkEnableOption "Git and GitHub CLI";
 
   config = lib.mkIf config.features.programs.git.enable {
     home.packages = with pkgs; [

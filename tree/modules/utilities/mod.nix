@@ -21,8 +21,7 @@ let
   '';
 in
 {
-  options.features.tools.utilities.enable =
-    lib.mkEnableOption "General utilities (dive, opencode, lsof)";
+  options.features.tools.utilities.enable = lib.mkEnableOption "General utilities";
 
   config = lib.mkIf config.features.tools.utilities.enable {
     home.packages = with pkgs; [
