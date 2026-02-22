@@ -13,7 +13,6 @@
 
   config = lib.mkIf config.features.programs.neovim.enable {
     home.packages = with pkgs; [
-      # AstroNvim packages
       git
       gcc
       gnumake
@@ -36,7 +35,7 @@
 
     home.file = {
       ".config/nvim".source =
-        config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/home/programs/neovim/nvim";
+        config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/tree/modules/neovim/nvim";
     };
   };
 }
