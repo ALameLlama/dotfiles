@@ -7,26 +7,29 @@
 
   features = {
     programs = {
-      neovim.enable = true;
-      tmux.enable = true;
-      shell.enable = true;
       cli-tools.enable = true;
-      wezterm.enable = true;
       git.enable = true;
+      jujutsu.enable = true;
+      neovim.enable = true;
+      shell.enable = true;
+      tmux.enable = true;
+      wezterm.enable = true;
     };
     languages = {
-      lua.enable = true;
       go.enable = true;
-      javascript.enable = true;
-      javascript.fnm.enable = true;
-      rust.enable = true;
+      javascript = {
+        enable = true;
+        fnm.enable = true;
+      };
+      lua.enable = true;
       python.enable = true;
+      rust.enable = true;
       zig.enable = true;
     };
     tools = {
+      fonts.enable = true;
       nix-tools.enable = true;
       utilities.enable = true;
-      fonts.enable = true;
     };
   };
 
