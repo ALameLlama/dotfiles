@@ -54,6 +54,8 @@ in
     home.packages = with pkgs; [
       git
       gh
+      delta
+      lazygit
       gitPr
       gitC
       gitAttr
