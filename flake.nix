@@ -1,103 +1,90 @@
 {
-  description = "Llamas NixOS Configuration";
+  description = "Llamas NixOS Configuration - Dendritic Pattern";
 
   inputs = {
-    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    flake-parts.url = "github:hercules-ci/flake-parts";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
   };
 
   outputs =
-    {
+    inputs@{
       self,
       nixpkgs,
+      flake-parts,
       home-manager,
       determinate,
       ...
-    }@inputs:
+    }:
     let
-      system = builtins.currentSystem;
-      pkgs = import nixpkgs {
-        inherit system;
-        config = {
-          allowUnfree = true;
+      lib = nixpkgs.lib;
+
+      # Auto-discover all dendritic modules
+      discovered = import ./tree/discover.nix { inherit lib; };
+      homeModules = discovered.homeModules;
+      nixosModules = discovered.nixosModules;
+
+      # Helper: get packages for a system
+      pkgsFor =
+        system:
+        import nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
         };
-      };
     in
-    {
-      nixosConfigurations = {
-        razorback =
-          let
-            username = "nciechanowski";
-            specialArgs = {
-              inherit username;
-              inherit pkgs;
-            };
-          in
-          nixpkgs.lib.nixosSystem {
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      systems = [
+        "x86_64-linux"
+        "aarch64-linux"
+        "x86_64-darwin"
+        "aarch64-darwin"
+      ];
+      flake = {
+        inherit homeModules nixosModules;
+
+        nixosConfigurations = {
+          razorback = nixpkgs.lib.nixosSystem {
+            system = "x86_64-linux";
             modules = [
               determinate.nixosModules.default
-              ./hosts/razorback/configuration.nix
+              ./tree/hosts/razorback/configuration.nix
               inputs.nixos-hardware.nixosModules.framework-16-7040-amd
-              ./users/${username}/home.nix
+              { imports = lib.attrValues nixosModules; }
               home-manager.nixosModules.home-manager
               {
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
-                home-manager.extraSpecialArgs = inputs // specialArgs;
+                home-manager.users.nciechanowski.imports = lib.attrValues homeModules ++ [
+                  ./tree/hosts/razorback/users/nciechanowski.nix
+                ];
               }
             ];
           };
-      };
-
-      homeConfigurations = {
-        vagrant = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-          modules = [
-            ./home
-            {
-              home = {
-                username = "vagrant";
-                homeDirectory = "/home/vagrant";
-              };
-              nix.package = pkgs.nix;
-              features = {
-                programs = {
-                  neovim.enable = true;
-                  tmux.enable = true;
-                  shell.enable = true;
-                  cli-tooling.enable = true;
-                  wezterm.enable = false;
-                  git.enable = true;
-                };
-                languages = {
-                  php.enable = false;
-                  python.enable = true;
-                  javascript = {
-                    enable = true;
-                    fnm.enable = true;
-                  };
-                  rust.enable = false;
-                  lua.enable = true;
-                  go.enable = false;
-                  zig.enable = false;
-                };
-                tools = {
-                  nix-tools.enable = true;
-                  utilities.enable = true;
-                  fonts.enable = true;
-                };
-              };
-              home.packages = with pkgs; [
-                hyperfine
-              ];
-            }
-          ];
         };
+
+        homeConfigurations = lib.listToAttrs (
+          map
+            (system: {
+              name = "vagrant-${system}";
+              value = home-manager.lib.homeManagerConfiguration {
+                pkgs = pkgsFor system;
+                modules = [
+                  { imports = lib.attrValues homeModules; }
+                  ./tree/hosts/vagrant/home.nix
+                ];
+              };
+            })
+            [
+              "x86_64-linux"
+              "aarch64-linux"
+              "aarch64-darwin"
+            ]
+        );
       };
     };
 }
