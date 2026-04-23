@@ -10,6 +10,7 @@
       git.enable = true;
       jujutsu.enable = true;
       neovim.enable = true;
+      opencode.enable = true;
       shell.enable = true;
       tmux.enable = true;
     };

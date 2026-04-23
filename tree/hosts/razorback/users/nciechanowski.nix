@@ -11,6 +11,7 @@
       git.enable = true;
       jujutsu.enable = true;
       neovim.enable = true;
+      opencode.enable = true;
       shell.enable = true;
       tmux.enable = true;
       wezterm.enable = true;
@@ -25,6 +26,7 @@
       python.enable = true;
       rust.enable = true;
       zig.enable = true;
+      php.enable = true;
     };
     tools = {
       fonts.enable = true;

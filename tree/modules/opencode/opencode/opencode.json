@@ -1,0 +1,10 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "plugin": [
+    "caveman@git+https://github.com/ALameLlama/caveman.git#opencode-plugin",
+    "@tarquinen/opencode-dcp@latest",
+    "superpowers@git+https://github.com/obra/superpowers.git"
+  ],
+  "autoshare": false,
+  "autoupdate": false
+}
