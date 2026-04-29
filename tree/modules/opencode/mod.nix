@@ -13,6 +13,7 @@
 
   config = lib.mkIf config.features.programs.opencode.enable {
     home.packages = with pkgs; [
+      opencode
     ];
 
 

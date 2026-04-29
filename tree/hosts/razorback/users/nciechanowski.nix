@@ -26,7 +26,10 @@
       python.enable = true;
       rust.enable = true;
       zig.enable = true;
-      php.enable = true;
+      php = {
+        enable = true;
+        debug.enable = true;
+      };
     };
     tools = {
       fonts.enable = true;

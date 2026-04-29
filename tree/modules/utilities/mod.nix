@@ -16,7 +16,7 @@ let
     fi
     exec nix run \
       --option extra-substituters https://nix-community.cachix.org \
-      --option extra-trusted-public-keys nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= \ 
+      --option extra-trusted-public-keys nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= \
       github:nix-community/nixpkgs-update -- "$@"
   '';
 in
@@ -26,7 +26,6 @@ in
   config = lib.mkIf config.features.tools.utilities.enable {
     home.packages = with pkgs; [
       dive
-      opencode
       lsof
       nixpkgs-update
     ];
