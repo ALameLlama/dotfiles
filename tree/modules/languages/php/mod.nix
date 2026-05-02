@@ -1,0 +1,79 @@
+# PHP
+# Provides PHP development environment for home-manager
+
+{ lib }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+let
+  basePhpExtensions = all: [
+    all.imagick
+  ];
+
+  basePhpConfig = ''
+    memory_limit = 2G
+    upload_max_filesize = 64M
+    post_max_size = 64M
+  '';
+
+  makePhp =
+    extraExtensions:
+    pkgs.php.buildEnv {
+      extensions = { enabled, all }: enabled ++ basePhpExtensions all ++ extraExtensions all;
+
+      extraConfig = basePhpConfig;
+    };
+
+  phpWithConfig = makePhp (_: [ ]);
+
+  phpDebug = makePhp (all: [
+    all.xdebug
+  ]);
+
+  phpProfile = pkgs.writeShellScriptBin "phpp" ''
+    exec ${phpDebug}/bin/php \
+      -d xdebug.mode=profile \
+      -d xdebug.start_with_request=yes \
+      -d xdebug.output_dir="$PWD" \
+      -d xdebug.profiler_output_name="cachegrind.out.%p.%t" \
+      "$@"
+  '';
+
+  phpTrace = pkgs.writeShellScriptBin "phpt" ''
+    exec ${phpDebug}/bin/php \
+      -d xdebug.mode=trace \
+      -d xdebug.trace_options=0 \
+      -d xdebug.trace_format=1 \
+      -d xdebug.start_with_request=yes \
+      -d xdebug.output_dir="$PWD" \
+      -d xdebug.trace_output_name="trace.%p.%t" \
+      -d xdebug.collect_return=1 \
+      -d xdebug.collect_assignments=1 \
+      -d xdebug.collect_params=4 \
+      "$@"
+  '';
+in
+{
+  options.features.languages.php = {
+    enable = lib.mkEnableOption "PHP development";
+
+    debug.enable = lib.mkEnableOption "PHP debugging/profiling tools";
+  };
+
+  config = lib.mkIf config.features.languages.php.enable {
+    home.packages =
+      with pkgs;
+      [
+        phpWithConfig
+        php.packages.composer
+      ]
+      ++ lib.optionals config.features.languages.php.debug.enable [
+        phpProfile
+        phpTrace
+        kdePackages.kcachegrind
+      ];
+  };
+}
