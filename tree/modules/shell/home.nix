@@ -37,15 +37,31 @@
           }
 
           function dfs() {
-            flake_host="''${1:-}"
+            local flake_host=""
+            local extra_args=()
+
+            if [[ $# -gt 0 && "$1" != -* ]]; then
+              flake_host="$1"
+              shift
+            fi
+
+            extra_args=("$@")
+
+            local cmd=()
 
             if command -v nixos-rebuild &>/dev/null; then
               # NixOS: use host name directly (e.g., razorback)
-              cmd='sudo nixos-rebuild switch --flake ~/.dotfiles''${flake_host:+#''${flake_host}}'
+              cmd=(
+                sudo nixos-rebuild switch
+                --flake "$HOME/.dotfiles''${flake_host:+#''${flake_host}}"
+                "''${extra_args[@]}"
+              )
             else
               # Home-manager: append system architecture (e.g., vagrant-x86_64-linux)
-              local host=''${flake_host:-vagrant}
-              local arch=$(uname -m)
+              local host="''${flake_host:-vagrant}"
+              local arch
+              arch="$(uname -m)"
+
               local sys
               case "$arch" in
                 x86_64) sys="x86_64-linux" ;;
@@ -54,18 +70,22 @@
               esac
 
               # Check if running on Darwin (macOS)
-              if [[ $(uname -s) == "Darwin" ]]; then
+              if [[ "$(uname -s)" == "Darwin" ]]; then
                 case "$arch" in
                   x86_64) sys="x86_64-darwin" ;;
                   aarch64|arm64) sys="aarch64-darwin" ;;
                 esac
               fi
 
-              cmd="home-manager --flake ~/.dotfiles#''${host}-''${sys} switch"
+              cmd=(
+                home-manager switch
+                --flake "$HOME/.dotfiles#''${host}-''${sys}"
+                "''${extra_args[@]}"
+              )
             fi
 
-            echo "Running: ''$cmd"
-            eval $cmd || return 1
+            echo "Running: ''${cmd[@]}"
+            "''${cmd[@]}" || return 1
 
             nvim --headless "+Lazy! sync" +qa
 
