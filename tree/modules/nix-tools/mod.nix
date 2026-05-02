@@ -1,5 +1,5 @@
 # Nix Tools
-# Provides Nix development tools for home-manager
+# Provides Nix development tools
 
 { lib }:
 {

@@ -1,5 +1,5 @@
 # JavaScript/Node.js
-# Provides JavaScript/Node.js development environment for home-manager and nixos
+# Provides JavaScript/Node.js development environment
 
 { lib }:
 {

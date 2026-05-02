@@ -1,5 +1,5 @@
 # Go
-# Provides Go development environment for home-manager
+# Provides Go development environment
 
 { lib }:
 {

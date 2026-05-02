@@ -1,5 +1,5 @@
 # Rust
-# Provides Rust development environment for home-manager
+# Provides Rust development environment
 
 { lib }:
 {

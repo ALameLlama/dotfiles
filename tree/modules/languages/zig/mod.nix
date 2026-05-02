@@ -1,5 +1,5 @@
 # Zig
-# Provides Zig development environment for home-manager
+# Provides Zig development environment
 
 { lib }:
 {

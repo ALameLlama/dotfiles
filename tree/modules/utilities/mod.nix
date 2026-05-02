@@ -1,5 +1,5 @@
 # Utilities
-# Provides general utilities for home-manager
+# Provides general utilities
 
 { lib }:
 {

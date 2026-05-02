@@ -1,5 +1,5 @@
 # Jujutsu
-# Provides jujutsu for home-manager
+# Provides jujutsu
 
 { lib }:
 {

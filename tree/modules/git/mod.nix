@@ -1,5 +1,5 @@
 # Git
-# Provides git and gh configuration for home-manager
+# Provides git and gh configuration
 
 { lib }:
 {

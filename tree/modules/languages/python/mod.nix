@@ -1,5 +1,5 @@
 # Python
-# Provides Python development environment for home-manager
+# Provides Python development environment
 
 { lib }:
 {

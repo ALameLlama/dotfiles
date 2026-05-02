@@ -1,5 +1,5 @@
 # CLI Tools
-# Provides CLI tooling configuration for home-manager
+# Provides CLI tooling configuration
 
 { lib }:
 {

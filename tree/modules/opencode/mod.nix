@@ -1,5 +1,5 @@
 # OpenCode
-# Provides OpenCode configuration for home-manager
+# Provides OpenCode configuration
 
 { lib }:
 {

@@ -1,5 +1,5 @@
 # Lua
-# Provides Lua development environment for home-manager
+# Provides Lua development environment
 
 { lib }:
 {

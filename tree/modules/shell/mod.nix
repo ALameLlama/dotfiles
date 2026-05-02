@@ -1,5 +1,5 @@
 # Shell
-# Provides zsh/starship/carapace configuration for home-manager and nixos
+# Provides zsh/starship/carapace configuration
 
 { lib }:
 {

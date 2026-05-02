@@ -1,5 +1,5 @@
 # Fonts
-# Provides custom fonts for home-manager
+# Provides custom fonts
 
 { lib }:
 {

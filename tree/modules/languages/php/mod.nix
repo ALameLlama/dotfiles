@@ -1,5 +1,5 @@
 # PHP
-# Provides PHP development environment for home-manager
+# Provides PHP development environment
 
 { lib }:
 {

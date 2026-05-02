@@ -1,5 +1,5 @@
 # Tmux
-# Provides tmux configuration for home-manager
+# Provides tmux configuration
 
 { lib }:
 {

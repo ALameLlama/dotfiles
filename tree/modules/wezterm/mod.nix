@@ -1,5 +1,5 @@
 # WezTerm
-# Provides WezTerm configuration for home-manager
+# Provides WezTerm configuration
 
 { lib }:
 {
