@@ -13,6 +13,7 @@
       neovim.enable = true;
       opencode.enable = true;
       shell.enable = true;
+      steam.enable = true;
       tmux.enable = true;
       wezterm.enable = true;
     };
