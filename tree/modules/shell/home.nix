@@ -87,7 +87,7 @@
             echo "Running: ''${cmd[@]}"
             "''${cmd[@]}" || return 1
 
-            nvim --headless "+Lazy! sync" +qa
+            nvim --headless "+Lazy! sync" +qa | grep "HEAD is now at"
 
             zsh
           }
