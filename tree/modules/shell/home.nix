@@ -87,7 +87,7 @@
             echo "Running: ''${cmd[@]}"
             "''${cmd[@]}" || return 1
 
-            nvim --headless "+Lazy! sync" +qa | grep "HEAD is now at"
+            nvim --headless "+Lazy! sync" +qa  | grep -v -e "Finished task " -e "Running task "
 
             zsh
           }
@@ -95,7 +95,7 @@
           function dfu() {
             (cd "$HOME/.dotfiles" && nix flake update)
 
-            nvim --headless "+Lazy! update" +qa
+            nvim --headless "+Lazy! update" +qa | grep -v -e "Finished task " -e "Running task "
             nvim --headless "+TSUpdate" +qa
           }
 
