@@ -11,7 +11,10 @@
       git.enable = true;
       jujutsu.enable = true;
       neovim.enable = true;
-      opencode.enable = true;
+      opencode = {
+        enable = true;
+        config.super = true;
+      };
       shell.enable = true;
       steam.enable = true;
       tmux.enable = true;

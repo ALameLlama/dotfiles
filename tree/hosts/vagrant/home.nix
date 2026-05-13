@@ -10,7 +10,10 @@
       git.enable = true;
       jujutsu.enable = true;
       neovim.enable = true;
-      opencode.enable = true;
+      opencode = {
+        enable = true;
+        config.super = true;
+      };
       shell.enable = true;
       tmux.enable = true;
     };
@@ -36,6 +39,9 @@
     packages = with pkgs; [
       hyperfine
       home-manager
+      vhs
+      ffmpeg
+      ttyd
     ];
   };
 }
