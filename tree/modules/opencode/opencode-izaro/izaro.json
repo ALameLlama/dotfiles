@@ -1,0 +1,148 @@
+{
+  "$schema": "https://raw.githubusercontent.com/ALameLlama/Izaro/main/izaro.schema.json",
+  "commands": "core",
+  "preset": "local",
+  "presets": {
+    "openai": {
+      "izaro": {
+        "model": "openai/gpt-5.5"
+      },
+      "aspirant": {
+        "model": "openai/gpt-5.5"
+      },
+      "scout": {
+        "model": "openai/gpt-5.4-mini",
+        "variant": "low"
+      },
+      "archivist": {
+        "model": "openai/gpt-5.4-mini",
+        "variant": "low"
+      },
+      "artisan": {
+        "model": "openai/gpt-5.4-mini",
+        "variant": "medium"
+      },
+      "smith": {
+        "model": "openai/gpt-5.4-mini",
+        "variant": "low"
+      },
+      "augur": {
+        "model": "openai/gpt-5.5",
+        "variant": "high"
+      },
+      "tribunal": {
+        "model": "openai/gpt-5.5",
+        "variant": "high"
+      },
+      "witness": {
+        "model": "openai/gpt-5.4-mini",
+        "variant": "low"
+      }
+    },
+    "opencode-go": {
+      "izaro": {
+        "model": "opencode-go/glm-5.1"
+      },
+      "aspirant": {
+        "model": "opencode-go/glm-5.1"
+      },
+      "scout": {
+        "model": "opencode-go/minimax-m2.7"
+      },
+      "archivist": {
+        "model": "opencode-go/minimax-m2.7"
+      },
+      "artisan": {
+        "model": "opencode-go/kimi-k2.6",
+        "variant": "medium"
+      },
+      "smith": {
+        "model": "opencode-go/deepseek-v4-flash",
+        "variant": "high"
+      },
+      "augur": {
+        "model": "opencode-go/deepseek-v4-pro",
+        "variant": "max"
+      },
+      "tribunal": {
+        "model": "opencode-go/deepseek-v4-pro",
+        "variant": "high"
+      },
+      "witness": {
+        "model": "opencode-go/minimax-m2.7"
+      }
+    },
+    "copilot": {
+      "izaro": {
+        "model": "github-copilot/gpt-5.5"
+      },
+      "aspirant": {
+        "model": "github-copilot/gpt-5.5"
+      },
+      "scout": {
+        "model": "github-copilot/gpt-5.4-mini",
+        "variant": "low"
+      },
+      "archivist": {
+        "model": "github-copilot/gpt-5.4-mini",
+        "variant": "low"
+      },
+      "artisan": {
+        "model": "github-copilot/gpt-5.4-mini",
+        "variant": "medium"
+      },
+      "smith": {
+        "model": "github-copilot/gpt-5.4-mini",
+        "variant": "low"
+      },
+      "augur": {
+        "model": "github-copilot/gpt-5.5",
+        "variant": "high"
+      },
+      "tribunal": {
+        "model": "github-copilot/gpt-5.5",
+        "variant": "high"
+      },
+      "witness": {
+        "model": "github-copilot/gpt-5.4-mini",
+        "variant": "low"
+      }
+    },
+    "local": {
+      "izaro": {
+        "model": "llamacorp/qwopus3.6-35b-a3b"
+      },
+      "aspirant": {
+        "model": "llamacorp/qwopus3.6-35b-a3b"
+      },
+      "scout": {
+        "model": "llamacorp/qwopus3.6-35b-a3b",
+        "variant": "low"
+      },
+      "archivist": {
+        "model": "llamacorp/qwopus3.6-35b-a3b",
+        "variant": "low"
+      },
+      "artisan": {
+        "model": "llamacorp/qwopus3.6-35b-a3b",
+        "variant": "medium"
+      },
+      "smith": {
+        "model": "llamacorp/qwopus3.6-35b-a3b",
+        "variant": "low"
+      },
+      "augur": {
+        "model": "llamacorp/qwopus3.6-35b-a3b",
+        "variant": "max"
+      },
+      "tribunal": {
+        "model": "llamacorp/qwopus3.6-35b-a3b",
+        "variant": "high"
+      },
+      "witness": {
+        "model": "llamacorp/qwopus3.6-35b-a3b",
+        "variant": "low"
+      }
+    }
+  }
+}

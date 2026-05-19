@@ -6,5 +6,56 @@
     "caveman@git+https://github.com/ALameLlama/caveman.git#feature/opencode-plugin"
   ],
   "autoshare": false,
-  "autoupdate": false
+  "autoupdate": false,
+  "lsp": true,
+  "provider": {
+    "llamacorp": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "LlamaCorp",
+      "options": {
+        "baseURL": "https://clankers.llamacorp.au/v1"
+      },
+      "models": {
+        "qwopus3.6-35b-a3b": {
+          "name": "Qwopus 3.6 35B A3B",
+          "limit": {
+            // "context": 524288,
+            // "output": 65536
+            "context": 262144,
+            "output": 16384
+          },
+          "variants": {
+            "max": {
+              "reasoningEffort": "xhigh",
+              "textVerbosity": "low",
+              "reasoningSummary": "auto"
+            },
+            "high": {
+              "reasoningEffort": "high",
+              "textVerbosity": "low",
+              "reasoningSummary": "auto"
+            },
+            "medium": {
+              "reasoningEffort": "medium",
+              "textVerbosity": "low",
+              "reasoningSummary": "auto"
+            },
+            "low": {
+              "reasoningEffort": "low",
+              "textVerbosity": "low",
+              "reasoningSummary": "auto"
+            },
+            "minimal": {
+              "reasoningEffort": "minimal",
+              "textVerbosity": "low",
+              "reasoningSummary": "auto"
+            },
+            "grug": {
+              "reasoningEffort": "none"
+            }
+          }
+        }
+      }
+    }
+  }
 }

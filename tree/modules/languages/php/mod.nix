@@ -9,8 +9,12 @@
   ...
 }:
 let
+  php = pkgs.php85;
+
   basePhpExtensions = all: [
     all.imagick
+    all.pcov
+
   ];
 
   basePhpConfig = ''
@@ -21,7 +25,7 @@ let
 
   makePhp =
     extraExtensions:
-    pkgs.php.buildEnv {
+    php.buildEnv {
       extensions = { enabled, all }: enabled ++ basePhpExtensions all ++ extraExtensions all;
 
       extraConfig = basePhpConfig;
@@ -29,12 +33,15 @@ let
 
   phpWithConfig = makePhp (_: [ ]);
 
-  phpDebug = makePhp (all: [
+  phpWithConfigDebug = makePhp (all: [
     all.xdebug
   ]);
 
+  phpActive =
+    if config.features.languages.php.debug.enable then phpWithConfigDebug else phpWithConfig;
+
   phpProfile = pkgs.writeShellScriptBin "phpp" ''
-    exec ${phpDebug}/bin/php \
+    exec ${phpWithConfigDebug}/bin/php \
       -d xdebug.mode=profile \
       -d xdebug.start_with_request=yes \
       -d xdebug.output_dir="$PWD" \
@@ -43,7 +50,7 @@ let
   '';
 
   phpTrace = pkgs.writeShellScriptBin "phpt" ''
-    exec ${phpDebug}/bin/php \
+    exec ${phpWithConfigDebug}/bin/php \
       -d xdebug.mode=trace \
       -d xdebug.trace_options=0 \
       -d xdebug.trace_format=1 \
@@ -67,8 +74,8 @@ in
     home.packages =
       with pkgs;
       [
-        phpWithConfig
-        php.packages.composer
+        phpActive
+        phpActive.packages.composer
       ]
       ++ lib.optionals config.features.languages.php.debug.enable [
         phpProfile

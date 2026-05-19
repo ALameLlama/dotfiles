@@ -34,7 +34,7 @@
       };
 
       programs.bash = lib.mkIf config.programs.bash.enable {
-        initExtra = ''
+        initExtra = lib.mkBefore ''
           eval "$(fnm env --use-on-cd --shell bash)"
         '';
       };

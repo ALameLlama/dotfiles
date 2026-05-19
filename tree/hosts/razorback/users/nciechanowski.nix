@@ -13,7 +13,8 @@
       neovim.enable = true;
       opencode = {
         enable = true;
-        config.super = true;
+        # config.super = true;
+        config.omo = true;
       };
       shell.enable = true;
       steam.enable = true;
@@ -46,6 +47,9 @@
     username = "nciechanowski";
     homeDirectory = "/home/nciechanowski";
     stateVersion = "25.05";
-    packages = with pkgs; [ home-manager ];
+    packages = with pkgs; [
+      home-manager
+      forgejo-cli
+    ];
   };
 }

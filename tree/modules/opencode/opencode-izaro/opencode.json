@@ -1,21 +1,12 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "plugin": [
-    "@tarquinen/opencode-dcp@latest",
-    "oh-my-opencode-slim@latest"
+    // "izaro@git+https://github.com/ALameLlama/Izaro",
+    "izaro@git+file:///home/vagrant/personal/opencode-plugin/izaro"
   ],
-  "default_agent": "orchestrator",
   "autoshare": false,
-  "autoupdate": true,
+  "autoupdate": false,
   "lsp": true,
-  "agent": {
-    "explore": {
-      "disable": true
-    },
-    "general": {
-      "disable": true
-    }
-  },
   "provider": {
     "llamacorp": {
       "npm": "@ai-sdk/openai-compatible",
@@ -31,43 +22,6 @@
             // "output": 65536
             "context": 262144,
             "output": 16384
-          },
-          "variants": {
-            "max": {
-              "reasoningEffort": "xhigh",
-              "textVerbosity": "low",
-              "reasoningSummary": "auto"
-            },
-            "high": {
-              "reasoningEffort": "high",
-              "textVerbosity": "low",
-              "reasoningSummary": "auto"
-            },
-            "medium": {
-              "reasoningEffort": "medium",
-              "textVerbosity": "low",
-              "reasoningSummary": "auto"
-            },
-            "low": {
-              "reasoningEffort": "low",
-              "textVerbosity": "low",
-              "reasoningSummary": "auto"
-            },
-            "minimal": {
-              "reasoningEffort": "minimal",
-              "textVerbosity": "low",
-              "reasoningSummary": "auto"
-            },
-            "grug": {
-              "reasoningEffort": "none"
-            }
-          }
-        },
-        "ornith-1.0-35b": {
-          "name": "Ornith 1.0 35B",
-          "limit": {
-            "context": 524288,
-            "output": 65536
           },
           "variants": {
             "max": {

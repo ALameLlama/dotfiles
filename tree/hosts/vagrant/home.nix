@@ -12,7 +12,9 @@
       neovim.enable = true;
       opencode = {
         enable = true;
-        config.super = true;
+        config.omo = true;
+        # config.super = true;
+        # config.izaro = true;
       };
       shell.enable = true;
       tmux.enable = true;
@@ -37,11 +39,7 @@
     homeDirectory = "/home/vagrant";
     stateVersion = "25.05";
     packages = with pkgs; [
-      hyperfine
       home-manager
-      vhs
-      ffmpeg
-      ttyd
     ];
   };
 }
