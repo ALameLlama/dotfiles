@@ -16,7 +16,9 @@ return {
 				cmd = { "laravel-dev-generators", "lsp" },
 				filetypes = { "blade" },
 				root_dir = function(fname)
-					return require("lspconfig").util.find_git_ancestor(fname)
+					return vim.fs.dirname(vim.fs.find(".git", { path = fname, upward = true })[1])
+					-- Lua Diagnostics.: Deprecated.(use `vim.fs.dirname(vim.fs.find('.git', { path = startpath, upward = true })[1])` instead) [deprecated]
+					-- return require("lspconfig").util.find_git_ancestor(fname)
 				end,
 			}
 
@@ -83,7 +85,8 @@ return {
 		"mason-org/mason-lspconfig.nvim",
 		optional = true,
 		opts = function(_, opts)
-			opts.ensure_installed = require("astrocore").list_insert_unique(opts.ensure_installed, { "phpactor" })
+			opts.ensure_installed = require("astrocore").list_insert_unique(opts.ensure_installed, { "phpantom_lsp" })
+			-- opts.ensure_installed = require("astrocore").list_insert_unique(opts.ensure_installed, { "phpactor" })
 			-- opts.ensure_installed = require("astrocore").list_insert_unique(opts.ensure_installed, { "intelephense" })
 		end,
 	},
@@ -108,7 +111,8 @@ return {
 		opts = function(_, opts)
 			opts.ensure_installed = require("astrocore").list_insert_unique(
 				opts.ensure_installed,
-				{ "phpactor", "php-debug-adapter", "pint" }
+				{ "phpantom_lsp", "php-debug-adapter", "pint" }
+				-- { "phpactor", "php-debug-adapter", "pint" }
 				-- { "intelephense", "php-debug-adapter", "php-cs-fixer" }
 			)
 		end,
@@ -123,81 +127,81 @@ return {
 			},
 		},
 	},
-	{
-		"adibhanna/laravel.nvim",
-		event = { "VeryLazy" },
-		cmd = {
-			"Artisan",
-			"Composer",
-			"Sail",
-			"LaravelMake",
-			"LaravelRoutes",
-			"LaravelGoto",
-		},
-		dependencies = {
-			"MunifTanjim/nui.nvim",
-			"nvim-lua/plenary.nvim",
-			{
-				"AstroNvim/astrocore",
-				---@param opts AstroCoreOpts
-				opts = function(_, opts)
-					local maps = assert(opts.mappings)
-					local prefix = "<Leader>L"
-					maps.n[prefix] = { desc = require("astroui").get_icon("Laravel", 1, true) .. "Laravel" }
-					maps.n[prefix .. "D"] = { desc = require("astroui").get_icon("Dump", 1, true) .. "Dump Menu" }
-				end,
-			},
-			{ "AstroNvim/astroui", opts = { icons = { Laravel = "󰫐", Dump = "" } } },
-		},
-		specs = {
-			{
-				"saghen/blink.cmp",
-				optional = true,
-				opts = {
-					sources = {
-						default = { "laravel" },
-						providers = {
-							laravel = {
-								name = "laravel",
-								module = "laravel.blink_source",
-								-- https://github.com/Saghen/blink.cmp/issues/1098
-								-- There currently really isn't a way to do what I want, I want this to exist after the lsp
-								score_offset = -4000,
-								transform_items = function(ctx, items)
-									for _, item in ipairs(items) do
-										item.kind_icon = "󰫐"
-										item.kind_name = "Laravel"
-									end
-									return items
-								end,
-							},
-						},
-					},
-				},
-				dependencies = {
-					{
-						-- We disable autotag closing in php files since it breaks blink.cmp
-						---@see https://github.com/saghen/blink.cmp/issues/2234#issuecomment-3461410965
-						"windwp/nvim-ts-autotag",
-						optional = true,
-						opts = {
-							per_filetype = {
-								["php"] = { enable_close = false },
-							},
-						},
-					},
-				},
-			},
-			{
-				"hrsh7th/nvim-cmp",
-				optional = true,
-				opts = {
-					sources = { { name = "laravel", priority = 750 } },
-				},
-			},
-		},
-		opts = {
-			notifications = false,
-		},
-	},
+	-- {
+	-- 	"adibhanna/laravel.nvim",
+	-- 	event = { "VeryLazy" },
+	-- 	cmd = {
+	-- 		"Artisan",
+	-- 		"Composer",
+	-- 		"Sail",
+	-- 		"LaravelMake",
+	-- 		"LaravelRoutes",
+	-- 		"LaravelGoto",
+	-- 	},
+	-- 	dependencies = {
+	-- 		"MunifTanjim/nui.nvim",
+	-- 		"nvim-lua/plenary.nvim",
+	-- 		{
+	-- 			"AstroNvim/astrocore",
+	-- 			---@param opts AstroCoreOpts
+	-- 			opts = function(_, opts)
+	-- 				local maps = assert(opts.mappings)
+	-- 				local prefix = "<Leader>L"
+	-- 				maps.n[prefix] = { desc = require("astroui").get_icon("Laravel", 1, true) .. "Laravel" }
+	-- 				maps.n[prefix .. "D"] = { desc = require("astroui").get_icon("Dump", 1, true) .. "Dump Menu" }
+	-- 			end,
+	-- 		},
+	-- 		{ "AstroNvim/astroui", opts = { icons = { Laravel = "󰫐", Dump = "" } } },
+	-- 	},
+	-- 	specs = {
+	-- 		{
+	-- 			"saghen/blink.cmp",
+	-- 			optional = true,
+	-- 			opts = {
+	-- 				sources = {
+	-- 					default = { "laravel" },
+	-- 					providers = {
+	-- 						laravel = {
+	-- 							name = "laravel",
+	-- 							module = "laravel.blink_source",
+	-- 							-- https://github.com/Saghen/blink.cmp/issues/1098
+	-- 							-- There currently really isn't a way to do what I want, I want this to exist after the lsp
+	-- 							score_offset = -4000,
+	-- 							transform_items = function(ctx, items)
+	-- 								for _, item in ipairs(items) do
+	-- 									item.kind_icon = "󰫐"
+	-- 									item.kind_name = "Laravel"
+	-- 								end
+	-- 								return items
+	-- 							end,
+	-- 						},
+	-- 					},
+	-- 				},
+	-- 			},
+	-- 			dependencies = {
+	-- 				{
+	-- 					-- We disable autotag closing in php files since it breaks blink.cmp
+	-- 					---@see https://github.com/saghen/blink.cmp/issues/2234#issuecomment-3461410965
+	-- 					"windwp/nvim-ts-autotag",
+	-- 					optional = true,
+	-- 					opts = {
+	-- 						per_filetype = {
+	-- 							["php"] = { enable_close = false },
+	-- 						},
+	-- 					},
+	-- 				},
+	-- 			},
+	-- 		},
+	-- 		{
+	-- 			"hrsh7th/nvim-cmp",
+	-- 			optional = true,
+	-- 			opts = {
+	-- 				sources = { { name = "laravel", priority = 750 } },
+	-- 			},
+	-- 		},
+	-- 	},
+	-- 	opts = {
+	-- 		notifications = false,
+	-- 	},
+	-- },
 }

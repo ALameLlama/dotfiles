@@ -8,7 +8,6 @@ return {
 
 	{ import = "astrocommunity.completion.copilot-lua-cmp" },
 
-
 	-- Bars and Lines
 	-- 	{ import = "astrocommunity.bars-and-lines.scope-nvim" }, -- Adds Tabs :tabnew,:tabnext and :tabprevious
 	{ import = "astrocommunity.bars-and-lines.smartcolumn-nvim" }, -- Max characater limit
@@ -36,22 +35,23 @@ return {
 
 	-- Editing Support
 	{ import = "astrocommunity.editing-support.auto-save-nvim" },
-	{ import = "astrocommunity.editing-support.hypersonic-nvim" },        -- :Hypersonic for regex explainer
-	{ import = "astrocommunity.editing-support.mini-splitjoin" },         -- Split/Join params with gS
-	{ import = "astrocommunity.editing-support.neogen" },                 -- Annotation generator
-	{ import = "astrocommunity.editing-support.nvim-context-vt" },        -- Virtual Text for end statements
+	{ import = "astrocommunity.editing-support.hypersonic-nvim" }, -- :Hypersonic for regex explainer
+	{ import = "astrocommunity.editing-support.mini-splitjoin" }, -- Split/Join params with gS
+	{ import = "astrocommunity.editing-support.neogen" }, -- Annotation generator
+	{ import = "astrocommunity.editing-support.nvim-context-vt" }, -- Virtual Text for end statements
 	{ import = "astrocommunity.editing-support.nvim-treesitter-context" }, -- Sticky scroll
 	{ import = "astrocommunity.editing-support.rainbow-delimiters-nvim" }, -- Rainbow brackets
-	{ import = "astrocommunity.editing-support.refactoring-nvim" },       -- Refactoring keygroup
-	{ import = "astrocommunity.editing-support.suda-vim" },               -- Sudo write
+	{ import = "astrocommunity.editing-support.refactoring-nvim" }, -- Refactoring keygroup
+	{ import = "astrocommunity.editing-support.suda-vim" }, -- Sudo write
 	-- { import = "astrocommunity.editing-support.text-case-nvim" }, -- :TextCaseOpenTelescope
-	{ import = "astrocommunity.editing-support.vim-visual-multi" },       -- More info https://github.com/mg979/vim-visual-multi
+	{ import = "astrocommunity.editing-support.vim-visual-multi" }, -- More info https://github.com/mg979/vim-visual-multi
 
 	-- Fuzzy Finder
 	-- { import = "astrocommunity.fuzzy-finder.snacks-picker" },
+	-- { import = "astrocommunity.file-explorer.fyler-nvim" },
 
 	-- Git
-	{ import = "astrocommunity.git.blame-nvim" },    -- <Leader>gB
+	{ import = "astrocommunity.git.blame-nvim" }, -- <Leader>gB
 	{ import = "astrocommunity.git.diffview-nvim" }, -- <Leader>gd
 	{ import = "astrocommunity.git.gitgraph-nvim" }, -- <Leader>g|
 	{ import = "astrocommunity.git.gitlinker-nvim" }, -- <Leader>gy

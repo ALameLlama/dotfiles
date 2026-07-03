@@ -50,6 +50,8 @@ return {
 				"----------------               -::::::::::::-==-===     ",
 			}, "\n")
 
+			vim.api.nvim_set_hl(0, "SnacksPickerDir", { fg = "#696C76" })
+
 			return opts
 		end,
 	},
