@@ -14,7 +14,7 @@
         enable = true;
         config.omo = true;
         # config.super = true;
-        # config.izaro = true;
+        # config.nilla = true;
       };
       shell.enable = true;
       tmux.enable = true;
@@ -25,6 +25,7 @@
         fnm.enable = true;
       };
       lua.enable = true;
+      go.enable = true;
       python.enable = true;
     };
     tools = {
@@ -40,6 +41,7 @@
     stateVersion = "25.05";
     packages = with pkgs; [
       home-manager
+      claude-code
     ];
   };
 }

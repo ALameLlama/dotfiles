@@ -12,9 +12,9 @@
   options.features.programs.opencode = {
     enable = lib.mkEnableOption "OpenCode";
     config = {
-      super = lib.mkEnableOption "OpenCode Super Config";
+      nilla = lib.mkEnableOption "OpenCode Nilla Config";
       omo = lib.mkEnableOption "OpenCode OMO Config";
-      izaro = lib.mkEnableOption "OpenCode izaro Config";
+      super = lib.mkEnableOption "OpenCode Super Config";
     };
   };
 
@@ -37,10 +37,10 @@
       };
     })
 
-    (lib.mkIf config.features.programs.opencode.config.super {
+    (lib.mkIf config.features.programs.opencode.config.nilla {
       home.file = {
         ".config/opencode".source =
-          config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/tree/modules/opencode/opencode-super";
+          config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/tree/modules/opencode/opencode-nilla";
       };
     })
 
@@ -51,10 +51,10 @@
       };
     })
 
-    (lib.mkIf config.features.programs.opencode.config.izaro {
+    (lib.mkIf config.features.programs.opencode.config.super {
       home.file = {
         ".config/opencode".source =
-          config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/tree/modules/opencode/opencode-izaro";
+          config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/tree/modules/opencode/opencode-super";
       };
     })
   ];
