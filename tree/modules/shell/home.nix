@@ -88,6 +88,8 @@
             "''${cmd[@]}" || return 1
 
             nvim --headless "+Lazy! sync" +qa  | grep -v -e "Finished task " -e "Running task "
+            nvim --headless -c 'MasonToolsInstallSync' -c 'qall'
+            nvim --headless -c 'MasonToolsUpdateSync' -c 'qall'
 
             zsh
           }

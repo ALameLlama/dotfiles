@@ -1,54 +1,54 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-07-14T07:01:48.513Z",
+  "updatedAt": "2026-07-22T05:45:02.094Z",
   "skills": {
     "simplify": {
-      "status": "managed",
+      "status": "deleted",
       "packageVersion": "2.2.0",
       "sourceHash": "472c23b761bce345f4285a233daab78d27b30abb1edf7612ff27fb14815d7540",
       "lastManagedHash": "472c23b761bce345f4285a233daab78d27b30abb1edf7612ff27fb14815d7540",
       "lastSeenHash": "472c23b761bce345f4285a233daab78d27b30abb1edf7612ff27fb14815d7540",
-      "updatedAt": "2026-07-14T07:01:48.509Z"
+      "updatedAt": "2026-07-20T04:04:17.675Z"
     },
     "codemap": {
-      "status": "managed",
+      "status": "deleted",
       "packageVersion": "2.2.0",
       "sourceHash": "583b1a1a7d20e546517b4092034720b3f72dd56e74c0b6c3f11adff68cdd4765",
       "lastManagedHash": "583b1a1a7d20e546517b4092034720b3f72dd56e74c0b6c3f11adff68cdd4765",
       "lastSeenHash": "583b1a1a7d20e546517b4092034720b3f72dd56e74c0b6c3f11adff68cdd4765",
-      "updatedAt": "2026-07-14T07:01:48.511Z"
+      "updatedAt": "2026-07-20T04:04:17.677Z"
     },
     "clonedeps": {
-      "status": "managed",
+      "status": "deleted",
       "packageVersion": "2.2.0",
       "sourceHash": "81c927f801f9f502d9b5d42ec7582ed59ab07b3898fd4eaee660f725d795a845",
       "lastManagedHash": "81c927f801f9f502d9b5d42ec7582ed59ab07b3898fd4eaee660f725d795a845",
       "lastSeenHash": "81c927f801f9f502d9b5d42ec7582ed59ab07b3898fd4eaee660f725d795a845",
-      "updatedAt": "2026-07-14T07:01:48.511Z"
+      "updatedAt": "2026-07-20T04:04:17.677Z"
     },
     "deepwork": {
-      "status": "managed",
+      "status": "deleted",
       "packageVersion": "2.2.0",
       "sourceHash": "229a4cb07b32af0073cb2e6bbe788b3999534fc3d3c8af3d5488be1798a3e2c2",
       "lastManagedHash": "229a4cb07b32af0073cb2e6bbe788b3999534fc3d3c8af3d5488be1798a3e2c2",
       "lastSeenHash": "229a4cb07b32af0073cb2e6bbe788b3999534fc3d3c8af3d5488be1798a3e2c2",
-      "updatedAt": "2026-07-14T07:01:48.512Z"
+      "updatedAt": "2026-07-20T04:04:17.678Z"
     },
     "reflect": {
-      "status": "managed",
+      "status": "deleted",
       "packageVersion": "2.2.0",
       "sourceHash": "d5b2a123858629c0c8b46ba291efd5a38c30a1846c572df6c448542ac76f18df",
       "lastManagedHash": "d5b2a123858629c0c8b46ba291efd5a38c30a1846c572df6c448542ac76f18df",
       "lastSeenHash": "d5b2a123858629c0c8b46ba291efd5a38c30a1846c572df6c448542ac76f18df",
-      "updatedAt": "2026-07-14T07:01:48.512Z"
+      "updatedAt": "2026-07-20T04:04:17.678Z"
     },
     "oh-my-opencode-slim": {
-      "status": "managed",
+      "status": "deleted",
       "packageVersion": "2.2.0",
       "sourceHash": "fc1837b09da2af8e41fb9c26238520804496670c7d4cf94c21907d4cc48efeb1",
       "lastManagedHash": "fc1837b09da2af8e41fb9c26238520804496670c7d4cf94c21907d4cc48efeb1",
       "lastSeenHash": "fc1837b09da2af8e41fb9c26238520804496670c7d4cf94c21907d4cc48efeb1",
-      "updatedAt": "2026-07-14T07:01:48.512Z"
+      "updatedAt": "2026-07-20T04:04:17.678Z"
     },
     "release-smoke-test": {
       "status": "managed",
@@ -59,20 +59,20 @@
       "updatedAt": "2026-07-14T07:01:48.512Z"
     },
     "worktrees": {
-      "status": "managed",
+      "status": "deleted",
       "packageVersion": "2.2.0",
       "sourceHash": "26f7f244bdb075442053a0dd3c9d19c709d10b1c7e4dfbdf9393544eb1f9c1ff",
       "lastManagedHash": "26f7f244bdb075442053a0dd3c9d19c709d10b1c7e4dfbdf9393544eb1f9c1ff",
       "lastSeenHash": "26f7f244bdb075442053a0dd3c9d19c709d10b1c7e4dfbdf9393544eb1f9c1ff",
-      "updatedAt": "2026-07-14T07:01:48.513Z"
+      "updatedAt": "2026-07-20T04:04:17.679Z"
     },
     "verification-planning": {
-      "status": "managed",
+      "status": "deleted",
       "packageVersion": "2.2.0",
       "sourceHash": "e8981a7cfa14c00099c58878a9ffc6e6a3d7e0f8c8fdc572ddf89cce0c57efc1",
       "lastManagedHash": "e8981a7cfa14c00099c58878a9ffc6e6a3d7e0f8c8fdc572ddf89cce0c57efc1",
       "lastSeenHash": "e8981a7cfa14c00099c58878a9ffc6e6a3d7e0f8c8fdc572ddf89cce0c57efc1",
-      "updatedAt": "2026-07-14T07:01:48.512Z"
+      "updatedAt": "2026-07-20T04:04:17.678Z"
     }
   }
 }

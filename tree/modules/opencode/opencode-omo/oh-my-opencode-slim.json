@@ -1,10 +1,10 @@
 {
   "$schema": "https://unpkg.com/oh-my-opencode-slim@latest/oh-my-opencode-slim.schema.json",
-  "preset": "local",
+  "preset": "openai",
   "presets": {
     "openai": {
       "orchestrator": {
-        "model": "openai/gpt-5.5-fast",
+        "model": "openai/gpt-5.6-sol-fast",
         "skills": [
           "*",
           "!make-interfaces-feel-better"
@@ -17,7 +17,7 @@
         ]
       },
       "oracle": {
-        "model": "openai/gpt-5.5-fast",
+        "model": "openai/gpt-5.6-sol-fast",
         "variant": "high",
         "skills": [
           "ce-brainstorm",
@@ -53,7 +53,7 @@
         "mcps": []
       },
       "fixer": {
-        "model": "openai/gpt-5.5",
+        "model": "openai/gpt-5.6-sol",
         "variant": "low",
         "skills": [],
         "mcps": []
@@ -397,10 +397,5 @@
       "skills": [],
       "mcps": []
     }
-  },
-  "tmux": {
-    "enabled": true,
-    "layout": "main-vertical",
-    "main_pane_size": 60
   }
 }
