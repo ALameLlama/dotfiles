@@ -65,6 +65,22 @@
               }
             ];
           };
+          VSVR-20-NixOS = nixpkgs.lib.nixosSystem {
+            system = "x86_64-linux";
+            modules = [
+              determinate.nixosModules.default
+              ./tree/hosts/VSVR-20-NixOS/configuration.nix
+              { imports = lib.attrValues nixosModules; }
+              home-manager.nixosModules.home-manager
+              {
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+                home-manager.users.VSVR-20-NixOS.imports = lib.attrValues homeModules ++ [
+                  ./tree/hosts/VSVR-20-NixOS/users/VSVR-20-NixOS.nix
+                ];
+              }
+            ];
+          };
         };
 
         homeConfigurations = lib.listToAttrs (
