@@ -168,12 +168,16 @@
           add-zsh-hook chpwd chpwd_php_hook
         '';
 
+        # TODO: I need to set these in each package
         envExtra = ''
           export ZSH_COMPDUMP=$ZSH/cache/.zcompdump-$HOST
           export GOBIN="$HOME/go/bin"
           export PATH="$GOBIN:$PATH"
           export PATH=$PATH:$HOME/.cargo/bin
           export EDITOR="nvim"
+          if [[ -x "$(command -v luarocks)" ]]; then
+            eval "$(luarocks path)"
+          fi
         '';
 
         shellAliases = {

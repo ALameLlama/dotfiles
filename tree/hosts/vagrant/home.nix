@@ -42,6 +42,8 @@
     packages = with pkgs; [
       home-manager
       claude-code
+      github-copilot-cli
+      perl
     ];
   };
 }
