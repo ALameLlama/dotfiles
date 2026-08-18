@@ -1,7 +1,6 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "plugin": [
-    "@tarquinen/opencode-dcp@latest",
     "oh-my-opencode-slim@latest"
   ],
   "default_agent": "orchestrator",
@@ -24,13 +23,11 @@
         "baseURL": "https://clankers.llamacorp.au/v1"
       },
       "models": {
-        "qwopus3.6-35b-a3b": {
-          "name": "Qwopus 3.6 35B A3B",
+        "qwen3.8-27b": {
+          "name": "Qwen 3.8 27B",
           "limit": {
-            // "context": 524288,
-            // "output": 65536
-            "context": 262144,
-            "output": 16384
+            "context": 196608,
+            "output": 196608
           },
           "variants": {
             "max": {
@@ -43,8 +40,35 @@
               "textVerbosity": "low",
               "reasoningSummary": "auto"
             },
-            "medium": {
-              "reasoningEffort": "medium",
+            "low": {
+              "reasoningEffort": "low",
+              "textVerbosity": "low",
+              "reasoningSummary": "auto"
+            },
+            "minimal": {
+              "reasoningEffort": "minimal",
+              "textVerbosity": "low",
+              "reasoningSummary": "auto"
+            },
+            "grug": {
+              "reasoningEffort": "none"
+            }
+          }
+        },
+        "muse-glimmer-30b": {
+          "name": "Muse Glimmer 30B",
+          "limit": {
+            "context": 196608,
+            "output": 196608
+          },
+          "variants": {
+            "max": {
+              "reasoningEffort": "xhigh",
+              "textVerbosity": "low",
+              "reasoningSummary": "auto"
+            },
+            "high": {
+              "reasoningEffort": "high",
               "textVerbosity": "low",
               "reasoningSummary": "auto"
             },
@@ -66,8 +90,8 @@
         "ornith-1.0-35b": {
           "name": "Ornith 1.0 35B",
           "limit": {
-            "context": 524288,
-            "output": 65536
+            "context": 262144,
+            "output": 262144,
           },
           "variants": {
             "max": {
@@ -80,8 +104,35 @@
               "textVerbosity": "low",
               "reasoningSummary": "auto"
             },
-            "medium": {
-              "reasoningEffort": "medium",
+            "low": {
+              "reasoningEffort": "low",
+              "textVerbosity": "low",
+              "reasoningSummary": "auto"
+            },
+            "minimal": {
+              "reasoningEffort": "minimal",
+              "textVerbosity": "low",
+              "reasoningSummary": "auto"
+            },
+            "grug": {
+              "reasoningEffort": "none"
+            }
+          }
+        },
+        "qwopus3.6-35b-a3b": {
+          "name": "Qwopus 3.6 35B A3B",
+          "limit": {
+            "context": 262144,
+            "output": 262144,
+          },
+          "variants": {
+            "max": {
+              "reasoningEffort": "xhigh",
+              "textVerbosity": "low",
+              "reasoningSummary": "auto"
+            },
+            "high": {
+              "reasoningEffort": "high",
               "textVerbosity": "low",
               "reasoningSummary": "auto"
             },
