@@ -46,6 +46,7 @@
     stateVersion = "26.05";
     packages = with pkgs; [
       home-manager
+      forgejo-cli
     ];
   };
 }

@@ -14,8 +14,11 @@
   config = lib.mkIf config.features.languages.rust.enable {
     home.packages = with pkgs; [
       # rustup
-      rustc
       cargo
+      clippy
+      rust-analyzer
+      rustc
+      rustfmt
     ];
   };
 }
