@@ -64,6 +64,12 @@ in
     programs = {
       git = {
         enable = true;
+        includes = [
+          {
+            condition = "hasconfig:remote.*.url:git@github.nexigen.digital:**/**";
+            contents.user.email = "nciechanowski@nexigen.digital";
+          }
+        ];
         settings.user = {
           name = "Nicholas Ciechanowski";
           email = "nicholas@ciech.anow.ski";
