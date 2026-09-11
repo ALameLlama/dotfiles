@@ -39,6 +39,8 @@
               local flake_host=""
               local extra_args=()
 
+              (cd "$HOME/.dotfiles" && nix run .#write-flake) || return 1
+
               if [[ $# -gt 0 && "$1" != -* ]]; then
                 flake_host="$1"
                 shift

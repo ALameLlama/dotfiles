@@ -27,15 +27,14 @@ dfs razorback
 dfs razorback --show-trace
 ```
 
-On NixOS, `dfs` uses `nixos-rebuild switch`. On other systems, it uses the matching `vagrant-<system>` Home Manager configuration.
+On NixOS, `dfs` uses `nixos-rebuild switch`. On macOS and other Linux distributions, it uses the matching `<host>-<system>` Home Manager configuration; the default host is currently `vagrant`.
 
 ## Make a change
 
 1. Run `dfn` to open the repository.
 2. Edit an aspect under `modules/`.
-3. If you changed `modules/flake.nix`, run `nix run .#write-flake`.
-4. Run `dfs` to apply the configuration.
-5. Run `dfg` to review and commit the change.
+3. Run `dfs` to regenerate `flake.nix` and apply the configuration.
+4. Run `dfg` to review and commit the change.
 
 Do not edit `flake.nix`. The `write-flake` package generates it from `modules/flake.nix`.
 

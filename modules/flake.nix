@@ -20,9 +20,9 @@
     inputs = {
       nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
       nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-      flake-file.url = "github:vic/flake-file";
+      flake-file.url = "github:denful/flake-file";
       flake-parts.url = "github:hercules-ci/flake-parts";
-      import-tree.url = "github:vic/import-tree";
+      import-tree.url = "github:denful/import-tree";
       home-manager = {
         url = "github:nix-community/home-manager";
         inputs.nixpkgs.follows = "nixpkgs";

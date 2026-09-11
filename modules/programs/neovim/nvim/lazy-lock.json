@@ -67,7 +67,7 @@
   "nvim-vtsls": { "branch": "main", "commit": "0b5f73c9e50ce95842ea07bb3f05c7d66d87d14a" },
   "nvim-window-picker": { "branch": "main", "commit": "6382540b2ae5de6c793d4aa2e3fe6dbb518505ec" },
   "nvim_context_vt": { "branch": "master", "commit": "74c5ec8786426c5458e1a9f6b8b2fd6977ba01ab" },
-  "opencode.nvim": { "branch": "main", "commit": "2ddeebd3212596b51bf078e6ff52862655b80419" },
+  "opencode.nvim": { "branch": "main", "commit": "bf8db37e600bd83f4bec1303b7a41476381e455c" },
   "overseer.nvim": { "branch": "master", "commit": "a93d9f6d6defdac4bcd6d2c8ba988650e42e0a0e" },
   "package-info.nvim": { "branch": "master", "commit": "b86cf49efc3855dd94afb33304b278f6f122bf1a" },
   "plenary.nvim": { "branch": "master", "commit": "74b06c6c75e4eeb3108ec01852001636d85a932b" },
@@ -88,7 +88,7 @@
   "trouble.nvim": { "branch": "main", "commit": "bd67efe408d4816e25e8491cc5ad4088e708a69a" },
   "tsc.nvim": { "branch": "main", "commit": "e083bcf1e54bc3af7df92b33235efb334e8c782c" },
   "venv-selector.nvim": { "branch": "main", "commit": "cc4bb3975de8835291f9bb45889e96c6b2795fc4" },
-  "vim-test": { "branch": "master", "commit": "619cf091565d05e5b16042ef9ba4dd13eda9b023" },
+  "vim-test": { "branch": "master", "commit": "032a68c71053f6f99c768ab0b5a119d97d6e1f9b" },
   "vim-visual-multi": { "branch": "master", "commit": "a6975e7c1ee157615bbc80fc25e4392f71c344d4" },
   "which-key.nvim": { "branch": "main", "commit": "fcbf4eea17cb299c02557d576f0d568878e354a4" }
 }
