@@ -1,106 +1,20 @@
+# DO-NOT-EDIT. This file was auto-generated using github:vic/flake-file.
+# Use `nix run .#write-flake` to regenerate it.
 {
   description = "Llamas NixOS Configuration - Dendritic Pattern";
 
+  outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);
+
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
+    flake-file.url = "github:vic/flake-file";
     flake-parts.url = "github:hercules-ci/flake-parts";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
+    import-tree.url = "github:vic/import-tree";
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
   };
-
-  outputs =
-    inputs@{
-      self,
-      nixpkgs,
-      flake-parts,
-      home-manager,
-      determinate,
-      ...
-    }:
-    let
-      lib = nixpkgs.lib;
-
-      # Auto-discover all dendritic modules
-      discovered = import ./tree/discover.nix { inherit lib; };
-      homeModules = discovered.homeModules;
-      nixosModules = discovered.nixosModules;
-
-      # Helper: get packages for a system
-      pkgsFor =
-        system:
-        import nixpkgs {
-          inherit system;
-          config.allowUnfree = true;
-        };
-    in
-    flake-parts.lib.mkFlake { inherit inputs; } {
-      systems = [
-        "x86_64-linux"
-        "aarch64-linux"
-        "x86_64-darwin"
-        "aarch64-darwin"
-      ];
-      flake = {
-        inherit homeModules nixosModules;
-
-        nixosConfigurations = {
-          razorback = nixpkgs.lib.nixosSystem {
-            system = "x86_64-linux";
-            modules = [
-              determinate.nixosModules.default
-              ./tree/hosts/razorback/configuration.nix
-              inputs.nixos-hardware.nixosModules.framework-16-7040-amd
-              { imports = lib.attrValues nixosModules; }
-              home-manager.nixosModules.home-manager
-              {
-                home-manager.useGlobalPkgs = true;
-                home-manager.useUserPackages = true;
-                home-manager.users.nciechanowski.imports = lib.attrValues homeModules ++ [
-                  ./tree/hosts/razorback/users/nciechanowski.nix
-                ];
-              }
-            ];
-          };
-          VSVR-20-NixOS = nixpkgs.lib.nixosSystem {
-            system = "x86_64-linux";
-            modules = [
-              determinate.nixosModules.default
-              ./tree/hosts/VSVR-20-NixOS/configuration.nix
-              { imports = lib.attrValues nixosModules; }
-              home-manager.nixosModules.home-manager
-              {
-                home-manager.useGlobalPkgs = true;
-                home-manager.useUserPackages = true;
-                home-manager.users.VSVR-20-NixOS.imports = lib.attrValues homeModules ++ [
-                  ./tree/hosts/VSVR-20-NixOS/users/VSVR-20-NixOS.nix
-                ];
-              }
-            ];
-          };
-        };
-
-        homeConfigurations = lib.listToAttrs (
-          map
-            (system: {
-              name = "vagrant-${system}";
-              value = home-manager.lib.homeManagerConfiguration {
-                pkgs = pkgsFor system;
-                modules = [
-                  { imports = lib.attrValues homeModules; }
-                  ./tree/hosts/vagrant/home.nix
-                ];
-              };
-            })
-            [
-              "x86_64-linux"
-              "aarch64-linux"
-              "aarch64-darwin"
-            ]
-        );
-      };
-    };
 }
