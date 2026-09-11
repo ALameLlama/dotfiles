@@ -11,6 +11,10 @@
     "aarch64-darwin"
   ];
 
+  perSystem = { pkgs, ... }: {
+    formatter = pkgs.nixfmt-tree;
+  };
+
   flake-file = {
     description = "Llamas NixOS Configuration - Dendritic Pattern";
     inputs = {

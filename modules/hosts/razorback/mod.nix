@@ -5,7 +5,10 @@
       inputs.determinate.nixosModules.default
       inputs.home-manager.nixosModules.home-manager
       inputs.nixos-hardware.nixosModules.framework-16-7040-amd
-      shell neovim steam javascript-fnm
+      shell
+      neovim
+      steam
+      javascript-fnm
       ./_configuration.nix
     ];
 

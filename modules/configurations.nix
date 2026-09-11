@@ -12,14 +12,18 @@
       };
     };
 
-    homeConfigurations = inputs.nixpkgs.lib.genAttrs
-      [ "vagrant-x86_64-linux" "vagrant-aarch64-linux" "vagrant-aarch64-darwin" ]
-      (name: inputs.home-manager.lib.homeManagerConfiguration {
-        pkgs = import inputs.nixpkgs {
-          system = inputs.nixpkgs.lib.removePrefix "vagrant-" name;
-          config.allowUnfree = true;
-        };
-        modules = [ inputs.self.modules.homeManager.vagrant ];
-      });
+    homeConfigurations =
+      inputs.nixpkgs.lib.genAttrs
+        [ "vagrant-x86_64-linux" "vagrant-aarch64-linux" "vagrant-aarch64-darwin" ]
+        (
+          name:
+          inputs.home-manager.lib.homeManagerConfiguration {
+            pkgs = import inputs.nixpkgs {
+              system = inputs.nixpkgs.lib.removePrefix "vagrant-" name;
+              config.allowUnfree = true;
+            };
+            modules = [ inputs.self.modules.homeManager.vagrant ];
+          }
+        );
   };
 }

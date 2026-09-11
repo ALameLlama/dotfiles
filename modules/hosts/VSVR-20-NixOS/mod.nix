@@ -4,7 +4,9 @@
     imports = with inputs.self.modules.nixos; [
       inputs.determinate.nixosModules.default
       inputs.home-manager.nixosModules.home-manager
-      shell neovim javascript-fnm
+      shell
+      neovim
+      javascript-fnm
       ./_configuration.nix
     ];
 
