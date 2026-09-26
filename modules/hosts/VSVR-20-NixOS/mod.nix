@@ -7,6 +7,7 @@
       shell
       neovim
       javascript-fnm
+      podman
       ./_configuration.nix
     ];
 
