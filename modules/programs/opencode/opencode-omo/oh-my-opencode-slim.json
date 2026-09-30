@@ -4,7 +4,8 @@
   "presets": {
     "openai": {
       "orchestrator": {
-        "model": "openai/gpt-5.6-sol-fast",
+        "model": "openai/gpt-6.1-sol",
+        "variant": "high",
         "skills": [
           "*",
           "!make-interfaces-feel-better"
@@ -17,12 +18,13 @@
         ]
       },
       "oracle": {
-        "model": "openai/gpt-5.6-sol-fast",
+        "model": "openai/gpt-6-astra",
         "variant": "high",
         "skills": [
           "ce-brainstorm",
           "workers-best-practices",
-          "web-perf"
+          "web-perf",
+          "simplify"
         ],
         "mcps": [
           "codegraph",
@@ -31,7 +33,7 @@
         ]
       },
       "librarian": {
-        "model": "openai/gpt-5.6-luna",
+        "model": "openai/gpt-6-luna",
         "variant": "low",
         "skills": [],
         "mcps": [
@@ -41,20 +43,20 @@
         ]
       },
       "explorer": {
-        "model": "openai/gpt-5.6-luna",
+        "model": "openai/gpt-6-luna",
         "variant": "low",
         "skills": [],
         "mcps": []
       },
       "designer": {
-        "model": "openai/gpt-5.6-luna",
+        "model": "openai/gpt-6-luna",
         "variant": "medium",
         "skills": [],
         "mcps": []
       },
       "fixer": {
-        "model": "openai/gpt-5.6-sol",
-        "variant": "low",
+        "model": "openai/gpt-6-luna",
+        "variant": "high",
         "skills": [],
         "mcps": []
       }
@@ -390,12 +392,17 @@
   },
   "agents": {
     "fast-generic": {
-      "model": "openai/gpt-5.6-luna",
+      "model": "openai/gpt-6-luna",
       "variant": "low",
       "prompt": "You are a fast generic execution agent for routine mechanical command work. Run requested shell commands, inspect results, and report concise outcomes. For git commits or pushes, inspect git status, git diff, and recent log first; stage only intended files; avoid secrets; preserve repository commit-message style; never amend, rebase, reset --hard, clean, force-push, delete branches, or perform destructive history operations unless the user explicitly requested that exact operation. Do not edit code or make architecture/design decisions.",
       "orchestratorPrompt": "Delegate to @fast-generic for routine mechanical command work: git status/diff/log reconnaissance, normal commit preparation, creating commits, pushing commits, and no-edit command validation such as lint, typecheck, static verification, tests, builds, or package-manager equivalents. Ask it to inspect diffs before committing, stage only intended files, avoid secrets, preserve repository commit-message style, and report final commit hashes or push results. Do not use it for code edits, design work, architecture, debugging strategy, docs research, or destructive git history operations such as amend, rebase, reset --hard, clean, force-push, or deleting branches unless the user explicitly requested that exact operation.",
       "skills": [],
       "mcps": []
     }
+  },
+  "multiplexer": {
+    "type": "auto",
+    "layout": "main-vertical",
+    "main_pane_size": 60
   }
 }

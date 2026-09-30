@@ -13,10 +13,16 @@
         openspec
       ];
       programs.zsh = lib.mkIf config.programs.zsh.enable {
-        initContent = lib.mkAfter "export OPENCODE_EXPERIMENTAL_BACKGROUND_SUBAGENTS=1";
+        initContent = lib.mkAfter ''
+          export OPENCODE_EXPERIMENTAL_BACKGROUND_SUBAGENTS=1
+          export OPENCODE_ENABLE_EXA=1
+        '';
       };
       programs.bash = lib.mkIf config.programs.bash.enable {
-        initExtra = lib.mkAfter "export OPENCODE_EXPERIMENTAL_BACKGROUND_SUBAGENTS=1";
+        initExtra = lib.mkAfter ''
+          export OPENCODE_EXPERIMENTAL_BACKGROUND_SUBAGENTS=1;
+          export OPENCODE_ENABLE_EXA=1
+        '';
       };
     };
   flake.modules.homeManager.opencode-nilla = { config, ... }: {

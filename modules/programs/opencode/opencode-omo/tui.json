@@ -1,0 +1,8 @@
+{
+  "plugin": [
+    "@dietrichgebert/ponytail",
+    "oh-my-opencode-slim",
+    "oc-codex-multi-auth"
+  ],
+  "$schema": "https://opencode.ai/tui.json"
+}

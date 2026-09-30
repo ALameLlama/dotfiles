@@ -97,13 +97,19 @@
 
             function dfu() {
               (cd "$HOME/.dotfiles" && nix flake update)
+              
 
+              # TODO: move this to the nvim module and make it optional
               nvim --headless "+Lazy! update" +qa | grep -v -e "Finished task " -e "Running task "
               nvim --headless "+TSUpdate" +qa
+
+              # TODO: move this to the opencode module and make it optional
+              opencode plugin update
+              opencode models --refresh
             }
 
             function dfc() {
-              nix-store --optimize
+              nix-store --optimize -v
               nix-collect-garbage -d
               sudo -i nix-collect-garbage -d
             }

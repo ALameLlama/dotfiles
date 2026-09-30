@@ -1,8 +1,9 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "plugin": [
-    "oh-my-opencode-slim@latest",
-    "@dietrichgebert/ponytail"
+    "@dietrichgebert/ponytail",
+    "oh-my-opencode-slim",
+    "oc-codex-multi-auth"
   ],
   "default_agent": "orchestrator",
   "autoshare": false,
@@ -92,7 +93,7 @@
           "name": "Ornith 1.0 35B",
           "limit": {
             "context": 262144,
-            "output": 262144,
+            "output": 262144
           },
           "variants": {
             "max": {
@@ -124,7 +125,7 @@
           "name": "Qwopus 3.6 35B A3B",
           "limit": {
             "context": 262144,
-            "output": 262144,
+            "output": 262144
           },
           "variants": {
             "max": {
