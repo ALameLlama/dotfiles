@@ -1,0 +1,7 @@
+{
+  "name": "omp-plugins",
+  "private": true,
+  "dependencies": {
+    "omp-multi-auth": "https://github.com/alamellama/omp-multi-auth#pool"
+  }
+}

@@ -1,0 +1,43 @@
+providers:
+  openai-codex:
+    codeMode: "on"
+  fetch: auto
+codexResets:
+  autoRedeem: "no"
+claudeResets:
+  autoRedeem: "no"
+bash:
+  allowCompoundCommands: false
+steeringMode: one-at-a-time
+tools:
+  approvalMode: yolo
+modelRoles:
+  default: openai-codex-pool/gpt-6.1-sol:high
+  smol: openai-codex-pool/gpt-6-luna:auto
+  commit: openai-codex-pool/gpt-6-luna:low
+  slow: openai-codex-pool/gpt-6.1-sol:auto
+  judge: openrouter/~typesafe/jev-latest
+symbolPreset: nerd
+composer:
+  shape: band
+theme:
+  dark: titanium
+setupVersion: 2
+modelPresets:
+  GPT:
+    modelRoles:
+      default: openai-codex-pool/gpt-6.1-sol:high
+      smol: openai-codex-pool/gpt-6-luna:medium
+      commit: openai-codex-pool/gpt-6-luna:low
+      slow: openai-codex-pool/gpt-6.1-sol:auto
+      judge: openrouter/~typesafe/jev-latest
+    defaultThinkingLevel: high
+  DeepSeek:
+    modelRoles:
+      default: openrouter/deepseek/deepseek-v4-pro-0813:high
+      smol: openrouter/deepseek/deepseek-v4-flash-0731:auto
+      commit: openrouter/deepseek/deepseek-v4-flash-0731:low
+      slow: openrouter/deepseek/deepseek-v4-pro-0813:auto
+      judge: openrouter/~typesafe/jev-latest
+    defaultThinkingLevel: high
+defaultThinkingLevel: high

@@ -15,6 +15,7 @@
       php-debug
       nix-tools
       utilities
+      omp
       ./_VSVR-20-NixOS.nix
     ];
   };
