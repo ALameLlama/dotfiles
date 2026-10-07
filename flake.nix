@@ -6,6 +6,10 @@
   outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);
 
   inputs = {
+    caveman = {
+      url = "github:JuliusBrussee/caveman";
+      flake = false;
+    };
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
     flake-file.url = "github:denful/flake-file";
     flake-parts.url = "github:hercules-ci/flake-parts";
@@ -16,5 +20,10 @@
     import-tree.url = "github:denful/import-tree";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    omp.url = "github:can1357/oh-my-pi";
+    simple-english = {
+      url = "github:AminBlg/SimpleEnglish";
+      flake = false;
+    };
   };
 }

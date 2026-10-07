@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "marketplaces": [
+    {
+      "name": "ponytail",
+      "sourceType": "github",
+      "sourceUri": "DietrichGebert/ponytail",
+      "catalogPath": "/home/VSVR-20-NixOS/.omp/plugins/cache/marketplaces/ponytail/marketplace.json",
+      "addedAt": "2026-10-08T05:09:03.910Z",
+      "updatedAt": "2026-10-08T08:32:21.414Z"
+    }
+  ]
+}
