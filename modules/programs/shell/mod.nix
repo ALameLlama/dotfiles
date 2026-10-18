@@ -11,6 +11,8 @@
       ...
     }:
     {
+      imports = [ ./_updates.nix ];
+
       home.packages = with pkgs; [
         zsh
         zsh-autosuggestions
@@ -96,16 +98,12 @@
             }
 
             function dfu() {
-              (cd "$HOME/.dotfiles" && nix flake update)
-              
-
-              # TODO: move this to the nvim module and make it optional
-              nvim --headless "+Lazy! update" +qa | grep -v -e "Finished task " -e "Running task "
-              nvim --headless "+TSUpdate" +qa
-
-              # TODO: move this to the opencode module and make it optional
-              opencode plugin update
-              opencode models --refresh
+              (cd "$HOME/.dotfiles" && nix flake update) || return 1
+              ${lib.concatStringsSep "\n" (
+                lib.mapAttrsToList (
+                  _: update: lib.optionalString update.enable update.command
+                ) config.dotfiles.updates
+              )}
             }
 
             function dfc() {

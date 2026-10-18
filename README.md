@@ -16,7 +16,7 @@ bash <(curl -s https://raw.githubusercontent.com/ALameLlama/dotfiles/master/scri
 | `dfg` | Open `~/.dotfiles` in Lazygit. |
 | `dfcd` | Change to `~/.dotfiles`. |
 | `dfs [host] [args]` | Apply the NixOS or Home Manager configuration. |
-| `dfu` | Update flake inputs and Neovim plugins. |
+| `dfu` | Update flake inputs and run enabled updates from program modules. |
 | `dfc` | Optimize the Nix store and remove old generations. |
 
 Examples:
@@ -28,6 +28,27 @@ dfs razorback --show-trace
 ```
 
 On NixOS, `dfs` uses `nixos-rebuild switch`. On macOS and other Linux distributions, it uses the matching `<host>-<system>` Home Manager configuration; the default host is currently `vagrant`.
+
+`dfu` updates flake inputs, then runs enabled entries in `dotfiles.updates` in alphabetical order. Each program module adds its own entry. OMP adds an entry only when `programs.omp.usePrebuilt` is enabled.
+
+The OMP updater reads the latest stable release from GitHub and updates its version and SHA-256 hashes for all four prebuilt targets. Missing or invalid release hashes leave the OMP pins unchanged. A failed flake update or OMP update stops `dfu`. Run `dfs` to install the updated release.
+
+Program modules import the shared options and register their update commands in their Home Manager module. For example:
+
+```nix
+imports = [ ../shell/_updates.nix ];
+
+dotfiles.updates.opencode.command = ''
+  opencode plugin update
+  opencode models --refresh
+'';
+```
+
+To skip a program's update without removing the program, set its entry to `enable = false` in your Home Manager configuration:
+
+```nix
+dotfiles.updates.neovim.enable = false;
+```
 
 ## Make a change
 

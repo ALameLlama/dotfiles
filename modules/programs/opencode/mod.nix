@@ -8,6 +8,13 @@
       ...
     }:
     {
+      imports = [ ../shell/_updates.nix ];
+
+      dotfiles.updates.opencode.command = ''
+        opencode plugin update
+        opencode models --refresh
+      '';
+
       home.packages = with pkgs; [
         opencode
         openspec

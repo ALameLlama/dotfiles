@@ -13,19 +13,19 @@ let
     {
       x86_64-linux = {
         asset = "omp-linux-x64";
-        hash = "sha256:01fbb5f08b0ce0d70bd0b1d6655a6ccd59cefcae0f1023e02bb30f9a70bc2d0a";
+        hash = "sha256:9513ef9f19d7991aac6ae0cb6077bcf16662092ddde861c002a91cedc6f47f9a";
       };
       aarch64-linux = {
         asset = "omp-linux-arm64";
-        hash = "sha256:c39cf4ab3633a7003a37c619744838125a99208d36ca748e59c4e62815170cba";
+        hash = "sha256:967d64fce514586e94c9ac5f978743b4fce29b999c8763747ce4754811407d1a";
       };
       x86_64-darwin = {
         asset = "omp-darwin-x64";
-        hash = "sha256:42f51af9b9d015a4c422283b803378fceca9a6b0516809797485ade298d07b3a";
+        hash = "sha256:dcd3fa827ae73bdb471bb838171ef1c9c5be665a68eaec45ffc6d6e5cf128b92";
       };
       aarch64-darwin = {
         asset = "omp-darwin-arm64";
-        hash = "sha256:d518310d647d467a2c5c3f2d38e34489a761996d766395c03b37c61a2203d02b";
+        hash = "sha256:abd9a5b0fef77f4204078e348e233faa0dd3d5d81719cf2b6a9b9478c10eee48";
       };
     }
     .${stdenvNoCC.hostPlatform.system}
@@ -36,7 +36,7 @@ let
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "omp-bin";
-  version = "18.11.3";
+  version = "18.12.2";
 
   src = fetchurl {
     url = "https://github.com/can1357/oh-my-pi/releases/download/v${finalAttrs.version}/${platform.asset}";

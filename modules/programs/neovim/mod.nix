@@ -11,6 +11,13 @@
       ...
     }:
     {
+      imports = [ ../shell/_updates.nix ];
+
+      dotfiles.updates.neovim.command = ''
+        nvim --headless "+Lazy! update" +qa | grep -v -e "Finished task " -e "Running task "
+        nvim --headless "+TSUpdate" +qa
+      '';
+
       home.packages = with pkgs; [
         git
         gcc

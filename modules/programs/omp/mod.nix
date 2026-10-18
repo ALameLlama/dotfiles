@@ -10,6 +10,7 @@
     {
       imports = [
         inputs.omp.homeManagerModules.default
+        ../shell/_updates.nix
       ];
 
       options.programs.omp.usePrebuilt = lib.mkEnableOption "the precompiled OMP release from GitHub instead of a source build";
@@ -19,6 +20,14 @@
         package = lib.mkIf config.programs.omp.usePrebuilt (
           pkgs.callPackage ./_package.nix { ompSource = inputs.omp; }
         );
+      };
+
+      config.dotfiles.updates.omp = lib.mkIf (
+        config.programs.omp.enable && config.programs.omp.usePrebuilt
+      ) {
+        command = ''
+          ${pkgs.python3}/bin/python3 "$HOME/.dotfiles/modules/programs/omp/_update.py" || return 1
+        '';
       };
 
       config.home.file = {
