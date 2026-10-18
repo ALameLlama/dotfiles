@@ -3,6 +3,7 @@
   flake.modules.homeManager.vagrant = {
     imports = with inputs.self.modules.homeManager; [
       cli-tools
+      omp
       git
       jujutsu
       neovim
@@ -18,5 +19,6 @@
       utilities
       ./_vagrant.nix
     ];
+    programs.omp.usePrebuilt = true;
   };
 }

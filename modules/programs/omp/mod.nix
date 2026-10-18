@@ -12,15 +12,18 @@
         inputs.omp.homeManagerModules.default
       ];
 
-      programs.omp = {
+      options.programs.omp.usePrebuilt = lib.mkEnableOption "the precompiled OMP release from GitHub instead of a source build";
+
+      config.programs.omp = {
         enable = true;
+        package = lib.mkIf config.programs.omp.usePrebuilt (
+          pkgs.callPackage ./_package.nix { ompSource = inputs.omp; }
+        );
       };
 
-      home.file = {
-        ".omp/agent/skills/simple-english".source =
-          "${inputs.simple-english}/skills/simple-english";
-        ".omp/agent/skills/caveman".source =
-          "${inputs.caveman}/skills/caveman";
+      config.home.file = {
+        ".omp/agent/skills/simple-english".source = "${inputs.simple-english}/skills/simple-english";
+        ".omp/agent/skills/caveman".source = "${inputs.caveman}/skills/caveman";
         ".omp/agent/RULES.md".text = ''
           # Output style routing
 
