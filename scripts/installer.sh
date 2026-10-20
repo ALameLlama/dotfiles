@@ -12,6 +12,8 @@ function source_nix() {
 }
 
 function main() {
+	local target="${1:-}"
+
 	# install nix if not already installed
 	if ! command -v nix >/dev/null; then
 		curl -fsSL https://install.determinate.systems/nix | sh -s -- install --determinate
@@ -21,14 +23,6 @@ function main() {
 
 	# source nix
 	source_nix
-
-	# install nix home manager
-	nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
-	nix-channel --update
-	nix-shell '<home-manager>' -A install
-
-	# remove existing home-manager config
-	rm -rf ~/.config/home-manager
 
 	# git clone my dotfiles
 	git clone git@github.com:ALameLlama/dotfiles.git ~/.dotfiles
@@ -40,9 +34,22 @@ function main() {
 	rm -f "$HOME/.cache/dotfiles_status_cache"' >~/.dotfiles/.git/hooks/post-merge
 	chmod +x ~/.dotfiles/.git/hooks/post-merge
 
-	rm -rf ~/.zshrc
+	if command -v nixos-rebuild >/dev/null; then
+		sudo nixos-rebuild switch --flake "$HOME/.dotfiles${target:+#$target}"
+	else
+		target="${target:-$USER}"
 
-	home-manager --flake ~/.dotfiles switch
+		# install nix home manager
+		nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
+		nix-channel --update
+		nix-shell '<home-manager>' -A install
+
+		# remove existing home-manager config
+		rm -rf ~/.config/home-manager
+		rm -rf ~/.zshrc
+
+		home-manager --flake "$HOME/.dotfiles#$target" switch
+	fi
 }
 
-main
+main "$@"

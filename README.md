@@ -4,9 +4,22 @@ NixOS and Home Manager configuration that uses flake-parts and the dendritic pat
 
 ## Install
 
+On standalone installs, the script deletes `~/.config/home-manager` and `~/.zshrc`. Back up both paths before running it.
+
 ```sh
 bash <(curl -s https://raw.githubusercontent.com/ALameLlama/dotfiles/master/scripts/installer.sh)
 ```
+
+The installer uses `nixos-rebuild` on NixOS and Home Manager otherwise.
+Pass a configuration name to select a device explicitly:
+
+```sh
+bash <(curl -s https://raw.githubusercontent.com/ALameLlama/dotfiles/master/scripts/installer.sh) razorback
+bash <(curl -s https://raw.githubusercontent.com/ALameLlama/dotfiles/master/scripts/installer.sh) vagrant
+```
+
+Without a name, NixOS uses the current hostname. Home Manager uses the current username.
+Each device needs an exported configuration for its platform and user. The `vagrant` target only supports the ARM64 Linux VM.
 
 ## Daily commands
 
@@ -27,7 +40,13 @@ dfs razorback
 dfs razorback --show-trace
 ```
 
-On NixOS, `dfs` uses `nixos-rebuild switch`. On macOS and other Linux distributions, it uses the matching `<host>-<system>` Home Manager configuration; the default host is currently `vagrant`.
+On NixOS, `dfs` uses `nixos-rebuild switch`. Otherwise, it selects the named Home Manager configuration and defaults to `vagrant`.
+
+The `vagrant` configuration targets the ARM64 Linux VM, not the Mac host. Apply it with `dfs vagrant` or:
+
+```sh
+home-manager switch --flake ~/.dotfiles#vagrant
+```
 
 `dfu` updates flake inputs, then runs enabled entries in `dotfiles.updates` in alphabetical order. Each program module adds its own entry. OMP adds an entry only when `programs.omp.usePrebuilt` is enabled.
 

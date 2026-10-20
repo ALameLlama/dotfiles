@@ -60,29 +60,9 @@
                   "''${extra_args[@]}"
                 )
               else
-                # Home-manager: append system architecture (e.g., vagrant-x86_64-linux)
-                local host="''${flake_host:-vagrant}"
-                local arch
-                arch="$(uname -m)"
-
-                local sys
-                case "$arch" in
-                  x86_64) sys="x86_64-linux" ;;
-                  aarch64|arm64) sys="aarch64-linux" ;;
-                  *) sys="''${arch}-linux" ;;
-                esac
-
-                # Check if running on Darwin (macOS)
-                if [[ "$(uname -s)" == "Darwin" ]]; then
-                  case "$arch" in
-                    x86_64) sys="x86_64-darwin" ;;
-                    aarch64|arm64) sys="aarch64-darwin" ;;
-                  esac
-                fi
-
                 cmd=(
                   home-manager switch
-                  --flake "$HOME/.dotfiles#''${host}-''${sys}"
+                  --flake "$HOME/.dotfiles#''${flake_host:-vagrant}"
                   "''${extra_args[@]}"
                 )
               fi
