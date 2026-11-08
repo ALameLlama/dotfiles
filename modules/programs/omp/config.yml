@@ -13,7 +13,7 @@ tools:
   approvalMode: yolo
 modelRoles:
   default: openai-codex-pool/gpt-6.1-sol:high
-  smol: openai-codex-pool/gpt-6-luna:auto
+  smol: openai-codex-pool/gpt-6-luna:medium
   commit: openai-codex-pool/gpt-6-luna:low
   slow: openai-codex-pool/gpt-6.1-sol:auto
   judge: openrouter/~typesafe/jev-latest
@@ -34,10 +34,10 @@ modelPresets:
     defaultThinkingLevel: high
   DeepSeek:
     modelRoles:
-      default: openrouter/deepseek/deepseek-v4-pro-0813:high
-      smol: openrouter/deepseek/deepseek-v4.1-flash:auto
-      commit: openrouter/deepseek/deepseek-v4.1-flash:low
-      slow: openrouter/deepseek/deepseek-v4-pro-0813:auto
+      default: openrouter/~deepseek/deepseek-pro-latest:high
+      smol: openrouter/~deepseek/deepseek-flash-latest:auto
+      commit: openrouter/~deepseek/deepseek-flash-latest:low
+      slow: openrouter/~deepseek/deepseek-pro-latest:auto
       judge: openrouter/~typesafe/jev-latest
     defaultThinkingLevel: high
 defaultThinkingLevel: high

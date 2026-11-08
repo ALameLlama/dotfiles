@@ -28,7 +28,6 @@
         inputs.nixpkgs.follows = "nixpkgs";
       };
       determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
-      omp.url = "github:can1357/oh-my-pi";
       simple-english = {
         url = "github:AminBlg/SimpleEnglish";
         flake = false;

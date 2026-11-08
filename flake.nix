@@ -20,7 +20,6 @@
     import-tree.url = "github:denful/import-tree";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    omp.url = "github:can1357/oh-my-pi";
     simple-english = {
       url = "github:AminBlg/SimpleEnglish";
       flake = false;

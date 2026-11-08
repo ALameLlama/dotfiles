@@ -5,7 +5,7 @@
       cli-tools
       git
       jujutsu
-      opencode-omo
+      # opencode-omo
       tmux
       go
       lua

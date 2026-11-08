@@ -8,27 +8,13 @@
       ...
     }:
     {
-      imports = [
-        inputs.omp.homeManagerModules.default
-        ../shell/_updates.nix
-      ];
+      config.home.packages = [ pkgs.omp ];
 
-      options.programs.omp.usePrebuilt = lib.mkEnableOption "the precompiled OMP release from GitHub instead of a source build";
-
-      config.programs.omp = {
-        enable = true;
-        package = lib.mkIf config.programs.omp.usePrebuilt (
-          pkgs.callPackage ./_package.nix { ompSource = inputs.omp; }
-        );
-      };
-
-      config.dotfiles.updates.omp = lib.mkIf (
-        config.programs.omp.enable && config.programs.omp.usePrebuilt
-      ) {
-        command = ''
-          ${pkgs.python3}/bin/python3 "$HOME/.dotfiles/modules/programs/omp/_update.py" || return 1
-        '';
-      };
+      config.home.activation.seedOmpMarketplaces = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
+        if [ ! -e "$HOME/.omp/marketplaces.json" ]; then
+          run ${pkgs.coreutils}/bin/install -Dm600 ${./marketplaces.json} "$HOME/.omp/marketplaces.json"
+        fi
+      '';
 
       config.home.file = {
         ".omp/agent/skills/simple-english".source = "${inputs.simple-english}/skills/simple-english";
@@ -50,8 +36,6 @@
           This routing overrides either skill's global reply-style and persistence rules; do not activate either style globally.
           Quoted repository prose in chat keeps its SimpleEnglish wording.
         '';
-        ".omp/marketplaces.json".source =
-          config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/modules/programs/omp/marketplaces.json";
         ".omp/config.yml".source =
           config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/modules/programs/omp/config.yml";
         ".omp/agent/config.yml".source =

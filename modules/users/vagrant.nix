@@ -19,6 +19,5 @@
       utilities
       ./_vagrant.nix
     ];
-    programs.omp.usePrebuilt = true;
   };
 }
