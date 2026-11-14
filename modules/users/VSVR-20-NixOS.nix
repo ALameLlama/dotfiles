@@ -16,6 +16,7 @@
       nix-tools
       utilities
       omp
+      magpie
       ./_VSVR-20-NixOS.nix
     ];
   };

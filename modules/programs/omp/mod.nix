@@ -40,8 +40,6 @@
           config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/modules/programs/omp/config.yml";
         ".omp/agent/config.yml".source =
           config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/modules/programs/omp/config.yml";
-        ".omp/agent/plugins".source =
-          config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/modules/programs/omp/plugins";
       };
     };
 }

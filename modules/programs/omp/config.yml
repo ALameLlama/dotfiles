@@ -12,24 +12,24 @@ steeringMode: one-at-a-time
 tools:
   approvalMode: yolo
 modelRoles:
-  default: openai-codex-pool/gpt-6.1-sol:high
-  smol: openai-codex-pool/gpt-6-luna:medium
-  commit: openai-codex-pool/gpt-6-luna:low
-  slow: openai-codex-pool/gpt-6.1-sol:auto
+  default: magpie/codex/gpt-6.1-sol:high
+  smol: magpie/codex/gpt-6-luna:medium
+  commit: magpie/codex/gpt-6-luna:low
+  slow: magpie/codex/gpt-6.1-sol:auto
   judge: openrouter/~typesafe/jev-latest
 symbolPreset: nerd
 composer:
   shape: band
 theme:
   dark: titanium
-setupVersion: 2
+setupVersion: 3
 modelPresets:
   GPT:
     modelRoles:
-      default: openai-codex-pool/gpt-6.1-sol:high
-      smol: openai-codex-pool/gpt-6-luna:medium
-      commit: openai-codex-pool/gpt-6-luna:low
-      slow: openai-codex-pool/gpt-6.1-sol:auto
+      default: magpie/codex/gpt-6.1-sol:high
+      smol: magpie/codex/gpt-6-luna:medium
+      commit: magpie/codex/gpt-6-luna:low
+      slow: magpie/codex/gpt-6.1-sol:auto
       judge: openrouter/~typesafe/jev-latest
     defaultThinkingLevel: high
   DeepSeek:
@@ -40,6 +40,12 @@ modelPresets:
       slow: openrouter/~deepseek/deepseek-pro-latest:auto
       judge: openrouter/~typesafe/jev-latest
     defaultThinkingLevel: high
-defaultThinkingLevel: high
+defaultThinkingLevel: auto
 dev:
   autoqaConsent: granted
+edit:
+  mode: hashline
+astGrep:
+  enabled: false
+plan:
+  defaultOnStartup: true
